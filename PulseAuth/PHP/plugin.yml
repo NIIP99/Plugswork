@@ -1,0 +1,6 @@
+name: PulseAuth [PHP]
+version: 1.0dev
+api: 2.0.0
+main: PulseAuth\PulseAuth
+author: Pulse[X]
+description: PulseX Auth Plugin [PHP]
