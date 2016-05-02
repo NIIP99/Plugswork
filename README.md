@@ -13,3 +13,18 @@ Also, we're welcoming any developer to join us! Just follow the guides here
   - Nukkit (Future)
 
 ####Development
+- PHP
+  - [ ] Modules
+    - [ ] Auth
+    - [ ] Chat
+    - [ ] Economy
+  - [ ] Monitor
+  - [ ] Logger
+    - [ ] Economy Transaction
+- Java
+  - [ ] Modules
+    - [ ] Auth
+    - [ ] Chat
+  - [ ] Monitor
+  - [ ] Logger
+    - [ ] Economy Transaction
