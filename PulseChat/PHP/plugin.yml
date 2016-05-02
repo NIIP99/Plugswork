@@ -1,6 +1,0 @@
-name: PulseChat [PHP]
-version: 1.0dev
-api: 2.0.0
-main: PulseChat\PulseChat
-author: Pulse[X]
-description: PulseX Chat Plugin [PHP]

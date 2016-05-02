@@ -1,6 +1,7 @@
-PulseX
+Plugswork
 =====
-PulseX is an open-source and complex project which provides essentials for MCPE Server Software. At here, you're able to discover simple and clean-coded plugins and tweaks for your MCPE Server. Basically, PulseX is an unified MCPE Server Software Plugins library that supported multiple languages MCPE Server Software like, PocketMine-MP, Nukkit and etc. The goal of PulseX is to make things easier for MCPE Server owner and hosting company, we hope that everyone can found PulseX is useful too! Also, we are welcoming any contributions, as long as you can code in PHP or Java!
+Plugswork is a unified and complex MCPE Server Software plugin which extends your MCPE Server easily without any coding skills! With Plugswork, you're able to take control of your server in every aspect. For instance, you can extend your server features with economy system, logging miscellaneous data, and so much more!<br>
+Also, we're welcoming any developer to join us! Just follow the guides here
 
 ####Supported MCPE Server Software
 - PHP
@@ -11,7 +12,4 @@ PulseX is an open-source and complex project which provides essentials for MCPE 
 - JAVA
   - Nukkit (Future)
 
-####Plugins List
-- PulseAuth `PHP InDevelopment` `Java - `
-- PulseChat `PHP InDevelopment` `Java - `
-- PulseNPC `PHP InDevelopment` `Java - `
+####Development
