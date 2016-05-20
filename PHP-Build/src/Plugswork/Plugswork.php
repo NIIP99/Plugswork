@@ -12,35 +12,39 @@
 namespace Plugswork;
 
 use pocketmine\plugin\PluginBase;
-use pocketmine\utils\TextFormat;
 
-use Plugswork\EventListener;
 use Plugswork\Task\PwTiming;
 use Plugswork\Utils\PwAPI;
+use Plugswork\Provider\MySQLProvider;
+use Plugswork\Provider\SQLiteProvider;
 
 class Plugswork extends PluginBase{
     
     //Constant
-    const ERR = "§l§4»§r§c ";
-    const ALR = "§l§6»§r§e ";
-    const SUC = "§l§2»§r§a ";
+    const ERR = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x34\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x63\x20";
+    const ALR = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x36\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x65\x20";
+    const SUC = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x32\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x61\x20";
     
     public $command = null, $onSetup = false;
     public $AuthEnabled, $ChatEnabled, $EconomyEnabled = true;
-    private $sID, $sKey, $authConfig, $chatConfig, $economyConfig;
+    private $authConfig, $chatConfig, $economyConfig = false;
     
     public function onEnable(){
         new PwListener($this);
-        new PwAPI($this);
-        $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 1200);
+        $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         if(!is_file($this->getDataFolder()."config.yml")){
-            $this->loadConfig();
-            echo "- [Plugswork] Please enter the Server ID.\n";
-            $this->sID = $this->readCommand();
-            echo "- [Plugswork] Please enter the Secret Key.\n";
-            $this->sKey = $this->readCommand();
-            if(!empty($result = PwAPI::open($this->sID, $this->sKey))){
-                echo "- [Plugswork] Server ID or Secret Key is invalid for this server!\n  Error:".$result;
+            $data = $this->loadConfig();
+            if(empty($data[0])){
+                echo "- [Plugswork] Please enter the Server ID.\n";
+                $data[0] = $this->readCommand();
+            }
+            if(empty($data[1])){
+                echo "- [Plugswork] Please enter the Secret Key.\n";
+                $data[1] = $this->readCommand();
+            }
+            new PwAPI($data[0], $data[1]);
+            if(!empty($result = PwAPI::open())){
+                echo "- [Plugswork] Server ID or Secret Key is invalid for this server!\n  Error: ".$result."\n  Still having issue? Contact us!";
                 $this->getServer()->getPluginManager()->disablePlugin($this);
             }
             echo "\n  By using this plugin, you agree to Plugswork Terms\n".
@@ -49,7 +53,7 @@ class Plugswork extends PluginBase{
                  "- [Plugswork] Do you accept Plugswork Terms? [Y/N]\n";
             $command = $this->readCommand();
             if($command != "Y"){
-                echo "- [Plugswork] You need to accept the license to use Plugswork\n";
+                echo "- [Plugswork] You need to accept Plugswork Terms to use Plugswork\n";
                 $this->getServer()->getPluginManager()->disablePlugin($this);
             }
         }
@@ -71,21 +75,21 @@ class Plugswork extends PluginBase{
             mkdir($this->getDataFolder());
         }
         $this->saveDefaultConfig();
-        $this->saveResource("auth.yml");
-        $this->serverID = $this->getConfig()->getNested("serverID");
-        $provider = $this->getConfig()->getNested("database.provider");
+        $data = [];
+        $data[0] = $this->getConfig()->get("server-id");
+        $data[1] = $this->getConfig()->get("secret-key");
+        $provider = $this->getConfig()->get("provider");
         if($provider == "mysql"){
-            $options = $this->getConfig()->getNested("database.options");
+            $options = $this->getConfig()->get("options");
             $this->provider = new MySQLProvider($options);
-        }elseif($provider == "sqlite3"){
-            $options = $this->getConfig()->getNested("database.options");
-            $this->provider = new SQLite3Provider($options);
+        }elseif($provider == "sqlite"){
+            $this->provider = new SQLiteProvider();
         }else{
-            
+            $this->getLogger()->error("Invalid 'provider' is selected in config.yml");
+            $this->getServer()->getPluginManager()->disablePlugin($this);
+            return;
         }
+        return $data;
     }
     
-    public static function translate($regex){
-        
-    }
 }

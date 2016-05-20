@@ -13,10 +13,12 @@ namespace Plugswork;
 
 use pocketmine\Server;
 use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\server\ServerCommandEvent;
-use pocketmine\utils\TextFormat;
+//use pocketmine\utils\TextFormat;
 
-class EventListener implements Listener{
+class PwListener implements Listener{
     
     private $plugin;
     
@@ -36,7 +38,11 @@ class EventListener implements Listener{
     public function onPlayerJoin(PlayerJoinEvent $e){
         if($this->plugin->AuthEnabled){
             $p = $e->getPlayer();
-            $p->sendMessage(Plixware::translate(""));
+            $p->sendMessage(PwMessages::translate("auth-join"));
         }
+    }
+    
+    public function onPlayerChat(PlayerChatEvent $e){
+        
     }
 }

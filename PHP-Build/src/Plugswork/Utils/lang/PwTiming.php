@@ -11,18 +11,20 @@
 
 namespace Plugswork\Task;
 
-use pocketmine\scheduler\PluginTask;
-use Plugswork\Plugswork;
+use pocketmine\plugin\PluginBase;
+use pocketmine\utils\TextFormat;
 
-class PwTiming extends PluginTask{
+use Plugswork\PlugsworkListener;
+
+class PwTiming{
     
     private $plugin;
     
     public function __construct(Plugswork $plugin){
-    	parent::__construct($plugin);
         $this->plugin = $plugin;
     }
     
+    //Kick if a player is not authed yet
     public function onRun($tick){
         file_get_contents($filename);
     }

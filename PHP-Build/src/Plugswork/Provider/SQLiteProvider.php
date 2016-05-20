@@ -9,21 +9,12 @@
 # @author    Plugswork Codx
 # @website   https://plugswork.com/
 
-namespace Plugswork\Task;
+namespace Plugswork\Provider;
 
-use pocketmine\scheduler\PluginTask;
-use Plugswork\Plugswork;
-
-class PwTiming extends PluginTask{
+class SQLiteProvider{
     
-    private $plugin;
+    private $sID, $sKey = false;
     
-    public function __construct(Plugswork $plugin){
-    	parent::__construct($plugin);
-        $this->plugin = $plugin;
-    }
-    
-    public function onRun($tick){
-        file_get_contents($filename);
+    public function __construct(){
     }
 }

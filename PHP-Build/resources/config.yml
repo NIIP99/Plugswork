@@ -21,8 +21,10 @@ secret-key:
 #Default: sqlite [sqlite/mysql]
 provider: sqlite
 #Config for MySQL Database if provider is set to mysql
-host: localhost
-username: plugswork
-password: ********
-database: plugswork
+options: 
+  host: localhost
+  port: 3306
+  user: user
+  password: password
+  database: plugswork_data
 ...
