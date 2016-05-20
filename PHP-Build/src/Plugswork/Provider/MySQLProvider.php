@@ -14,7 +14,7 @@ namespace Plugswork\Provider;
 class MySQLProvider{
     
     private $plugin;
-    private $sID, $sKey = false;
+    private $database;
     
     public function __construct(Plugswork $plugin, $options){
         $this->plugin = $plugin;
@@ -27,13 +27,15 @@ class MySQLProvider{
             $this->plugin->getLogger()->error("An error occured while connecting to MySQL Server:".$this->database->connect_error);
             return;
 	}
+        //Create default table
+        $this->update("CREATE TABLE IF NOT EXISTS plugswork_main (name VARCHAR(16) PRIMARY KEY, hash CHAR(128), salt CHAR(4), regtime INT, lastlogin INT, lastip VARCHAR(50), money INT);");
     }
     
     public function update($query){
-        
+        $this->database->query($query);
     }
     
-    public function execute($query){
-        
+    public function query($query){
+        return $this->database->query($query);
     }
 }

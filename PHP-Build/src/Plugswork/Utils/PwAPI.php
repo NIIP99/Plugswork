@@ -27,11 +27,12 @@ class PwAPI{
     
     public static function open(){
         $result = file_get_contents("https://plugswork.com/api/open?id=".$sID."&key=".$sKey);
-        if($result != 1){
+        if($result == 0){
             return "Either Server ID or Secret Key given is invalid! Please check config.yml if you fill in the correct Server ID";
         }elseif($result >= 2){
             return "Either Server IP, Port, Software or other data has been changed, please check if all data is up to date at Control Panel";
         }
+        return unserialize($result);
     }
     
     public static function close(){

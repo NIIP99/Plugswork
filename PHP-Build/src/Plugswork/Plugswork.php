@@ -15,6 +15,7 @@ use pocketmine\plugin\PluginBase;
 
 use Plugswork\Task\PwTiming;
 use Plugswork\Utils\PwAPI;
+use Plugswork\Utils\PwMessages;
 use Plugswork\Provider\MySQLProvider;
 use Plugswork\Provider\SQLiteProvider;
 
@@ -26,27 +27,38 @@ class Plugswork extends PluginBase{
     const SUC = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x32\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x61\x20";
     
     public $command = null, $onSetup = false;
-    public $AuthEnabled, $ChatEnabled, $EconomyEnabled = true;
-    private $authConfig, $chatConfig, $economyConfig = false;
+    public $auth, $chat, $economy = false;
     
     public function onEnable(){
         new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
+        $firstRun = false;
         if(!is_file($this->getDataFolder()."config.yml")){
-            $data = $this->loadConfig();
-            if(empty($data[0])){
-                echo "- [Plugswork] Please enter the Server ID.\n";
-                $data[0] = $this->readCommand();
-            }
-            if(empty($data[1])){
-                echo "- [Plugswork] Please enter the Secret Key.\n";
-                $data[1] = $this->readCommand();
-            }
-            new PwAPI($data[0], $data[1]);
-            if(!empty($result = PwAPI::open())){
-                echo "- [Plugswork] Server ID or Secret Key is invalid for this server!\n  Error: ".$result."\n  Still having issue? Contact us!";
-                $this->getServer()->getPluginManager()->disablePlugin($this);
-            }
+            $firstRun = true;
+        }
+        $data = $this->loadConfig();
+        if(empty($data[0])){
+            echo "- [Plugswork] Please enter the Server ID.\n";
+            $data[0] = $this->readCommand();
+            $this->getConfig()->set("server-id", $data[0]);
+            $this->getConfig()->save();
+        }
+        if(empty($data[1])){
+            echo "- [Plugswork] Please enter the Secret Key.\n";
+            $data[1] = $this->readCommand();
+            $this->getConfig()->set("secret-key", $data[1]);
+            $this->getConfig()->save();
+        }
+        new PwAPI($data[0], $data[1]);
+        if(!is_array($PwData = PwAPI::open())){
+            echo "- [Plugswork] Server ID or Secret Key is invalid for this server!\n  Error: ".$PwData."\n  Still having issue? Contact us!";
+            $this->getServer()->getPluginManager()->disablePlugin($this);
+        }
+        new PwMessages($PwData["messages"]);
+        $this->auth = $PwData["auth"];
+        $this->chat = $PwData["chat"];
+        $this->economy = $PwData["economy"];
+        if($firstRun){
             echo "\n  By using this plugin, you agree to Plugswork Terms\n".
                  "  Plugswork Terms (https://plugswork.com/terms)".
                     
@@ -90,6 +102,10 @@ class Plugswork extends PluginBase{
             return;
         }
         return $data;
+    }
+    
+    private function loadCommand(){
+        
     }
     
 }

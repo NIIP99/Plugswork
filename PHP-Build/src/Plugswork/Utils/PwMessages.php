@@ -11,22 +11,21 @@
 
 namespace Plugswork\Utils;
 
-use pocketmine\plugin\PluginBase;
-use pocketmine\utils\TextFormat;
-
-
 class PwMessages{
     
     private $messages;
     
     public function __construct($messages){
-        $this->messages = $messages;
+        foreach($messages as $key => $message){
+            $keys = explode("-", $key);
+            $this->messages[$keys[0]][$keys[1]] = $message;
+        }
     }
     
-    public static function translate($regex){
-        $parts = explode("-", $regex);
-        if(empty($msg = $this->messages[$parts[0]][$parts[1]])){
-            return null;
+    public static function translate($key){
+        $keys = explode("-", $key);
+        if(empty($msg = $this->messages[$keys[0]][$keys[1]])){
+            return $key;
         }else{
             return $msg;
         }
