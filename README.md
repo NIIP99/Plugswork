@@ -1,4 +1,4 @@
-![Plugswork](https://github.com/deotern/Plugswork/image/plugswork-github.png)
+![Plugswork](https://github.com/deotern/Plugswork/blob/master/image/pw-github-cover.png)
 Plugswork
 =====
 Plugswork is a unified and complex MCPE Server Software plugin which extends your MCPE Server easily without any coding skills! With Plugswork, you're able to take control of your server in every aspect. For instance, you can extend your server features with economy system, logging miscellaneous data, and so much more!<br>

@@ -10,27 +10,18 @@
 # Licensed under GNU Lesser General Public License (https://github.com/deotern/Plugswork/blob/master/LICENSE)
 # Version: 1.php
 
-namespace Plugswork;
+namespace Plugswork\Module;
 
-use pocketmine\Server;
-use pocketmine\event\Listener;
-use pocketmine\event\server\ServerCommandEvent;
+use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 
-class PlugsworkListener implements Listener{
+use Plugswork\PlugsworkListener;
+
+class AuthModule{
     
     private $plugin;
     
     public function __construct(Plugswork $plugin){
-	Server::getInstance()->getPluginManager()->registerEvents($this, $plugin);
         $this->plugin = $plugin;
-    }
-    
-    public function onCommand(ServerCommandEvent $e){
-        if($this->plugin->onSetup){
-            $this->plugin->command = $e->getCommand();
-            $e->setCommand("");
-            $e->setCancelled();
-        }
     }
 }

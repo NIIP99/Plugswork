@@ -3,14 +3,14 @@
 # | |_) | | | | |/ _` / __\ \ /\ / / _ \| '__| |/ /
 # |  __/| | |_| | (_| \__ \\ V  V / (_) | |  |   < 
 # |_|   |_|\__,_|\__, |___/ \_/\_/ \___/|_|  |_|\_\
-#                |___/                             
-# Plugswork - Extends your MCPE Server beyond your imagination!
-# Licensed under GNU Lesser General Public License (https://github.com/deotern/Plugswork/blob/master/LICENSE)
-# Version: 1.java
+#                |___/
+# @copyright (c) 2016 All rights reserved, Plugswork
+# @author    Plugswork Codx
+# @website   https://plugswork.com/
 
 name: Plugswork
-version: 1.java
-api: 1.0.0
+version: 1.php
+api: 2.0.0
 main: Plugswork\Plugswork
 author: Plugswork
 description: Plugswork - Extends your MCPE Server beyond your imagination!
