@@ -8,8 +8,11 @@ main:
   selectConsoleLang: "Please select console language. [en/cn]"
   enterServerID: "Please enter the Server ID."
   enterSecretKey: "Please enter the Secret Key."
-  serverDataError: "Server ID or Secret Key is invalid for this server!\n  Error: {%0%}"
   pwTerms: "By using this plugin, you agree to Plugswork Terms."
   pwTermsAgree: "Do you accept Plugswork Terms? [y/n]"
   pwTermsError: "You need to accept Plugswork Terms to use Plugswork Services and Products."
+api:
+  openError: ""
+  dataInvalid: ""
+  dataMismatch: ""
 ...

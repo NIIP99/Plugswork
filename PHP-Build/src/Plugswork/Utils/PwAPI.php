@@ -11,26 +11,26 @@
 
 namespace Plugswork\Utils;
 
-use pocketmine\plugin\PluginBase;
-use pocketmine\utils\TextFormat;
-
-use Plugswork\PlugsworkListener;
-
 class PwAPI{
     
     private $sID, $sKey = false;
+    private $PLUGSWORK_API = "http://api.plugswork.com/";
     
     public function __construct($sID, $sKey){
         $this->sID = $sID;
         $this->sKey = $sKey;
+        //Check for https Warpers
+        if(in_array("https", stream_get_wrappers())){
+            $this->PLUGSWORK_API = "https://plugswork.com/api/";
+        }
     }
     
     public static function open(){
-        $result = file_get_contents("https://plugswork.com/api/open?id=".$sID."&key=".$sKey);
+        $result = file_get_contents($this->PLUGSWORK_API."open?id=".$sID."&key=".$sKey);
         if($result == 0){
-            return "Either Server ID or Secret Key given is invalid! Please check config.yml if you fill in the correct Server ID";
+            return PwLang::cTranslate("api.dataInvalid");
         }elseif($result >= 2){
-            return "Either Server IP, Port, Software or other data has been changed, please check if all data is up to date at Control Panel";
+            return PwLang::cTranslate("api.dataMismatch");
         }
         return unserialize($result);
     }

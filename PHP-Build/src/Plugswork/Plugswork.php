@@ -59,7 +59,7 @@ class Plugswork extends PluginBase{
         }
         new PwAPI($data[0], $data[1]);
         if(!is_array($PwData = PwAPI::open())){
-            echo "- [Plugswork] ".PwLang::cTranslate("main.serverDataError");
+            echo "- [Plugswork] ".PwLang::cTranslate("api.openError");
             $this->getServer()->getPluginManager()->disablePlugin($this);
         }
         //Load the data
