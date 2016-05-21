@@ -1,0 +1,15 @@
+---
+# Chinese language file - 中文语言文件
+# (c) 2016 All right reserved, Plugswork.
+
+version: 1.0
+lang: cn
+main:
+  selectConsoleLang: "请选择Plugswork面板使用的语言. [en/cn]"
+  enterServerID: "请输入Server ID."
+  enterSecretKey: "请输入Secret Key."
+  serverDataError: "Server ID 或 Secret Key 验证无效！\n  原因: {%0%}"
+  pwTerms: "使用这个插件必须接受Plugswork Terms条款."
+  pwTermsAgree: "你接受Plugswork Terms条款吗 [y/n]"
+  pwTermsError: "你必须接受Plugswork Terms条款以使用Plugswork的服务与产品."
+...

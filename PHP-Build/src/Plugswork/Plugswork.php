@@ -14,10 +14,10 @@ namespace Plugswork;
 use pocketmine\plugin\PluginBase;
 
 use Plugswork\Task\PwTiming;
-use Plugswork\Utils\PwAPI;
-use Plugswork\Utils\PwMessages;
 use Plugswork\Provider\MySQLProvider;
 use Plugswork\Provider\SQLiteProvider;
+use Plugswork\Utils\PwAPI;
+use Plugswork\Utils\PwLang;
 
 class Plugswork extends PluginBase{
     
@@ -44,37 +44,37 @@ class Plugswork extends PluginBase{
                 $lang = "en";
             }
         }
-        $msg = new PwMessages($lang);
-        if(empty($data[0])){
-            echo "- [Plugswork] Please enter the Server ID.\n";
+        $lang = new PwLang($this, $lang);
+        if(empty($data[0]) || $data[0] == "steve-xxxxx"){
+            echo "- [Plugswork] ".PwLang::cTranslate("main.enterServerID")."\n";
             $data[0] = $this->readCommand();
             $this->getConfig()->set("server-id", $data[0]);
             $this->getConfig()->save();
         }
-        if(empty($data[1])){
-            echo "- [Plugswork] Please enter the Secret Key.\n";
+        if(empty($data[1]) || $data[0] == "xxxxx"){
+            echo "- [Plugswork] ".PwLang::cTranslate("main.enterSecretKey")."\n";
             $data[1] = $this->readCommand();
             $this->getConfig()->set("secret-key", $data[1]);
             $this->getConfig()->save();
         }
         new PwAPI($data[0], $data[1]);
         if(!is_array($PwData = PwAPI::open())){
-            echo "- [Plugswork] Server ID or Secret Key is invalid for this server!\n  Error: ".$PwData."\n  Still having issue? Contact us!";
+            echo "- [Plugswork] ".PwLang::cTranslate("main.serverDataError");
             $this->getServer()->getPluginManager()->disablePlugin($this);
         }
         //Load the data
-        $msg->loadUserMessages($PwData["messages"]);
+        $lang->loadUserMessages($PwData["messages"]);
         $this->auth = $PwData["auth"];
         $this->chat = $PwData["chat"];
         $this->economy = $PwData["economy"];
         if($firstRun){
-            echo "\n  By using this plugin, you agree to Plugswork Terms\n".
+            echo "\n  ".PwLang::cTranslate("main.pwTerms")."\n".
                  "  Plugswork Terms (https://plugswork.com/terms)".
                     
-                 "- [Plugswork] Do you accept Plugswork Terms? [y/n]\n";
+                 "- [Plugswork] ".PwLang::cTranslate("main.pwTermsAccept")."\n";
             $command = $this->readCommand();
             if($command != "y"){
-                echo "- [Plugswork] You need to accept Plugswork Terms to use Plugswork\n";
+                echo "- [Plugswork] ".PwLang::cTranslate("main.pwTermsError")."\n";
                 $this->getServer()->getPluginManager()->disablePlugin($this);
             }
         }

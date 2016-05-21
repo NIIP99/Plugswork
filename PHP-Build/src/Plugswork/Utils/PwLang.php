@@ -11,29 +11,28 @@
 
 namespace Plugswork\Utils;
 
-class PwMessages{
+use pocketmine\utils\Config;
+
+class PwLang{
     
-    private $messages;
-    private $cMessages;
+    private static $messages;
+    private static $cMessages;
     
-    public function __construct($lang){
-        $lines = file_get_contents("Plugswork/Lang/".$lang.".ini");
-        foreach(explode("\n", $lines) as $line){
-            $data = explode("=", $line);
-            $this->cMessages[$data[0]] = $data[1];
-        }
+    public function __construct($plugin, $lang){
+        $plugin->saveResource("lang-".$lang.".yml");
+        self::$cMessages = new Config($plugin->getDataFolder()."lang-".$lang.".yml", Config::YAML);
     }
     
     public function loadUserMessages($messages){
         foreach($messages as $key => $message){
             $keys = explode("-", $key);
-            $this->messages[$keys[0]][$keys[1]] = $message;
+            self::$messages[$keys[0]][$keys[1]] = $message;
         }
     }
     
     public static function translate($key){
         $keys = explode("-", $key);
-        if(empty($msg = $this->messages[$keys[0]][$keys[1]])){
+        if(empty($msg = self::$messages[$keys[0]][$keys[1]])){
             return $key;
         }else{
             return $msg;
@@ -41,7 +40,7 @@ class PwMessages{
     }
     
     public static function cTranslate($key){
-        if(empty($msg = $this->messages[$key])){
+        if(empty($msg = self::$cMessages->getNested($key))){
             return $key;
         }else{
             return $msg;

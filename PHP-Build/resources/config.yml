@@ -12,10 +12,10 @@
 #Server ID is a ID used by Plugswork to create connection with our server
 #You need to register your server at (https://plugswork.com/panel/server-add)
 #to get a unique Server ID for your server
-server-id: steve-0000
+server-id: steve-xxxxx
 #Secret Key can be found at your Profile Page
 #Link: https://plugswork.com/panel/account/
-secret-key: xxxxxx
+secret-key: xxxxx
 
 #Set the type of the database provider used
 #Default: sqlite [sqlite/mysql]
