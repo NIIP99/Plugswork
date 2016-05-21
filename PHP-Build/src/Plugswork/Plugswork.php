@@ -37,6 +37,14 @@ class Plugswork extends PluginBase{
             $firstRun = true;
         }
         $data = $this->loadConfig();
+        if(empty($data[3]) || $data[3] == "xx"){
+            echo "- [Plugswork] Please select console language.[en/cn]\n";
+            $lang = strtolower($this->readCommand());
+            if($lang != "cn"){
+                $lang = "en";
+            }
+        }
+        $msg = new PwMessages($lang);
         if(empty($data[0])){
             echo "- [Plugswork] Please enter the Server ID.\n";
             $data[0] = $this->readCommand();
@@ -54,7 +62,8 @@ class Plugswork extends PluginBase{
             echo "- [Plugswork] Server ID or Secret Key is invalid for this server!\n  Error: ".$PwData."\n  Still having issue? Contact us!";
             $this->getServer()->getPluginManager()->disablePlugin($this);
         }
-        new PwMessages($PwData["messages"]);
+        //Load the data
+        $msg->loadUserMessages($PwData["messages"]);
         $this->auth = $PwData["auth"];
         $this->chat = $PwData["chat"];
         $this->economy = $PwData["economy"];
@@ -62,9 +71,9 @@ class Plugswork extends PluginBase{
             echo "\n  By using this plugin, you agree to Plugswork Terms\n".
                  "  Plugswork Terms (https://plugswork.com/terms)".
                     
-                 "- [Plugswork] Do you accept Plugswork Terms? [Y/N]\n";
+                 "- [Plugswork] Do you accept Plugswork Terms? [y/n]\n";
             $command = $this->readCommand();
-            if($command != "Y"){
+            if($command != "y"){
                 echo "- [Plugswork] You need to accept Plugswork Terms to use Plugswork\n";
                 $this->getServer()->getPluginManager()->disablePlugin($this);
             }
@@ -90,6 +99,7 @@ class Plugswork extends PluginBase{
         $data = [];
         $data[0] = $this->getConfig()->get("server-id");
         $data[1] = $this->getConfig()->get("secret-key");
+        $data[2] = $this->getConfig()->get("console-language");
         $provider = $this->getConfig()->get("provider");
         if($provider == "mysql"){
             $options = $this->getConfig()->get("options");

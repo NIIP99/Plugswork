@@ -14,8 +14,17 @@ namespace Plugswork\Utils;
 class PwMessages{
     
     private $messages;
+    private $cMessages;
     
-    public function __construct($messages){
+    public function __construct($lang){
+        $lines = file_get_contents("Plugswork/Lang/".$lang.".ini");
+        foreach(explode("\n", $lines) as $line){
+            $data = explode("=", $line);
+            $this->cMessages[$data[0]] = $data[1];
+        }
+    }
+    
+    public function loadUserMessages($messages){
         foreach($messages as $key => $message){
             $keys = explode("-", $key);
             $this->messages[$keys[0]][$keys[1]] = $message;
@@ -25,6 +34,14 @@ class PwMessages{
     public static function translate($key){
         $keys = explode("-", $key);
         if(empty($msg = $this->messages[$keys[0]][$keys[1]])){
+            return $key;
+        }else{
+            return $msg;
+        }
+    }
+    
+    public static function cTranslate($key){
+        if(empty($msg = $this->messages[$key])){
             return $key;
         }else{
             return $msg;

@@ -15,7 +15,7 @@
 server-id: steve-0000
 #Secret Key can be found at your Profile Page
 #Link: https://plugswork.com/panel/account/
-secret-key:
+secret-key: xxxxxx
 
 #Set the type of the database provider used
 #Default: sqlite [sqlite/mysql]
@@ -27,4 +27,7 @@ options:
   user: user
   password: password
   database: plugswork_data
+
+#Default console language, this language selector won't affect user's messages
+console-language: xx
 ...
