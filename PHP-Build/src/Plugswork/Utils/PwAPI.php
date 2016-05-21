@@ -13,20 +13,21 @@ namespace Plugswork\Utils;
 
 class PwAPI{
     
-    private $sID, $sKey = false;
+    private $sID, $sKey, $hash = false;
     private $PLUGSWORK_API = "http://api.plugswork.com/";
     
-    public function __construct($sID, $sKey){
+    public function __construct($sID, $sKey, $hash){
         $this->sID = $sID;
         $this->sKey = $sKey;
-        //Check for https Warpers
+        //Check for https warppers
         if(in_array("https", stream_get_wrappers())){
             $this->PLUGSWORK_API = "https://plugswork.com/api/";
         }
+        $this->hash = $hash;
     }
     
-    public static function open(){
-        $result = file_get_contents($this->PLUGSWORK_API."open?id=".$sID."&key=".$sKey);
+    public function open(){
+        $result = file_get_contents($this->PLUGSWORK_API."open?id=".$this->sID."&key=".$this->sKey."hash=".$this->hash);
         if($result == 0){
             return PwLang::cTranslate("api.dataInvalid");
         }elseif($result >= 2){
@@ -35,7 +36,7 @@ class PwAPI{
         return unserialize($result);
     }
     
-    public static function close(){
-        
+    public function close(){
+        file_get_contents($this->PLUGSWORK_API."close?id=".$this->sID."&key=".$this->sKey."hash=".$this->hash);
     }
 }

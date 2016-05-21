@@ -12,6 +12,7 @@
 namespace Plugswork;
 
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Utils;
 
 use Plugswork\Task\PwTiming;
 use Plugswork\Provider\MySQLProvider;
@@ -57,7 +58,7 @@ class Plugswork extends PluginBase{
             $this->getConfig()->set("secret-key", $data[1]);
             $this->getConfig()->save();
         }
-        new PwAPI($data[0], $data[1]);
+        new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getSevrer()->getPort().Utils::getOS()));
         if(!is_array($PwData = PwAPI::open())){
             echo "- [Plugswork] ".PwLang::cTranslate("api.openError");
             $this->getServer()->getPluginManager()->disablePlugin($this);
@@ -78,6 +79,7 @@ class Plugswork extends PluginBase{
                 $this->getServer()->getPluginManager()->disablePlugin($this);
             }
         }
+        $this->loadCommand();
     }
     
    private function readCommand(){
@@ -107,7 +109,7 @@ class Plugswork extends PluginBase{
         }elseif($provider == "sqlite"){
             $this->provider = new SQLiteProvider();
         }else{
-            $this->getLogger()->error("Invalid 'provider' is selected in config.yml");
+            $this->getLogger()->error(PwLang::cTranslate("main.invalidProvider"));
             $this->getServer()->getPluginManager()->disablePlugin($this);
             return;
         }
@@ -115,7 +117,9 @@ class Plugswork extends PluginBase{
     }
     
     private function loadCommand(){
+        $cm = $this->getServer()->getCommandMap();
         
+        $cm->register("pw", new PwCommand($this, "pw", PwLang::translate()));
     }
     
 }

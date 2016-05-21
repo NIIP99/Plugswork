@@ -1,6 +1,7 @@
 ---
 # Chinese language file - 中文语言文件
 # (c) 2016 All right reserved, Plugswork.
+# Thanks @deotern for Chinese Translation
 
 version: 1.0
 lang: cn
@@ -11,8 +12,9 @@ main:
   pwTerms: "使用这个插件必须接受Plugswork Terms条款."
   pwTermsAgree: "你接受Plugswork Terms条款吗 [y/n]"
   pwTermsError: "你必须接受Plugswork Terms条款以使用Plugswork的服务与产品."
+  invalidProvider: "无效的provider已在config.yml里被选择"
 api:
-  openError: ""
-  dataInvalid: ""
-  dataMismatch: ""
+  openError: "Open API出错! {ERROR}"
+  dataInvalid: "Server ID或Secret Key出错，请登入Control Panel检查是否输入了正确的ID与Key."
+  dataMismatch: "伺服器资料和已提交的资料不符合，请检查伺服器的IP，port，software，等等是否与Control Panel的一样."
 ...

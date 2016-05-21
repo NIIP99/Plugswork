@@ -1,6 +1,7 @@
 ---
 # English language file
 # (c) 2016 All right reserved, Plugswork.
+# Thanks to @deotern for English Translation
 
 version: 1.0
 lang: en
@@ -11,8 +12,9 @@ main:
   pwTerms: "By using this plugin, you agree to Plugswork Terms."
   pwTermsAgree: "Do you accept Plugswork Terms? [y/n]"
   pwTermsError: "You need to accept Plugswork Terms to use Plugswork Services and Products."
+  invalidProvider: "Invalid provider is selected in config.yml!"
 api:
-  openError: ""
-  dataInvalid: ""
-  dataMismatch: ""
+  openError: "Open API Error Occured! {ERROR}"
+  dataInvalid: "Invalid Server ID or Secret Key, please check at Control Panel if you filled in the correct ID and Key."
+  dataMismatch: "Server data does not match the data you registered at Control Panel, please check if the Server IP, Port, etc is same with the data at Control Panel"
 ...
