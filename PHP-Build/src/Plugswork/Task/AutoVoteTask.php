@@ -9,16 +9,21 @@
 # @author    Plugswork Codx
 # @website   https://plugswork.com/
 
-namespace Plugswork\Module;
+namespace Plugswork\Task;
 
-use pocketmine\Player;
+use pocketmine\scheduler\PluginTask;
+use Plugswork\Plugswork;
 
-class ChatModule{
+class AutoVoteTask extends PluginTask{
     
     private $plugin;
     
     public function __construct(Plugswork $plugin){
+    	parent::__construct($plugin);
         $this->plugin = $plugin;
     }
     
+    public function onRun($tick){
+        
+    }
 }
