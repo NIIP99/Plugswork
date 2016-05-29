@@ -24,6 +24,13 @@ class AutoVoteTask extends PluginTask{
     }
     
     public function onRun($tick){
-        
+        foreach($this->plugin->getSevrer()->getOnlinePlayers() as $p){
+            $pn = $p->getName();
+            if($this->plugin->vote->check($pn) == 1){
+                if($this->plugin->vote->claim($pn)){
+                    $this->plugin->vote->reward($p);
+                }
+            }
+        }
     }
 }

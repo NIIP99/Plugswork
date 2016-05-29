@@ -16,15 +16,32 @@ use pocketmine\Player;
 class VoteModule{
     
     private $plugin;
+    private $cache = [];
     
     public function __construct(Plugswork $plugin, $settings = []){
         $this->plugin = $plugin;
         //Start settings handler
+        $this->key = $settings["voteKey"];
     }
     
-    public function check(){
+    public function check($pn){
+        $cache = $this->cache[$pn];
+        if(isset($this->cache[$pn]) && $cache == 2){
+            return 2;
+        }
+        return file_get_contents("http://minecraftpocket-servers.com/api/?object=votes&element=claim&key=".$this->key."&username=".$pn);
+    }
+    
+    public function claim($pn){
+        $res = file_get_contents("http://minecraftpocket-servers.com/api/?action=post&object=votes&element=claim&key=".$this->key."&username=".$pn);
+        if($res == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public function reward(){
         
     }
-    
-    
 }
