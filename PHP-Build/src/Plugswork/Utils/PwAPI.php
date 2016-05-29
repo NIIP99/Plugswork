@@ -31,14 +31,14 @@ class PwAPI{
     
     public function open(){
         $result = file_get_contents($this->PROTOCOL."open?id=".$this->sID."&key=".$this->sKey);
-        if($result == 0){
-            return PwLang::cTranslate("api.emptyDataError");
-        }elseif($result == 1){
-            return PwLang::cTranslate("api.serverIDError");
-        }elseif($result == 2){
-            return PwLang::cTranslate("api.sKeyError");
-        }elseif($result == 3){
-            return PwLang::cTranslate("api.validationError");
+        if($result === 0){
+            return "api.emptyDataError";
+        }elseif($result === 1){
+            return "api.serverIDError";
+        }elseif($result === 2){
+            return "api.sKeyError";
+        }elseif($result === 3){
+            return "api.validationError";
         }
         return json_decode($result, true);
     }

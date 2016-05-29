@@ -36,6 +36,8 @@ class Plugswork extends PluginBase{
     public $api;
     
     public function onEnable(){
+        //Plugswork Version v1.php
+        define("PLUGSWORK_VERSION", "1.php");
         new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
@@ -43,36 +45,40 @@ class Plugswork extends PluginBase{
             $firstRun = true;
         }
         $data = $this->loadConfig();
-        if(empty($data[3]) || $data[3] == "xx"){
+        if(empty($data[2]) || $data[2] == "xx"){
             echo "- [Plugswork] Please select console language.[en/cn]\n";
             $lang = strtolower($this->readCommand());
             if($lang != "cn"){
                 $lang = "en";
             }
+            $data[2] = $lang;
+            $this->getConfig()->set("console-language", $lang);
+            $this->getConfig()->save();
         }
-        $lang = new PwLang($this, $lang);
+        $lang = new PwLang($this, $data[2]);
         if(empty($data[0]) || $data[0] == "steve-xxxxx"){
             echo "- [Plugswork] ".PwLang::cTranslate("main.enterServerID")."\n";
             $data[0] = $this->readCommand();
             $this->getConfig()->set("server-id", $data[0]);
             $this->getConfig()->save();
         }
-        if(empty($data[1]) || $data[0] == "xxxxx"){
+        if(empty($data[1]) || $data[1] == "xxxxx"){
             echo "- [Plugswork] ".PwLang::cTranslate("main.enterSecretKey")."\n";
             $data[1] = $this->readCommand();
             $this->getConfig()->set("secret-key", $data[1]);
             $this->getConfig()->save();
         }
-        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getSevrer()->getPort().Utils::getOS()));
-        if(!is_array($PwData = PwAPI::open())){
+        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()));
+        if(!is_array($PwData = $this->api->open())){
             echo "- [Plugswork] ".PwLang::cTranslate("api.openError");
             $this->getServer()->getPluginManager()->disablePlugin($this);
+            return;
         }
         //Load the module with data
         $lang->loadUserMessages($PwData["message_settings"]);
-        $this->auth = new AuthModule($this, $PwData["auth_settings"]);
-        $this->chat = new AuthModule($this, $PwData["chat_settings"]);
-        $this->vote = new AuthModule($this, $PwData["vote_settings"]);
+        //$this->auth = new AuthModule($this, $PwData["auth_settings"]);
+        $this->chat = new ChatModule($this, $PwData["chat_settings"]);
+        $this->vote = new VoteModule($this, $PwData["vote_settings"]);
         if($firstRun){
             echo "\n  ".PwLang::cTranslate("main.pwTerms")."\n".
                  "  Plugswork Terms (https://plugswork.com/terms)".
@@ -124,7 +130,8 @@ class Plugswork extends PluginBase{
     private function loadCommand(){
         $cm = $this->getServer()->getCommandMap();
         
-        $cm->register("pw", new PwCommand($this, "pw", PwLang::translate()));
+        $cm->register("pw", new PwCommand($this, "pw", "Plugswork Command"));
+        $cm->register("vote", new VoteCommand($this, "vote", "Vote Command"));
     }
     
 }

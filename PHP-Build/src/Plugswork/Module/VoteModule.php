@@ -14,6 +14,8 @@ namespace Plugswork\Module;
 use pocketmine\Player;
 use pocketmine\command\ConsoleCommandSender;
 
+use Plugswork\Utils\PwLang;
+
 class VoteModule{
     
     private $plugin;

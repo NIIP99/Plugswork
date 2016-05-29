@@ -23,7 +23,8 @@ class PwLang{
         self::$cMessages = new Config($plugin->getDataFolder()."lang-".$lang.".yml", Config::YAML);
     }
     
-    public function loadUserMessages($messages){
+    public function loadUserMessages($rawMessages){
+        $messages = json_decode($rawMessages, true);
         foreach($messages as $key => $message){
             $keys = explode("-", $key);
             self::$messages[$keys[0]][$keys[1]] = $message;
