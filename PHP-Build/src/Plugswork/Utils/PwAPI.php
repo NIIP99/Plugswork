@@ -25,20 +25,29 @@ class PwAPI{
         }else{
             $this->PROTOCOL = "http://plugswork.com/api/";
         }
+        //Hash is not required currently
         $this->hash = $hash;
     }
     
     public function open(){
-        $result = file_get_contents($this->PROTOCOL."open?id=".$this->sID."&key=".$this->sKey."hash=".$this->hash);
+        $result = file_get_contents($this->PROTOCOL."open?id=".$this->sID."&key=".$this->sKey);
         if($result == 0){
-            return PwLang::cTranslate("api.dataInvalid");
-        }elseif($result >= 2){
-            return PwLang::cTranslate("api.dataMismatch");
+            return PwLang::cTranslate("api.emptyDataError");
+        }elseif($result == 1){
+            return PwLang::cTranslate("api.serverIDError");
+        }elseif($result == 2){
+            return PwLang::cTranslate("api.sKeyError");
+        }elseif($result == 3){
+            return PwLang::cTranslate("api.validationError");
         }
-        return unserialize($result);
+        return json_decode($result, true);
+    }
+    
+    public function update($players){
+        
     }
     
     public function close(){
-        file_get_contents($this->PROTOCOL."close?id=".$this->sID."&key=".$this->sKey."hash=".$this->hash);
+        file_get_contents($this->PROTOCOL."close?id=".$this->sID."&key=".$this->sKey);
     }
 }

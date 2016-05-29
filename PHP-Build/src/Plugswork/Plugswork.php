@@ -14,9 +14,13 @@ namespace Plugswork;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Utils;
 
-use Plugswork\Task\PwTiming;
+use Plugswork\Command\PwCommand;
+use Plugswork\Module\AuthModule;
+use Plugswork\Module\ChatModule;
+use Plugswork\Module\VoteModule;
 use Plugswork\Provider\MySQLProvider;
 use Plugswork\Provider\SQLiteProvider;
+use Plugswork\Task\PwTiming;
 use Plugswork\Utils\PwAPI;
 use Plugswork\Utils\PwLang;
 
@@ -28,7 +32,8 @@ class Plugswork extends PluginBase{
     const SUC = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x32\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x61\x20";
     
     public $command = null, $onSetup = false;
-    public $auth, $chat, $economy = false;
+    //public $authS, $chatS, $voteS = false;
+    public $api;
     
     public function onEnable(){
         new PwListener($this);
@@ -58,16 +63,16 @@ class Plugswork extends PluginBase{
             $this->getConfig()->set("secret-key", $data[1]);
             $this->getConfig()->save();
         }
-        new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getSevrer()->getPort().Utils::getOS()));
+        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getSevrer()->getPort().Utils::getOS()));
         if(!is_array($PwData = PwAPI::open())){
             echo "- [Plugswork] ".PwLang::cTranslate("api.openError");
             $this->getServer()->getPluginManager()->disablePlugin($this);
         }
-        //Load the data
-        $lang->loadUserMessages($PwData["messages"]);
-        $this->auth = $PwData["auth"];
-        $this->chat = $PwData["chat"];
-        $this->economy = $PwData["economy"];
+        //Load the module with data
+        $lang->loadUserMessages($PwData["message_settings"]);
+        $this->auth = new AuthModule($this, $PwData["auth_settings"]);
+        $this->chat = new AuthModule($this, $PwData["chat_settings"]);
+        $this->vote = new AuthModule($this, $PwData["vote_settings"]);
         if($firstRun){
             echo "\n  ".PwLang::cTranslate("main.pwTerms")."\n".
                  "  Plugswork Terms (https://plugswork.com/terms)".

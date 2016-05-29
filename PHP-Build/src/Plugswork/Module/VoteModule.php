@@ -13,14 +13,13 @@ namespace Plugswork\Module;
 
 use pocketmine\Player;
 
-class ChatModule{
+class VoteModule{
     
     private $plugin;
-    private $unicAllow, $adGurad, $spamGuard, $capsGuard = true;
     
     public function __construct(Plugswork $plugin, $settings = []){
         $this->plugin = $plugin;
-        //Settings handler
+        //Start settings handler
     }
     
 }
