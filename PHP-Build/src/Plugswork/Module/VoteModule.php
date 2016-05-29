@@ -22,4 +22,9 @@ class VoteModule{
         //Start settings handler
     }
     
+    public function check(){
+        
+    }
+    
+    
 }

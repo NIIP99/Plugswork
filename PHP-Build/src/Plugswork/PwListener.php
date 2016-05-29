@@ -16,7 +16,8 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\server\ServerCommandEvent;
-//use pocketmine\utils\TextFormat;
+
+use Plugswork\Utils\PwLang;
 
 class PwListener implements Listener{
     
@@ -43,6 +44,24 @@ class PwListener implements Listener{
     }
     
     public function onPlayerChat(PlayerChatEvent $e){
-        
+        $p = $e->getPlayer();
+        $res = $this->plugin->chat->check($e->getMessage());
+        switch($res["action"]){
+            case "chat":
+                $e->setCancelled();
+                $p->kick(PwLang::translate($res["message"]));
+                break;
+            case "censor":
+                $e->setMessage(PwLang::translate("chat.censorMessage"));
+                $p->sendMessage(PwLang::translate($res["message"]));
+                break;
+            case "kick":
+                $e->setCancelled();
+                $p->kick(PwLang::translate($res["message"]));
+                break;
+            case "ban":
+                $e->setCancelled();
+                break;
+        }
     }
 }
