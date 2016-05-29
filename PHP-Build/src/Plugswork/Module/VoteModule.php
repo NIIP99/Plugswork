@@ -12,6 +12,7 @@
 namespace Plugswork\Module;
 
 use pocketmine\Player;
+use pocketmine\command\ConsoleCommandSender;
 
 class VoteModule{
     
@@ -41,7 +42,14 @@ class VoteModule{
         }
     }
     
-    public function reward(){
-        
+    public function reward(Player $p){
+        foreach($this->settings["voteCommands"] as $cmd){
+            str_replace(
+                    array("{USERNAME}","{NICKNAME}"),
+                    array($p->getName(),$p->getDisplayName()),
+                    PwLang::translateColor($cmd)
+            );
+            $this->getServer()->dispatchCommand(new ConsoleCommandSender(), $cmd);
+        }
     }
 }

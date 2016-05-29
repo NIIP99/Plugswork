@@ -31,7 +31,7 @@ class PwLang{
     }
     
     public static function translate($key){
-        $keys = explode("-", $key);
+        $keys = explode(".", $key);
         if(empty($msg = self::$messages[$keys[0]][$keys[1]])){
             return $key;
         }else{
@@ -45,5 +45,15 @@ class PwLang{
         }else{
             return $msg;
         }
+    }
+    
+    public static function translateColor($msg){
+        return preg_replace_callback(
+            "/(\\\&|\&)[0-9a-fk-or]/",
+            function($matches){
+                return str_replace("§r", "§r§f", str_replace("\\§", "&", str_replace("&", "§", $matches[0])));
+            },
+            $msg
+        );
     }
 }
