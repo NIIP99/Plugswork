@@ -15,7 +15,8 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Utils;
 
 use Plugswork\Command\PwCommand;
-use Plugswork\Module\AuthModule;
+use Plugswork\Command\VoteCommand;
+//use Plugswork\Module\AuthModule;
 use Plugswork\Module\ChatModule;
 use Plugswork\Module\VoteModule;
 use Plugswork\Provider\MySQLProvider;
@@ -130,7 +131,7 @@ class Plugswork extends PluginBase{
     private function loadCommand(){
         $cm = $this->getServer()->getCommandMap();
         
-        $cm->register("pw", new PwCommand($this, "pw", "Plugswork Command"));
+        //$cm->register("pw", new PwCommand($this, "pw", "Plugswork Command"));
         $cm->register("vote", new VoteCommand($this, "vote", "Vote Command"));
     }
     

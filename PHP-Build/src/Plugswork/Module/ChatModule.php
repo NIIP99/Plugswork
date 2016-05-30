@@ -11,16 +11,35 @@
 
 namespace Plugswork\Module;
 
+use Plugswork\Plugswork;
+
 class ChatModule{
     
     private $plugin;
-    private $unicAllow, $adGurad, $spamGuard, $capsGuard = true;
+    private $unicAllow, $adGuard, $spamGuard, $capsGuard = false;
     private $chatTime, $messages = [];
     
-    public function __construct(Plugswork $plugin, $settings = []){
+    public function __construct(Plugswork $plugin, $rawSettings){
         $this->plugin = $plugin;
         //Settings handler
-        $this->settings = $settings;
+        $st = json_decode($rawSettings, true);
+        if(isset($st["unicAllow"])){
+            $this->unicAllow = true;
+            unset($st["unicAllow"]);
+        }
+        if(isset($st["enableAd"])){
+            $this->adGuard = true;
+            unset($st["enableAd"]);
+        }
+        if(isset($st["enableSpam"])){
+            $this->spamGuard = true;
+            unset($st["enableSpam"]);
+        }
+        if(isset($st["enableCaps"])){
+            $this->capsGuard = true;
+            unset($st["enableCaps"]);
+        }
+        $this->settings = $st;
     }
     
     public function check($pn, $msg){

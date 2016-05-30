@@ -14,17 +14,24 @@ namespace Plugswork\Module;
 use pocketmine\Player;
 use pocketmine\command\ConsoleCommandSender;
 
+use Plugswork\Plugswork;
 use Plugswork\Utils\PwLang;
+use Plugswork\Task\AutoVoteTask;
 
 class VoteModule{
     
     private $plugin;
     private $cache = [];
+    private $key;
     
-    public function __construct(Plugswork $plugin, $settings = []){
+    public function __construct(Plugswork $plugin, $rawSettings){
         $this->plugin = $plugin;
         //Start settings handler
-        $this->key = $settings["voteKey"];
+        $st = json_decode($rawSettings, true);
+        if(isset($st["autoVote"])){
+            $plugin->getServer()->getScheduler()->scheduleRepeatingTask(new AutoVoteTask($this), $st["autoVoteTime"]);
+        }
+        $this->key = $st["voteKey"];
     }
     
     public function check($pn){

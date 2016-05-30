@@ -11,24 +11,24 @@
 
 namespace Plugswork\Task;
 
-use pocketmine\scheduler\PluginTask;
-use Plugswork\Plugswork;
+use pocketmine\Server;
+use pocketmine\scheduler\Task;
+use Plugswork\Module\VoteModule;
 
-class AutoVoteTask extends PluginTask{
+class AutoVoteTask extends Task{
     
-    private $plugin;
+    private $vote;
     
-    public function __construct(Plugswork $plugin){
-    	parent::__construct($plugin);
-        $this->plugin = $plugin;
+    public function __construct(VoteModule $vote){
+        $this->vote = $vote;
     }
     
     public function onRun($tick){
-        foreach($this->plugin->getSevrer()->getOnlinePlayers() as $p){
+        foreach(Server::getInstance()->getOnlinePlayers() as $p){
             $pn = $p->getName();
-            if($this->plugin->vote->check($pn) == 1){
-                if($this->plugin->vote->claim($pn)){
-                    $this->plugin->vote->reward($p);
+            if($this->vote->check($pn) == 1){
+                if($this->vote->claim($pn)){
+                    $this->vote->reward($p);
                 }
             }
         }
