@@ -16,28 +16,20 @@ use Plugswork\Plugswork;
 class ChatModule{
     
     private $plugin;
-    private $allowUnic, $adGuard, $spamGuard, $capsGuard, $chatHelper = false;
+    private $allowUnic, $adGuard, $spamGuard, $capsGuard, $chatHelpers = false;
     private $chatTime, $messages = [];
     
     public function __construct(Plugswork $plugin, $rawSettings){
         $this->plugin = $plugin;
         //Settings handler
         $st = json_decode($rawSettings, true);
-        if(isset($st["allowUnic"])){
-            $this->unicAllow = true;
-            unset($st["allowUnic"]);
-        }
-        if(isset($st["enableAd"])){
-            $this->adGuard = true;
-            unset($st["enableAd"]);
-        }
-        if(isset($st["enableSpam"])){
-            $this->spamGuard = true;
-            unset($st["enableSpam"]);
-        }
-        if(isset($st["enableCaps"])){
-            $this->capsGuard = true;
-            unset($st["enableCaps"]);
+        foreach($st as $key => $value){
+            if(in_array($key, array("allowUnic", "enableAd", "enableSpam", "enableCaps", "chatHelpers"))){   
+                if(isset($value)){
+                    $this->$key = true;
+                    unset($st[$key]);
+                }
+            }
         }
         $this->settings = $st;
     }
@@ -75,8 +67,14 @@ class ChatModule{
                 return $res;
             }
         }
-        if($this->chatHelper){
-            
+        if($this->chatHelpers){
+            foreach($this->settings["helpers"] as $key => $tip){
+                if(strpos($msg, $key) !== false){
+                    $res["action"] = "";
+                    $res["message"] = $tip;
+                    return $res;
+                }
+            }
         }
     }
     
