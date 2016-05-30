@@ -11,20 +11,3 @@ Wanted to contribute? Join Plugswork Codx Team now! Just follow the guides here
 ####Supported MCPE Server Software
 **[PHP]** Pocketmine, ImagicalMine, Genisys, ClearSky<br>
 **[Java]** Nukkit (InDev)
-
-####Development
-- PHP
-  - [ ] Modules
-    - [ ] Auth
-    - [ ] Chat
-    - [ ] Economy
-  - [ ] Monitor
-  - [ ] Logger
-    - [ ] Economy Transaction
-- Java
-  - [ ] Modules
-    - [ ] Auth
-    - [ ] Chat
-  - [ ] Monitor
-  - [ ] Logger
-    - [ ] Economy Transaction

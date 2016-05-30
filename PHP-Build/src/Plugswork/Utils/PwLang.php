@@ -40,10 +40,15 @@ class PwLang{
         }
     }
     
-    public static function cTranslate($key){
+    public static function cTranslate($key, $vars = []){
         if(empty($msg = self::$cMessages->getNested($key))){
             return $key;
         }else{
+            $i = 0;
+            foreach($vars as $var){           
+                $msg = str_replace("{%$i}", $var, $msg);
+                $i++;
+            }
             return $msg;
         }
     }

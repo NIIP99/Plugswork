@@ -24,6 +24,6 @@ class PwTiming extends PluginTask{
     }
     
     public function onRun($tick){
-        file_get_contents($filename);
+        //file_get_contents($filename);
     }
 }

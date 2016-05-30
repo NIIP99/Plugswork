@@ -9,14 +9,14 @@
 # @author    Plugswork Codx
 # @website   https://plugswork.com/
 
-namespace Plusgwork\Command;
-
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
+namespace Plugswork\Command;
 
 use Plugswork\Plugswork;
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\command\PluginIdentifiableCommand;
 
-class PwCommand extends Command{
+class PwCommand extends Command implements PluginIdentifiableCommand{
     
     private $plugin;
     
@@ -25,7 +25,7 @@ class PwCommand extends Command{
         parent::__construct($name, $description);
     }
     
-    public function execute(CommandSender $s, $alias, array $args){
+    public function execute(CommandSender $sender, $alias, array $args){
         switch($args[0]){
             default:
                 break;

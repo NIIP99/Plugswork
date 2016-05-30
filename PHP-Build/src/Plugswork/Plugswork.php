@@ -71,9 +71,9 @@ class Plugswork extends PluginBase{
         }
         $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()));
         if(!is_array($PwData = $this->api->open())){
-            echo "- [Plugswork] ".PwLang::cTranslate("api.openError");
+            echo "- [Plugswork] ".PwLang::cTranslate("api.openError". [$PwData]);
             $this->getServer()->getPluginManager()->disablePlugin($this);
-            return;
+            return false;
         }
         //Load the module with data
         $lang->loadUserMessages($PwData["message_settings"]);
@@ -89,9 +89,24 @@ class Plugswork extends PluginBase{
             if($command != "y"){
                 echo "- [Plugswork] ".PwLang::cTranslate("main.pwTermsError")."\n";
                 $this->getServer()->getPluginManager()->disablePlugin($this);
+                return false;
             }
         }
         $this->loadCommand();
+        $this->getLogger()->info(
+                PwLang::translateColor(
+                "\n".
+                "&6   ____  _                                    _     \n".
+                "&6  |  _ \| |_   _  __ _ _____      _____  _ __| | __ \n".
+                "&6  | |_) | | | | |/ _` / __\ \ /\ / / _ \| '__| |/ / \n".
+                "&6  |  __/| | |_| | (_| \__ \\\ V  V / (_) | |  |   <  \n".
+                "&6  |_|   |_|\__,_|\__, |___/ \_/\_/ \___/|_|  |_|\_\ \n".
+                "&6                 |___/                              \n".
+                "&b  Plugswork Version:&f ".PLUGSWORK_VERSION."\n".
+                "&3  (c) 2016 All right reserved, Plugswork.\n".
+                "&6  ".PwLang::translate("main.donateNote")."\n"
+                )
+        );
     }
     
    private function readCommand(){
@@ -131,7 +146,7 @@ class Plugswork extends PluginBase{
     private function loadCommand(){
         $cm = $this->getServer()->getCommandMap();
         
-        //$cm->register("pw", new PwCommand($this, "pw", "Plugswork Command"));
+        $cm->register("pw", new PwCommand($this, "pw", "Plugswork Command"));
         $cm->register("vote", new VoteCommand($this, "vote", "Vote Command"));
     }
     

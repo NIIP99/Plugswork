@@ -9,15 +9,12 @@
 # @author    Plugswork Codx
 # @website   https://plugswork.com/
 
-namespace Plusgwork\Command;
+namespace Plugswork\Command;
 
-use pocketmine\Player;
+use Plugswork\Plugswork;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
-
-use Plugswork\Plugswork;
-use Plugswork\Utils\PwLang;
 
 class VoteCommand extends Command implements PluginIdentifiableCommand{
     
@@ -28,7 +25,7 @@ class VoteCommand extends Command implements PluginIdentifiableCommand{
         parent::__construct($name, $description);
     }
     
-    public function execute(CommandSender $s, $alias, array $args){
+    public function execute(CommandSender $sender, $alias, array $args){
         if(!$s instanceof Player){
             $s->sendMessage(PwLang::cTranslate("main.runAsPlayer"));
             return false;

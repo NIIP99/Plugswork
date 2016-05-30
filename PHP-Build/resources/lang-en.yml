@@ -13,8 +13,10 @@ main:
   pwTermsAgree: "Do you accept Plugswork Terms? [y/n]"
   pwTermsError: "You need to accept Plugswork Terms to use Plugswork Services and Products."
   invalidProvider: "Invalid provider is selected in config.yml!"
+  donateNote: "Donate to us at (plugswork.com/donate) to support us!"
+  runAsPlayer: "Please run this command as a player"
 api:
-  openError: "Open API Error Occured! {ERROR}"
+  openError: "Open API Error Occured! {%0}"
   dataInvalid: "Invalid Server ID or Secret Key, please check at Control Panel if you filled in the correct ID and Key."
   dataMismatch: "Server data does not match the data you registered at Control Panel, please check if the Server IP, Port, etc is same with the data at Control Panel"
 ...
