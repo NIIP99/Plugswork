@@ -11,7 +11,6 @@
 
 namespace Plugswork;
 
-use pocketmine\Server;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerChatEvent;
@@ -24,7 +23,7 @@ class PwListener implements Listener{
     private $plugin;
     
     public function __construct(Plugswork $plugin){
-	Server::getInstance()->getPluginManager()->registerEvents($this, $plugin);
+	$plugin->getServer()->getPluginManager()->registerEvents($this, $plugin);
         $this->plugin = $plugin;
     }
     
