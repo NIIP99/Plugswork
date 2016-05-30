@@ -29,14 +29,13 @@ class VoteModule{
         //Start settings handler
         $st = json_decode($rawSettings, true);
         if(isset($st["autoVote"])){
-            $plugin->getServer()->getScheduler()->scheduleRepeatingTask(new AutoVoteTask($this), $st["autoVoteTime"]);
+            $plugin->getServer()->getScheduler()->scheduleRepeatingTask(new AutoVoteTask($this), $st["autoVoteTime"] * 20);
         }
         $this->key = $st["voteKey"];
     }
     
     public function check($pn){
-        $cache = $this->cache[$pn];
-        if(isset($this->cache[$pn]) && $cache == 2){
+        if(isset($this->cache[$pn]) && $this->cache[$pn] == 2){
             return 2;
         }
         return file_get_contents("http://minecraftpocket-servers.com/api/?object=votes&element=claim&key=".$this->key."&username=".$pn);

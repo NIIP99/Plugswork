@@ -104,7 +104,7 @@ class Plugswork extends PluginBase{
                 "&6                 |___/                              \n".
                 "&b  Plugswork Version:&f ".PLUGSWORK_VERSION."\n".
                 "&3  (c) 2016 All right reserved, Plugswork.\n".
-                "&6  ".PwLang::translate("main.donateNote")."\n"
+                "&6  ".PwLang::cTranslate("main.donateNote")."\n"
                 )
         );
     }

@@ -16,16 +16,16 @@ use Plugswork\Plugswork;
 class ChatModule{
     
     private $plugin;
-    private $unicAllow, $adGuard, $spamGuard, $capsGuard = false;
+    private $allowUnic, $adGuard, $spamGuard, $capsGuard, $chatHelper = false;
     private $chatTime, $messages = [];
     
     public function __construct(Plugswork $plugin, $rawSettings){
         $this->plugin = $plugin;
         //Settings handler
         $st = json_decode($rawSettings, true);
-        if(isset($st["unicAllow"])){
+        if(isset($st["allowUnic"])){
             $this->unicAllow = true;
-            unset($st["unicAllow"]);
+            unset($st["allowUnic"]);
         }
         if(isset($st["enableAd"])){
             $this->adGuard = true;
@@ -44,7 +44,7 @@ class ChatModule{
     
     public function check($pn, $msg){
         $res = [];
-        if(!$this->unicAllow){
+        if(!$this->allowUnic){
             if(strlen($msg) != strlen(utf8_decode($msg))){
                 $res["action"] = "chat";
                 $res["message"] = "chat.unicWarning";
@@ -58,7 +58,7 @@ class ChatModule{
                 $res["message"] = "chat.spamWarning";
                 return $res;
             }
-            $this->chatTime[$pn] = $tick + $this->options["spamRestDur"];
+            $this->chatTime[$pn] = $tick + ($this->settings["spamRestDur"] * 20);
         }
         if($this->adGuard){
             if(preg_match("/[A-Z0-9]+\.[A-Z0-9]+/i", $msg)){
@@ -74,6 +74,9 @@ class ChatModule{
                 $res["message"] = "chat.capsWarning";
                 return $res;
             }
+        }
+        if($this->chatHelper){
+            
         }
     }
     

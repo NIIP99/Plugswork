@@ -37,19 +37,19 @@ class PwListener implements Listener{
     }
     
     public function onPlayerJoin(PlayerJoinEvent $e){
-        if($this->plugin->AuthEnabled){
+        /*if($this->plugin->AuthEnabled){
             $p = $e->getPlayer();
             $p->sendMessage(PwMessages::translate("auth-join"));
-        }
+        }*/
     }
     
     public function onPlayerChat(PlayerChatEvent $e){
         $p = $e->getPlayer();
-        $res = $this->plugin->chat->check($e->getMessage());
+        $res = $this->plugin->chat->check($p->getName(), $e->getMessage());
         switch($res["action"]){
             case "chat":
                 $e->setCancelled();
-                $p->kick(PwLang::translate($res["message"]));
+                $p->sendMessage(PwLang::translate($res["message"]));
                 break;
             case "censor":
                 $e->setMessage(PwLang::translate("chat.censorMessage"));
