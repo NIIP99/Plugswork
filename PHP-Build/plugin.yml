@@ -9,8 +9,8 @@
 # @website   https://plugswork.com/
 
 name: Plugswork
-version: 1.php
-api: 2.0.0
+version: "1.0.0-PHP"
+api: ["2.0.0"]
 main: Plugswork\Plugswork
 author: Plugswork
-description: Plugswork - Extends your MCPE Server beyond your imagination!
+description: "Plugswork - Extends your MCPE Server beyond your imagination!"
