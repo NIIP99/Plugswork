@@ -38,7 +38,7 @@ class Plugswork extends PluginBase{
     
     public function onEnable(){
         //Plugswork Version v1.php
-        define("PLUGSWORK_VERSION", "1.php");
+        define("PLUGSWORK_VERSION", "1.php [EXPERIMENTAL]");
         new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
@@ -84,7 +84,7 @@ class Plugswork extends PluginBase{
             echo "\n  ".PwLang::cTranslate("main.pwTerms")."\n".
                  "  Plugswork Terms (https://plugswork.com/terms)".
                     
-                 "- [Plugswork] ".PwLang::cTranslate("main.pwTermsAccept")."\n";
+                 "- [Plugswork] ".PwLang::cTranslate("main.pwTermsAgree")."\n";
             $command = $this->readCommand();
             if($command != "y"){
                 echo "- [Plugswork] ".PwLang::cTranslate("main.pwTermsError")."\n";
