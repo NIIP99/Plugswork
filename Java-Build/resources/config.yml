@@ -9,7 +9,7 @@
 # @author    Plugswork Codx
 # @website   https://plugswork.com/
 
-#Server ID is a ID used by Plugswork to create connection with our server
+#Server ID is an ID used by Plugswork to create connection with our server
 #You need to register your server at (https://plugswork.com/panel/server-add)
 #to get a unique Server ID for your server
 server-id: steve-0000
@@ -17,10 +17,10 @@ server-id: steve-0000
 #Link: https://plugswork.com/panel/account/
 secret-key:
 
-#Set the type of the database provider used
+#Set the type of database provider used
 #Default: sqlite [sqlite/mysql]
 provider: sqlite
-#Config for MySQL Database if provider is set to mysql
+#Config for MySQL Database if the provider is set to mysql
 host: localhost
 username: plugswork
 password: ********

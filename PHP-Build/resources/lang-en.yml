@@ -1,7 +1,7 @@
 ---
 # English language file
 # (c) 2016 All right reserved, Plugswork.
-# Thanks to @deotern for English Translation
+# Thanks to @deotern for the English Translation
 
 version: 1.0
 lang: en
@@ -22,5 +22,5 @@ api:
   emptyDataError: "Invalid Server ID or Secret Key, please check at Control Panel if you filled in the correct ID and Key."
   serverIDError: "Invalid server ID, please check if you filled in the correct Server ID"
   sKeyError: "Invalid Secret Key, please check at if you filled in the correct Secret Key."
-  validationError: "We cannot recognize this server, please check if IP, Port, etc is same with the data you filled at Control Panel."
+  validationError: "We cannot recognize this server, please check if IP, Port, etc is same with the data you filled at the Control Panel."
 ...
