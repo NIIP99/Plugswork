@@ -69,7 +69,7 @@ class Plugswork extends PluginBase{
             $this->getConfig()->set("secret-key", $data[1]);
             $this->getConfig()->save();
         }
-        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()));
+        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()), $this->getDataFolder());
         //$this->auth = new AuthModule($this);
         $this->chat = new ChatModule($this);
         $this->vote = new VoteModule($this);

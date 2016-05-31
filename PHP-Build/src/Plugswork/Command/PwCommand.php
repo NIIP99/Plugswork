@@ -40,9 +40,9 @@ class PwCommand extends Command implements PluginIdentifiableCommand{
             case "check":
                 break;
             case "reload":
-                $this->plugin->getServer()->info(PwLang::cTranslate("main.reloading"));
-                $this->plugin->loadSettings();
-                $this->plugin->getServer()->info(PwLang::cTranslate("main.reloadSucessful"));
+                $this->plugin->getServer()->getLogger()->info(PwLang::cTranslate("main.reloading"));
+                $this->plugin->loadSettings($this->plugin->api->fetchSettings());
+                $this->plugin->getServer()->getLogger()->info(PwLang::cTranslate("main.reloadSucessful"));
                 break;
         }
         return true;

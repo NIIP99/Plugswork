@@ -32,7 +32,7 @@ class VoteModule{
         //Settings handler
         $st = json_decode($rawSettings, true);
         if(isset($st["autoVote"])){
-            $plugin->getServer()->getScheduler()->scheduleRepeatingTask(new AutoVoteTask($this), $st["autoVoteTime"] * 20);
+            $this->plugin->getServer()->getScheduler()->scheduleRepeatingTask(new AutoVoteTask($this), $st["autoVoteTime"] * 20);
         }
         $this->key = $st["voteKey"];
     }

@@ -24,6 +24,6 @@ class PwTiming extends PluginTask{
     }
     
     public function onRun($tick){
-        $this->plugin->api->update(count($this->plugin->getServer()->getOnlinePlayers())."/"."", $voteData);
+        //$this->plugin->api->update(count($this->plugin->getServer()->getOnlinePlayers())."/"."", $voteData);
     }
 }
