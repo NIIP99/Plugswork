@@ -33,8 +33,8 @@ class PwCommand extends Command implements PluginIdentifiableCommand{
                 break;
             case "about":
                 $s->sendMessage(
-                        "This server is running with Plugswork v".PLUGSWORK_VERSION."\n".
-                        "Install Plugswork for your sevrer too! (https://plugswork.com)"
+                        "This server is running Plugswork v".PLUGSWORK_VERSION."\n".
+                        "Install Plugswork for your server too! (https://plugswork.com)"
                 );
                 break;
             case "check":
