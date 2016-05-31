@@ -1,10 +1,10 @@
 ---
-# English language file
+# Russian language file - {%RUSSIAN_LANG_FILE}
 # (c) 2016 All right reserved, Plugswork.
-# Thanks to @deotern and @UltimateMcraft for the English Translation
+# Thanks to @UltimateMcraft for the Russian Translation
 
-version: 1.1
-lang: en
+version: 1.0
+lang: ru
 main:
   selectConsoleLang: "Please select console language. [en/cn]"
   enterServerID: "Please enter the Server ID."

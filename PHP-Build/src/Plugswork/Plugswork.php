@@ -37,8 +37,8 @@ class Plugswork extends PluginBase{
     public $api;
     
     public function onEnable(){
-        //Plugswork Version v1.php
-        define("PLUGSWORK_VERSION", "2.php.bleed");
+        //Plugswork Version v2.php.bleed
+        define("PLUGSWORK_VERSION", 2);
         new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
@@ -47,9 +47,9 @@ class Plugswork extends PluginBase{
         }
         $data = $this->loadConfig();
         if(empty($data[2]) || $data[2] == "xx"){
-            echo "- [Plugswork] Please select console language.[en/cn]\n";
+            echo "- [Plugswork] Please select console language.\n\n   (en) => English\n   (cn) => Chinese\n   (ru) => Russian";
             $lang = strtolower($this->readCommand());
-            if($lang != "cn"){
+            if($lang != "cn" && $lang != "ru"){
                 $lang = "en";
             }
             $data[2] = $lang;
@@ -110,7 +110,7 @@ class Plugswork extends PluginBase{
                 "&6  |  __/| | |_| | (_| \__ \\\ V  V / (_) | |  |   <  \n".
                 "&6  |_|   |_|\__,_|\__, |___/ \_/\_/ \___/|_|  |_|\_\ \n".
                 "&6                 |___/                              \n".
-                "&b  Plugswork Version:&f ".PLUGSWORK_VERSION."\n".
+                "&b  Plugswork Version:&f v".PLUGSWORK_VERSION.".php\n".
                 "&3  (c) 2016 All right reserved, Plugswork.\n".
                 "&6  ".PwLang::cTranslate("main.donateNote")."\n"
                 )

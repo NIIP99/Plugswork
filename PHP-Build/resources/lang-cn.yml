@@ -3,7 +3,7 @@
 # (c) 2016 All right reserved, Plugswork.
 # Thanks to @deotern for the Chinese Translation
 
-version: 1.0
+version: 1.1
 lang: cn
 main:
   selectConsoleLang: "请选择Plugswork面板使用的语言. [en/cn]"
@@ -13,8 +13,16 @@ main:
   pwTermsAgree: "你接受Plugswork Terms条款吗 [y/n]"
   pwTermsError: "你必须接受Plugswork Terms条款以使用Plugswork的服务与产品."
   invalidProvider: "无效的provider已在config.yml里被选择"
+  donateNote: "如果你喜欢这个插件，请在 (plugswork.com/donate) 捐款支持我们!"
+  runAsPlayer: "请以玩家的身份使用次命令"
+  reloading: "重取设置中..."
+  reloadSucessful: "设置已被重取"
+  updateAvailable: "新版本已经推出! 请到Control Panel更新插件"
 api:
-  openError: "Open API出错! {ERROR}"
-  dataInvalid: "Server ID或Secret Key出错，请登入Control Panel检查是否输入了正确的ID与Key."
+  openError: "Open API出错!\n 错误: %0%"
   dataMismatch: "伺服器资料和已提交的资料不符合，请检查伺服器的IP，port，software，等等是否与Control Panel的一样."
+  emptyDataError: "缺少Server ID或Secret Key!"
+  serverIDError: "Server ID出错, 请检查是否输入了正确的Server ID."
+  sKeyError: "Secret Key出错, 请检查是否输入了正确的Secret Key."
+  validationError: "系统认证出错, 请检查是否在Control Panel输入了正确的IP，port 等资料."
 ...

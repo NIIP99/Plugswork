@@ -19,13 +19,20 @@ class PwLang{
     private static $cMessages;
     
     public function __construct($plugin, $lang){
-        $plugin->saveResource("lang-".$lang.".yml");
+        if(!is_file($plugin->getDataFolder()."lang-".$lang.".yml")){
+            $plugin->saveResource("lang-".$lang.".yml");
+        }
         self::$cMessages = new Config($plugin->getDataFolder()."lang-".$lang.".yml", Config::YAML);
+        if(self::$cMessages->get("version") < PLUGSWORK_VERSION){
+            unlink($plugin->getDataFolder()."lang-".$lang.".yml");
+            $plugin->saveResource("lang-".$lang.".yml");
+            self::$cMessages = new Config($plugin->getDataFolder()."lang-".$lang.".yml", Config::YAML);
+        }
     }
     
     public static function loadUserMessages($rawMessages){
         $messages = json_decode($rawMessages, true);
-        //I will insert default messages to database, so checking isset won't be needed in the future
+        //Checking isset won't be needed in the future
         if(isset($messages)){
             foreach($messages as $key => $message){
                 $keys = explode("-", $key);
