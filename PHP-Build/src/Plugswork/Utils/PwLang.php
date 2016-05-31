@@ -31,6 +31,7 @@ class PwLang{
         }
     }
     
+    //Translate user messages, uses message editor data
     public static function translate($key){
         $keys = explode(".", $key);
         if(empty($msg = self::$messages[$keys[0]][$keys[1]])){
@@ -40,13 +41,14 @@ class PwLang{
         }
     }
     
+    //Translate console messages, uses local language file
     public static function cTranslate($key, $vars = []){
         if(empty($msg = self::$cMessages->getNested($key))){
             return $key;
         }else{
             $i = 0;
             foreach($vars as $var){           
-                $msg = str_replace("{%$i}", $var, $msg);
+                $msg = str_replace("%$i%", $var, $msg);
                 $i++;
             }
             return $msg;

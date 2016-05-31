@@ -30,7 +30,7 @@ class PwAPI{
     }
     
     public function open(){
-        $result = file_get_contents($this->PROTOCOL."open?id=".$this->sID."&key=".$this->sKey);
+        $result = file_get_contents($this->PROTOCOL."open?id=".$this->sID."&key=".$this->sKey."&ver=".PLUGSWORK_VERSION);
         if($result === 0){
             return "api.emptyDataError";
         }elseif($result === 1){
@@ -43,11 +43,11 @@ class PwAPI{
         return json_decode($result, true);
     }
     
-    public function update($players){
+    public function update($playersData, $voteData){
         
     }
     
     public function close(){
-        file_get_contents($this->PROTOCOL."close?id=".$this->sID."&key=".$this->sKey);
+        file_get_contents($this->PROTOCOL."close");
     }
 }

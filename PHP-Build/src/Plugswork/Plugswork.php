@@ -38,7 +38,7 @@ class Plugswork extends PluginBase{
     
     public function onEnable(){
         //Plugswork Version v1.php
-        define("PLUGSWORK_VERSION", "1.php [EXPERIMENTAL]");
+        define("PLUGSWORK_VERSION", "1.php.bleed");
         new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;

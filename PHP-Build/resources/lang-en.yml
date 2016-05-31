@@ -16,7 +16,9 @@ main:
   donateNote: "Donate to us at (plugswork.com/donate) to support us!"
   runAsPlayer: "Please run this command as a player"
 api:
-  openError: "Open API Error Occured! {%0}"
-  dataInvalid: "Invalid Server ID or Secret Key, please check at Control Panel if you filled in the correct ID and Key."
-  dataMismatch: "Server data does not match the data you registered at Control Panel, please check if the Server IP, Port, etc is same with the data at Control Panel"
+  openError: "Open API Error Occured!\n {%0}"
+  emptyDataError: "Invalid Server ID or Secret Key, please check at Control Panel if you filled in the correct ID and Key."
+  serverIDError: "Invalid server ID, please check if you filled in the correct Server ID"
+  sKeyError: "Invalid Secret Key, please check at if you filled in the correct Secret Key."
+  validationError: "We cannot recognize this server, please check if IP, Port, etc is same with the data you filled at Control Panel."
 ...
