@@ -15,6 +15,8 @@ main:
   invalidProvider: "Invalid provider is selected in config.yml!"
   donateNote: "Donate to us at (plugswork.com/donate) to support us!"
   runAsPlayer: "Please run this command as a player"
+  reloading: "Reloading Settings..."
+  reloadSucessful: "Settings were successfully reloaded"
 api:
   openError: "Open API Error Occured!\n %0%"
   emptyDataError: "Invalid Server ID or Secret Key, please check at Control Panel if you filled in the correct ID and Key."

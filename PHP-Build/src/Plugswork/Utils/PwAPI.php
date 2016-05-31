@@ -32,8 +32,8 @@ class PwAPI{
         return json_decode($result, true);
     }
     
-    public function update($playersData, $voteData){
-        
+    public function update(){
+        $this->getURL($this->PROTOCOL."update");
     }
     
     public function fetchSettings(){
