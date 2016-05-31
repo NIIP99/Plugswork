@@ -56,7 +56,7 @@ class Plugswork extends PluginBase{
             $this->getConfig()->set("console-language", $lang);
             $this->getConfig()->save();
         }
-        $lang = new PwLang($this, $data[2]);
+        new PwLang($this, $data[2]);
         if(empty($data[0]) || $data[0] == "steve-xxxxx"){
             echo "- [Plugswork] ".PwLang::cTranslate("main.enterServerID")."\n";
             $data[0] = $this->readCommand();
@@ -70,16 +70,15 @@ class Plugswork extends PluginBase{
             $this->getConfig()->save();
         }
         $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()));
+        //$this->auth = new AuthModule($this);
+        $this->chat = new ChatModule($this);
+        $this->vote = new VoteModule($this);
         if(!is_array($PwData = $this->api->open())){
             echo "- [Plugswork] ".PwLang::cTranslate("api.openError". [$PwData]);
             $this->getServer()->getPluginManager()->disablePlugin($this);
             return false;
         }
-        //Load the module with data
-        $lang->loadUserMessages($PwData["message_settings"]);
-        //$this->auth = new AuthModule($this, $PwData["auth_settings"]);
-        $this->chat = new ChatModule($this, $PwData["chat_settings"]);
-        $this->vote = new VoteModule($this, $PwData["vote_settings"]);
+        $this->loadSettings($PwData);
         if($firstRun){
             echo "\n  ".PwLang::cTranslate("main.pwTerms")."\n".
                  "  Plugswork Terms (https://plugswork.com/terms)".
@@ -150,4 +149,10 @@ class Plugswork extends PluginBase{
         $cm->register("vote", new VoteCommand($this, "vote", "Vote Command"));
     }
     
+    public function loadSettings($data){
+        //Load the settings
+        PwLang::loadUserMessages($data["message_settings"]);
+        $this->chat->load($data["chat_settings"]);
+        $this->vote->load($data["vote_settings"]);
+    }
 }

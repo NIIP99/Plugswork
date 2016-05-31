@@ -19,8 +19,11 @@ class ChatModule{
     private $allowUnic, $adGuard, $spamGuard, $capsGuard, $chatHelpers = false;
     private $chatTime, $messages = [];
     
-    public function __construct(Plugswork $plugin, $rawSettings){
+    public function __construct(Plugswork $plugin){
         $this->plugin = $plugin;
+    }
+    
+    public function load($rawSettings){
         //Settings handler
         $st = json_decode($rawSettings, true);
         foreach($st as $key => $value){

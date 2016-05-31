@@ -24,9 +24,12 @@ class VoteModule{
     private $cache = [];
     private $key;
     
-    public function __construct(Plugswork $plugin, $rawSettings){
+    public function __construct(Plugswork $plugin){
         $this->plugin = $plugin;
-        //Start settings handler
+    }
+    
+    public function load($rawSettings){
+        //Settings handler
         $st = json_decode($rawSettings, true);
         if(isset($st["autoVote"])){
             $plugin->getServer()->getScheduler()->scheduleRepeatingTask(new AutoVoteTask($this), $st["autoVoteTime"] * 20);

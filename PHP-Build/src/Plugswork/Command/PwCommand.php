@@ -12,6 +12,8 @@
 namespace Plugswork\Command;
 
 use Plugswork\Plugswork;
+use Plugswork\Utils\PwLang;
+
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
@@ -29,13 +31,18 @@ class PwCommand extends Command implements PluginIdentifiableCommand{
         switch($args[0]){
             default:
                 break;
-            case "check":
-                break;
             case "about":
                 $s->sendMessage(
                         "This server is running with Plugswork v".PLUGSWORK_VERSION."\n".
                         "Install Plugswork for your sevrer too! (https://plugswork.com)"
                 );
+                break;
+            case "check":
+                break;
+            case "reload":
+                $this->plugin->getServer()->info(PwLang::cTranslate("main.reloading"));
+                $this->plugin->loadSettings();
+                $this->plugin->getServer()->info(PwLang::cTranslate("main.reloadSucessful"));
                 break;
         }
         return true;

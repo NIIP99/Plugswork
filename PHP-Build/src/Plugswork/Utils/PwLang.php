@@ -23,7 +23,7 @@ class PwLang{
         self::$cMessages = new Config($plugin->getDataFolder()."lang-".$lang.".yml", Config::YAML);
     }
     
-    public function loadUserMessages($rawMessages){
+    public static function loadUserMessages($rawMessages){
         $messages = json_decode($rawMessages, true);
         //I will insert default messages to database, so checking isset won't be needed in the future
         if(isset($messages)){
