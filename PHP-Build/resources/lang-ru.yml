@@ -1,0 +1,25 @@
+---
+# Russian Language file
+# (С) 2016 All rights reserved, Plugswork.
+# Thanks to @UltimateMcraft for the Russian translation!
+version: 1.0
+lang: EN
+main:
+  selectConsoleLang: ". Пожалуйста, выберите язык консоли [EN / CN]"
+  enterServerID: "Пожалуйста, введите идентификатор сервера."
+  enterSecretKey: "Пожалуйста, введите секретный ключ."
+  pwTerms: "С помощью этого плагина, вы соглашаетесь с Plugswork Условия."
+  pwTermsAgree: "Вы принимаете Условия Plugswork [Y / N]?"
+  pwTermsError: "Вы должны принять Plugswork Условия использования Plugswork услуг и продуктов."
+  invalidProvider: "Invalid поставщик выбран в config.yml!"
+  donateNote: "Пожертвуйте нам по телефону (plugswork.com/donate), чтобы поддержать нас!"
+  runAsPlayer: "Пожалуйста, запустите эту команду в качестве игрока"
+  reloading: "перегрузочный Settings ..."
+  reloadSucessful: "Настройки были успешно перезагружена"
+api:
+  openError: "Ошибка Open API СВЕРШИВШИМСЯ \n %0%"
+  emptyDataError: "Неверный ID сервера или Секретный ключ, пожалуйста, проверьте на панели управления, если вы заполнили в правильном ID и ключ."
+  serverIDError: "Неверный ИД сервера, пожалуйста, проверьте, если вы заполнили в правильном ID сервера"
+  sKeyError: "Invalid Секретный ключ, пожалуйста, проверьте, если вы в заполнены правильно секретный ключ."
+  ValidationError: "Мы не можем распознать этот сервер, пожалуйста, проверьте, если IP, порт и т.д. такое же с данными заполненной на панели управления."
+...
