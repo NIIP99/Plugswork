@@ -51,7 +51,7 @@ class PwLang{
         }else{
             $i = 0;
             foreach($vars as $var){           
-                $msg = str_replace("%$i%", $var, $msg);
+                $msg = str_replace("%$i%", self::cTranslate($var), $msg);
                 $i++;
             }
             return $msg;

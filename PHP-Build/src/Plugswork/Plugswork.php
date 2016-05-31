@@ -32,7 +32,7 @@ class Plugswork extends PluginBase{
     const ALR = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x36\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x65\x20";
     const SUC = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x32\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x61\x20";
     
-    public $command = null, $onSetup = false;
+    public $command = null, $onSetup = false, $ssl;
     //public $authS, $chatS, $voteS = false;
     public $api;
     
@@ -74,7 +74,16 @@ class Plugswork extends PluginBase{
         $this->chat = new ChatModule($this);
         $this->vote = new VoteModule($this);
         if(!is_array($PwData = $this->api->open())){
-            echo "- [Plugswork] ".PwLang::cTranslate("api.openError". [$PwData]);
+            if($PwData == 0){
+                $PwData = "api.emptyDataError";
+            }elseif($PwData == 1){
+                $PwData = "api.serverIDError";
+            }elseif($PwData == 2){
+                $PwData = "api.sKeyError";
+            }elseif($PwData == 3){
+                $PwData = "api.validationError";
+            }
+            echo "- [Plugswork] ".PwLang::cTranslate("api.openError", [$PwData])."\n";
             $this->getServer()->getPluginManager()->disablePlugin($this);
             return false;
         }

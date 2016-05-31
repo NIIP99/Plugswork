@@ -14,17 +14,11 @@ namespace Plugswork\Utils;
 class PwAPI{
     
     private $sID, $sKey, $hash, $folder = false;
-    private $PROTOCOL;
+    private $PROTOCOL = "http://plugswork.com/api/"; //SSL is planned to be used in the future
     
     public function __construct($sID, $sKey, $hash, $folder){
         $this->sID = $sID;
         $this->sKey = $sKey;
-        //Check for https warppers
-        if(in_array("https", stream_get_wrappers())){
-            $this->PROTOCOL = "https://plugswork.com/api/";
-        }else{
-            $this->PROTOCOL = "http://plugswork.com/api/";
-        }
         //Hash is not required currently
         $this->hash = $hash;
         $this->folder = $folder;
@@ -32,14 +26,8 @@ class PwAPI{
     
     public function open(){
         $result = $this->getURL($this->PROTOCOL."open?id=".$this->sID."&key=".$this->sKey."&ver=".PLUGSWORK_VERSION);
-        if($result === 0){
-            return "api.emptyDataError";
-        }elseif($result === 1){
-            return "api.serverIDError";
-        }elseif($result === 2){
-            return "api.sKeyError";
-        }elseif($result === 3){
-            return "api.validationError";
+        if(strlen($result) == 1){
+            return $result;
         }
         return json_decode($result, true);
     }
@@ -62,6 +50,7 @@ class PwAPI{
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        //curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->folder."pw.cache"); 
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->folder."pw.cache"); 
         $return = curl_exec($ch);
