@@ -25,9 +25,12 @@ class PwLang{
     
     public function loadUserMessages($rawMessages){
         $messages = json_decode($rawMessages, true);
-        foreach($messages as $key => $message){
-            $keys = explode("-", $key);
-            self::$messages[$keys[0]][$keys[1]] = $message;
+        //I will insert default messages to database, so checking isset won't be needed in the future
+        if(isset($messages)){
+            foreach($messages as $key => $message){
+                $keys = explode("-", $key);
+                self::$messages[$keys[0]][$keys[1]] = $message;
+            }
         }
     }
     
