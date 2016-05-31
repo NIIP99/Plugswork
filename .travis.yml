@@ -1,0 +1,43 @@
+# PROJECT SPECIFICATIONS
+language: php
+php:
+- 7.0
+branches:
+  except:
+  - "/^*-v[0-9]/"
+
+# WORKSPACE CONFIGURATION
+before_script:
+- cd /home/travis/build/deotern/Plugswork
+- mv PHP-Build Plugswork
+- cd ..
+- mv Plugswork plugins
+- wget -O plugins/DevTools.phar https://github.com/PocketMine/DevTools/releases/download/v1.11.0/DevTools_v1.11.0.phar
+- cd ..
+- git clone https://github.com/ImagicalCorp/ImagicalMine
+- cd ImagicalMine
+- cp -r * ../deotern
+- pecl install channel://pecl.php.net/pthreads-3.1.5
+- pecl install channel://pecl.php.net/weakref-0.3.1
+- echo | pecl install channel://pecl.php.net/yaml-2.0.0RC7
+
+# PROJECT BUILDING WITH DEVTOOLS
+script:
+- php tests/TravisTest.php
+
+# UPLOADING TO RELEASES WEBSITE
+after_success:
+- cd /home/travis/build
+- git config --global user.email "builds@travis-ci.com"
+- git config --global user.name "Travis CI"
+- git clone --branch=gh-pages https://github.com/deotern/Plugswork
+- cp /home/travis/build/deotern/plugins/DevTools/Plugswork* /home/travis/build/deotern/Plugswork/Plugswork-$TRAVIS_JOB_ID.phar
+- cp /home/travis/build/deotern/plugins/DevTools/Plugswork /home/travis/build/deotern/Plugswork/service-download/Plugswork.phar
+- cd /home/travis/build/deotern/Plugswork
+- git add Plugswork-$TRAVIS_JOB_ID.phar
+- git add service-download/Plugswork.phar
+- ls > list.txt
+- echo >> list.txt
+- echo "This is a directory listing of the root directory of the Plugswork release download website. Copy the file name and paste it in the URL bar after deleting \"list.txt\". You can also alternatively download files using a shell script by downloading the file from http://deotern.github.io/Plugswork/service-download/Plugswork.phar. The download link for the latest plugin build is http://deotern.github.io/Plugswork/Plugswork-$TRAVIS_JOB_ID.phar" >> list.txt
+- git commit -am "Added latest Plugswork build"
+- git push https://deotern:$GITHUB_API_KEY@github.com/deotern/Plugswork gh-pages &>secret
