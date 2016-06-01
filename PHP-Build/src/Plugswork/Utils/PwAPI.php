@@ -14,7 +14,7 @@ namespace Plugswork\Utils;
 class PwAPI{
     
     private $sID, $sKey, $hash, $folder = false;
-    const PROTOCOL = "http://plugswork.com/api/"; //SSL is planned to be used in the future
+    const PROTOCOL = "http://plugswork.com/api/"; //TODO https Protocol
     
     public function __construct($sID, $sKey, $hash, $folder){
         $this->sID = $sID;
@@ -38,6 +38,10 @@ class PwAPI{
     
     public function fetchSettings(){
         return json_decode($this->getURL(self::PROTOCOL."fetch"), true);
+    }
+    
+    public function check(){
+        return json_decode($this->getURL(self::PROTOCOL."check"), true);
     }
     
     public function close(){

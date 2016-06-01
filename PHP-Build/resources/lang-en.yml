@@ -15,6 +15,7 @@ main:
   invalidProvider: "Invalid provider is selected in config.yml!"
   donateNote: "Donate to us at (plugswork.com/donate) to support us!"
   runAsPlayer: "Please run this command as a player"
+  runAsConsole: "Please run this command from console"
   reloading: "Reloading Settings..."
   reloadSucessful: "Settings were successfully reloaded"
   updateAvailable: "New version of Plugswork is out! Check it at Control Panel Download Page!"

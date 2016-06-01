@@ -14,6 +14,7 @@ namespace Plugswork\Command;
 use Plugswork\Plugswork;
 use Plugswork\Utils\PwLang;
 
+use pocketmine\Player;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
@@ -38,8 +39,17 @@ class PwCommand extends Command implements PluginIdentifiableCommand{
                 );
                 break;
             case "check":
+                if($sender instanceof Player){
+                    PwLang::cTranslate("main.runAsConsole");
+                    return false;
+                }
+                $data = $this->plugin->api->check();
                 break;
             case "reload":
+                if($sender instanceof Player){
+                    PwLang::cTranslate("main.runAsConsole");
+                    return false;
+                }
                 $this->plugin->getServer()->getLogger()->info(PwLang::cTranslate("main.reloading"));
                 $this->plugin->loadSettings($this->plugin->api->fetchSettings());
                 $this->plugin->getServer()->getLogger()->info(PwLang::cTranslate("main.reloadSucessful"));
