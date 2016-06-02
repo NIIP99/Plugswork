@@ -111,7 +111,7 @@ class Plugswork extends PluginBase{
                 "&6  |_|   |_|\__,_|\__, |___/ \_/\_/ \___/|_|  |_|\_\ \n".
                 "&6                 |___/                              \n".
                 "&b  Plugswork Version:&f v".PLUGSWORK_VERSION.".php\n".
-                "&3  (c) 2016 All right reserved, Plugswork.\n".
+                "&3  (c) 2016 All rights reserved, Plugswork.\n".
                 "&6  ".PwLang::cTranslate("main.donateNote")."\n"
                 )
         );
