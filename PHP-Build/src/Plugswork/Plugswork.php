@@ -25,6 +25,7 @@ use Plugswork\Provider\SQLiteProvider;
 use Plugswork\Task\PwTiming;
 use Plugswork\Utils\PwAPI;
 use Plugswork\Utils\PwLang;
+use Plugswork\Utils\PwTools;
 
 class Plugswork extends PluginBase{
     
@@ -39,7 +40,7 @@ class Plugswork extends PluginBase{
     
     public function onEnable(){
         //Plugswork Version v2.php.bleed
-        define("PLUGSWORK_VERSION", "2.php.bleed");
+        define("PLUGSWORK_VERSION", "3.php.bleed");
         new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
@@ -70,6 +71,7 @@ class Plugswork extends PluginBase{
             $this->getConfig()->set("secret-key", $data[1]);
             $this->getConfig()->save();
         }
+        $this->tools = new PwTools($this);
         $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()), $this->getDataFolder());
         //$this->auth = new AuthModule($this);
         $this->broadcast = new BroadcastModule($this);
@@ -86,6 +88,7 @@ class Plugswork extends PluginBase{
                 $PwData = "api.validationError";
             }
             echo "- [Plugswork] ".PwLang::cTranslate("api.openError", [$PwData])."\n";
+            $this->tools->checkData();
             $this->getServer()->getPluginManager()->disablePlugin($this);
             return false;
         }
@@ -104,7 +107,7 @@ class Plugswork extends PluginBase{
         }
         $this->loadCommand();
         $update = "";
-        if($PwData["newVer"] != PLUGSWORK_VERSION){ //Well, former checkUpdate is planned in PwTools Class
+        if($PwData["newVer"] != PLUGSWORK_VERSION){ //Well, will be replaced by hasUpdate()
             $update = "  &e".PwLang::cTranslate("main.updateAvailable")."\n";
         }
         $this->getLogger()->info(

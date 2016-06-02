@@ -43,21 +43,7 @@ class PwCommand extends Command implements PluginIdentifiableCommand{
                     PwLang::cTranslate("main.runAsConsole");
                     return false;
                 }
-                $data = $this->plugin->api->check();
-                $update = "";
-                if($data["newVer"] != PLUGSWORK_VERSION){
-                    $update = "&eUpdate Available!";
-                }
-                $this->plugin->getLogger()->info(
-                    PwLang::translateColor(
-                        "\n".
-                        "&6Plugswork Data Checker\n".
-                        "&3IP: &b".$data["ip"]."\n".
-                        "&3Registered: &b".$data["reg"]."\n".
-                        "&3Version: &b".PLUGSWORK_VERSION."\n".
-                        $update
-                    )
-                );
+                $this->plugin->tools->checkData();
                 break;
             case "reload":
                 if($sender instanceof Player){
