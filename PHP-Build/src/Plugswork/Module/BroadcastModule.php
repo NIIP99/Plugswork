@@ -13,6 +13,7 @@ namespace Plugswork\Module;
 
 use Plugswork\Plugswork;
 use Plugswork\Task\BroadcastTask;
+use Plugswork\Utils\PwLang;
 
 class BroadcastModule{
     
@@ -29,21 +30,41 @@ class BroadcastModule{
         if(isset($st["toConsole"])){
             $this->toConsole = true;
         }
-        $this->plugin->getServer()->getScheduler()->scheduleRepeatingTask(new BroadcastTask($this, $st['popupDur']), 20);
+        $this->plugin->getServer()->getScheduler()->scheduleRepeatingTask(new BroadcastTask($this, $st), 20);
         $this->settings = $st;
     }
     
-    public function broadcast($msg, $type){
+    public function broadcast($msg){
         /*
          * This is intended to make the constant variable {USERNAME}, {NICKNAME} to be worked
          * Please don't change it to broadcastMessage()
          */
+        if($this->toConsole){
+            $this->plugin->getLogger()->info("(Broadcast) ".PwLang::translateConstant(PwLang::translateColor($msg), "CONSOLE"));
+        }
         foreach($this->plugin->getServer()->getOnlinePlayers() as $p){
-            $Tmsg = PwLang::translateConstant(PwLang::translateColor($msg));
+            $Tmsg = PwLang::translateConstant(PwLang::translateColor($msg), $p->getName());
             $p->sendMessage($Tmsg);
-            if($this->toConsole){
-                $this->plugin->info($Tmsg);
-            }
+        }
+    }
+    
+    public function broadcastPopup($msg){
+        if($this->toConsole){
+            $this->plugin->getLogger()->info("(Popup) ".PwLang::translateConstant(PwLang::translateColor($msg), "CONSOLE"));
+        }
+        foreach($this->plugin->getServer()->getOnlinePlayers() as $p){
+            $Tmsg = PwLang::translateConstant(PwLang::translateColor($msg), $p->getName()); //TODO Performance Tweaks
+            $p->sendPopup($Tmsg);
+        }
+    }
+    
+    public function broadcastTip($msg){
+        if($this->toConsole){
+            $this->plugin->getLogger()->info("(Tip) ".PwLang::translateConstant(PwLang::translateColor($msg), "CONSOLE"));
+        }
+        foreach($this->plugin->getServer()->getOnlinePlayers() as $p){
+            $Tmsg = PwLang::translateConstant(PwLang::translateColor($msg), $p->getName()); //TODO Performance Tweaks
+            $p->sendTip($Tmsg);
         }
     }
 }

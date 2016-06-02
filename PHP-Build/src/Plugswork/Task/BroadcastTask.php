@@ -18,60 +18,88 @@ use Plugswork\Module\BroadcastModule;
 class BroadcastTask extends Task{
     
     private $broadcast;
-    private $lastTick, $tickDiff, $popupDur, $tipDur;
-    private $messages, $pMessages, $Tmessages = [];
+    private $mMessages, $pMessages, $tMessages = [];
+    private $pTick, $tTick = 1;
+    private $mI, $pI, $tI = 0;
     
     //To dev: m = main, p = popup, t = tip :) Shortcuts!
     
     public function __construct(BroadcastModule $vote, $st = []){
         $this->broadcast = $vote;
-        $this->mDiff = $st["mainDiff"];
+        $this->mDiff = $st["mDiff"];
         $this->pDiff = $st["pDiff"];
         $this->tDiff = $st["tDiff"];
         $this->pDur = $st["pDur"];
         $this->tDur = $st["tDur"];
-        $this->messages = $st["messages"];
+        $this->mMessages = $st["mMessages"];
+        $this->pMessages = $st["pMessages"];
+        $this->tMessages = $st["tMessages"];
         foreach($st as $key => $value){
-            if(in_array($key, array("enableBroadcast", "enablePopup", "enableTip"))){   
+            if(in_array($key, array("enableM", "enableP", "enableT"))){   
                 if(isset($value)){
                     $this->$key = true;
                     //unset($st[$key]);
                 }
             }
         }
-        $this->i = 0;
     }
     
-    public function onRun($tick){
-        if(empty($this->mLast)){
-            //Maybe checking mainLastTick is enough to prove the starts of BroadcastTask
+    public function onRun($xtick){ //I'm not going to use $xtick
+        if(empty($this->tick)){
+            $tick = 1;
             $this->mLast = $tick;
             $this->pLast = $tick;
             $this->tLast = $tick;
+        }else{
+            $tick = $this->tick;
         }
         if($this->enableM){
             //M = Main Broadcast
             $diff = $tick - $this->mLast;
-            if($diff >= $this->tickDiff && $this->enableBroadcast){
-                $this->broadcast->broadcast($this->msg[$this->i]);
-                $this->i++;
-                if($this->i >= count($this->messages)){
+            echo "tick: ".$tick."/mLast: ".$this->mLast."/diff: ".$diff."/mDiff: ".$this->mDiff."\n";
+            if($diff >= $this->mDiff){
+                $this->broadcast->broadcast($this->mMessages[$this->mI]);
+                $this->mI++;
+                if($this->i >= count($this->mMessages)){
                     $this->i = 0;
                 }
+                $this->mLast = $tick;
             }
         }
         if($this->enableP){
             //P = Popup Broadcast
-            if($diff >= $this->pDiff && $this->enablePopup){
-                if($this->inPopup){
-                    $this->broadcast->broadcastPopup($this->msg[$this->i]);
+            $diff = $tick - $this->pLast;
+            if($diff >= $this->pDiff){
+                if($this->pTick < $this->pDur){
+                    $this->broadcast->broadcastPopup($this->pMessages[$this->pI]);
+                    $this->pTick++;
                 }else{
-                    $this->pi++;
-                    if($this->pi >= count($this->messages)){
-                        $this->pi = 0;
+                    $this->pI++;
+                    if($this->pI >= count($this->pMessages)){
+                        $this->pI = 0;
                     }
+                    $this->pTick = 1;
+                    $this->pLast = $tick;
                 }
             }
         }
+        if($this->enableT){
+            //T = Tip Broadcast
+            $diff = $tick - $this->tLast;
+            if($diff >= $this->tDiff){
+                if($this->tTick < $this->tDur){
+                    $this->broadcast->broadcastTip($this->tMessages[$this->tI]);
+                    $this->tTick++;
+                }else{
+                    $this->tI++;
+                    if($this->tI >= count($this->tMessages)){
+                        $this->tI = 0;
+                    }
+                    $this->tTick = 1;
+                    $this->tLast = $tick;
+                }
+            }
+        }
+        $this->tick++;
     }
 }

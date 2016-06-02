@@ -57,7 +57,7 @@ class Plugswork extends PluginBase{
             $this->getConfig()->set("console-language", $lang);
             $this->getConfig()->save();
         }
-        new PwLang($this, $data[2]);
+        new PwLang($this, $data[2], "H:i:s"); //TODO Customized Time Date Format
         if(empty($data[0]) || $data[0] == "steve-xxxxx"){
             echo "- [Plugswork] ".PwLang::cTranslate("main.enterServerID")."\n";
             $data[0] = $this->readCommand();

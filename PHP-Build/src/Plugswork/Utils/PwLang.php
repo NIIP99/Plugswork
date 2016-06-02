@@ -15,8 +15,7 @@ use pocketmine\utils\Config;
 
 class PwLang{
     
-    private static $messages;
-    private static $cMessages;
+    private static $plugin, $maxP, $messages, $cMessages;
     private static $format = "H:i:s";
     
     public function __construct($plugin, $lang, $format){
@@ -29,8 +28,9 @@ class PwLang{
             $plugin->saveResource("lang-".$lang.".yml");
             self::$cMessages = new Config($plugin->getDataFolder()."lang-".$lang.".yml", Config::YAML);
         }
-        $this->plugin = $plugin;
-        $this->format = $format;
+        self::$plugin = $plugin;
+        self::$maxP = $plugin->getServer()->getMaxPlayers();
+        self::$format = $format;
     }
     
     public static function loadUserMessages($rawMessages){
@@ -78,24 +78,21 @@ class PwLang{
         );
     }
     
-    public static function translateConstant($msg){
-        str_replace(
+    public static function translateConstant($msg, $name){
+        return str_replace(
             array(
-                "{USERNAME}",
-                "{NICKNAME}",
+                "{PLAYER}",
                 "{TIME}",
                 "{TOTALPLAYERS}",
                 "{MAXPLAYERS}"
             ),
             array(
-                $p->getName(),
-                $p->getDisplayName(),
-                date($this->format),
+                $name,
+                date(self::$format),
                 count(self::$plugin->getServer()->getOnlinePlayers()),
-                self::$plugin->getServer()->getMaxPlayers()
+                self::$maxP
             ),
             $msg
         );
-        return $msg;
     }
 }
