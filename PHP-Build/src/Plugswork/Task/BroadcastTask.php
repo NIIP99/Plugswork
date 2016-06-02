@@ -31,16 +31,31 @@ class BroadcastTask extends Task{
         $this->tDiff = $st["tDiff"];
         $this->pDur = $st["pDur"];
         $this->tDur = $st["tDur"];
-        $this->mMessages = $st["mMessages"];
-        $this->pMessages = $st["pMessages"];
-        $this->tMessages = $st["tMessages"];
         foreach($st as $key => $value){
             if(in_array($key, array("enableM", "enableP", "enableT"))){   
                 if(isset($value)){
                     $this->$key = true;
                     //unset($st[$key]);
+                }else{
+                    $this->$key = false;
                 }
             }
+        }
+        //If users don't give any messages, handle it as disable
+        if(isset($st["mMessages"])){
+            $this->mMessages = $st["mMessages"];
+        }else{
+            $this->enableM = false;
+        }
+        if(isset($st["pMessages"])){
+            $this->pMessages = $st["pMessages"];
+        }else{
+            $this->enableP = false;
+        }
+        if(isset($st["tMessages"])){
+            $this->tMessages = $st["tMessages"];
+        }else{
+            $this->enableT = false;
         }
     }
     
@@ -50,13 +65,13 @@ class BroadcastTask extends Task{
             $this->mLast = $tick;
             $this->pLast = $tick;
             $this->tLast = $tick;
+            $this->tick = $tick;
         }else{
             $tick = $this->tick;
         }
         if($this->enableM){
             //M = Main Broadcast
             $diff = $tick - $this->mLast;
-            echo "tick: ".$tick."/mLast: ".$this->mLast."/diff: ".$diff."/mDiff: ".$this->mDiff."\n";
             if($diff >= $this->mDiff){
                 $this->broadcast->broadcast($this->mMessages[$this->mI]);
                 $this->mI++;

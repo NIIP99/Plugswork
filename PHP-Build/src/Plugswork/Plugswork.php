@@ -39,7 +39,7 @@ class Plugswork extends PluginBase{
     
     public function onEnable(){
         //Plugswork Version v2.php.bleed
-        define("PLUGSWORK_VERSION", 2);
+        define("PLUGSWORK_VERSION", "2.php.bleed");
         new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
@@ -103,6 +103,10 @@ class Plugswork extends PluginBase{
             }
         }
         $this->loadCommand();
+        $update = "";
+        if($PwData["newVer"] != PLUGSWORK_VERSION){ //Well, former checkUpdate is planned in PwTools Class
+            $update = "  &e".PwLang::cTranslate("main.updateAvailable")."\n";
+        }
         $this->getLogger()->info(
                 PwLang::translateColor(
                 "\n".
@@ -114,7 +118,8 @@ class Plugswork extends PluginBase{
                 "&6                 |___/                              \n".
                 "&b  Plugswork Version:&f v".PLUGSWORK_VERSION.".php\n".
                 "&3  (c) 2016 All rights reserved, Plugswork.\n".
-                "&6  ".PwLang::cTranslate("main.donateNote")."\n"
+                "&6  ".PwLang::cTranslate("main.donateNote")."\n".
+                $update
                 )
         );
     }
