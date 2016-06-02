@@ -15,7 +15,7 @@ before_script:
 - mv PHP-Build Plugswork
 - cd ..
 - mv Plugswork plugins
-- wget -O plugins/DevTools.phar https://github.com/PocketMine/DevTools/releases/download/v1.11.0/DevTools_v1.11.0.phar
+#- wget -O plugins/DevTools.phar https://github.com/PocketMine/DevTools/releases/download/v1.11.0/DevTools_v1.11.0.phar
 #- cd ..
 - git clone https://github.com/ImagicalCorp/ImagicalMine
 - cd ImagicalMine
