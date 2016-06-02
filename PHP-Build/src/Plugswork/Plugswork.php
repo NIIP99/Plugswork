@@ -17,6 +17,7 @@ use pocketmine\utils\Utils;
 use Plugswork\Command\PwCommand;
 use Plugswork\Command\VoteCommand;
 //use Plugswork\Module\AuthModule;
+use Plugswork\Module\BroadcastModule;
 use Plugswork\Module\ChatModule;
 use Plugswork\Module\VoteModule;
 use Plugswork\Provider\MySQLProvider;
@@ -71,6 +72,7 @@ class Plugswork extends PluginBase{
         }
         $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()), $this->getDataFolder());
         //$this->auth = new AuthModule($this);
+        $this->broadcast = new BroadcastModule($this);
         $this->chat = new ChatModule($this);
         $this->vote = new VoteModule($this);
         if(!is_array($PwData = $this->api->open())){
@@ -165,6 +167,7 @@ class Plugswork extends PluginBase{
     public function loadSettings($data){
         //Load the settings
         PwLang::loadUserMessages($data["message_settings"]);
+        $this->broadcast->load($data["broadcast_settings"]);
         $this->chat->load($data["chat_settings"]);
         $this->vote->load($data["vote_settings"]);
     }

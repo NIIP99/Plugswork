@@ -12,6 +12,7 @@
 namespace Plugswork\Module;
 
 use Plugswork\Plugswork;
+use Plugswork\Task\BroadcastTask;
 
 class BroadcastModule{
     
@@ -28,10 +29,11 @@ class BroadcastModule{
         if(isset($st["toConsole"])){
             $this->toConsole = true;
         }
+        $this->plugin->getServer()->getScheduler()->scheduleRepeatingTask(new BroadcastTask($this, $st['popupDur']), 20);
         $this->settings = $st;
     }
     
-    public function broadcast($msg){
+    public function broadcast($msg, $type){
         /*
          * This is intended to make the constant variable {USERNAME}, {NICKNAME} to be worked
          * Please don't change it to broadcastMessage()
