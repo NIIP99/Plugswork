@@ -19,7 +19,7 @@ before_script:
 #- cd ..
 - git clone https://github.com/ImagicalCorp/ImagicalMine
 - cd ImagicalMine
-- cp -r * ../deotern
+- cp -r * ..
 
 # PROJECT BUILDING WITH DEVTOOLS
 script:
