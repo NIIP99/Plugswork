@@ -17,8 +17,9 @@ class PwLang{
     
     private static $messages;
     private static $cMessages;
+    private static $format = "H:i:s";
     
-    public function __construct($plugin, $lang){
+    public function __construct($plugin, $lang, $format){
         if(!is_file($plugin->getDataFolder()."lang-".$lang.".yml")){
             $plugin->saveResource("lang-".$lang.".yml");
         }
@@ -28,6 +29,8 @@ class PwLang{
             $plugin->saveResource("lang-".$lang.".yml");
             self::$cMessages = new Config($plugin->getDataFolder()."lang-".$lang.".yml", Config::YAML);
         }
+        $this->plugin = $plugin;
+        $this->format = $format;
     }
     
     public static function loadUserMessages($rawMessages){
@@ -73,5 +76,26 @@ class PwLang{
             },
             $msg
         );
+    }
+    
+    public static function translateConstant($msg){
+        str_replace(
+            array(
+                "{USERNAME}",
+                "{NICKNAME}",
+                "{TIME}",
+                "{TOTALPLAYERS}",
+                "{MAXPLAYERS}"
+            ),
+            array(
+                $p->getName(),
+                $p->getDisplayName(),
+                date($this->format),
+                count(self::$plugin->getServer()->getOnlinePlayers()),
+                self::$plugin->getServer()->getMaxPlayers()
+            ),
+            $msg
+        );
+        return $msg;
     }
 }

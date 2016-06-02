@@ -32,8 +32,8 @@ class PwAPI{
         return json_decode($result, true);
     }
     
-    public function update(){
-        $this->getURL(self::PROTOCOL."update");
+    public function update($player){
+        $this->getURL(self::PROTOCOL."update?player=".$player);
     }
     
     public function fetchSettings(){

@@ -117,6 +117,10 @@ class Plugswork extends PluginBase{
         );
     }
     
+    public function onDisable(){
+        $this->api->close();
+    }
+    
    private function readCommand(){
         $this->onSetup = true;
 	while($this->command === null){ 

@@ -17,6 +17,7 @@ use Plugswork\Plugswork;
 class PwTiming extends PluginTask{
     
     private $plugin;
+    private $lastMemUse;
     
     public function __construct(Plugswork $plugin){
     	parent::__construct($plugin);
@@ -24,6 +25,14 @@ class PwTiming extends PluginTask{
     }
     
     public function onRun($tick){
-        $this->plugin->api->update();
+        $player = count($this->plugin->getServer()->getOnlinePlayers())."/".$this->plugin->getServer()->getMaxPlayers();
+        /*if(empty($this->lastMemUse)){
+            $memDiff = memory_get_usage();
+        }else{
+            $memDiff = $this->lastMemUse - memory_get_usage();
+        }
+        $memlimit = ini_get('memory_limit');
+        echo $memDiff."/".$memlimit;*/
+        $this->plugin->api->update($player);
     }
 }

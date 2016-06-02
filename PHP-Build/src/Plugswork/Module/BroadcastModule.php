@@ -16,6 +16,7 @@ use Plugswork\Plugswork;
 class BroadcastModule{
     
     private $plugin;
+    private $toConsole = false;
     
     public function __construct(Plugswork $plugin){
         $this->plugin = $plugin;
@@ -24,8 +25,23 @@ class BroadcastModule{
     public function load($rawSettings){
         //Settings handler
         $st = json_decode($rawSettings, true);
-        
+        if(isset($st["toConsole"])){
+            $this->toConsole = true;
+        }
         $this->settings = $st;
     }
     
+    public function broadcast($msg){
+        /*
+         * This is intended to make the constant variable {USERNAME}, {NICKNAME} to be worked
+         * Please don't change it to broadcastMessage()
+         */
+        foreach($this->plugin->getServer()->getOnlinePlayers() as $p){
+            $Tmsg = PwLang::translateConstant(PwLang::translateColor($msg));
+            $p->sendMessage($Tmsg);
+            if($this->toConsole){
+                $this->plugin->info($Tmsg);
+            }
+        }
+    }
 }
