@@ -106,12 +106,8 @@ class Plugswork extends PluginBase{
             }
         }
         $this->loadCommand();
-        $update = "";
-        if($PwData["newVer"] != PLUGSWORK_VERSION){ //Well, will be replaced by hasUpdate()
-            $update = "  &e".PwLang::cTranslate("main.updateAvailable")."\n";
-        }
         $this->getLogger()->info(
-                PwLang::translateColor(
+            PwLang::translateColor(
                 "\n".
                 "&6   ____  _                                    _     \n".
                 "&6  |  _ \| |_   _  __ _ _____      _____  _ __| | __ \n".
@@ -119,12 +115,14 @@ class Plugswork extends PluginBase{
                 "&6  |  __/| | |_| | (_| \__ \\\ V  V / (_) | |  |   <  \n".
                 "&6  |_|   |_|\__,_|\__, |___/ \_/\_/ \___/|_|  |_|\_\ \n".
                 "&6                 |___/                              \n".
-                "&b  Plugswork Version:&f v".PLUGSWORK_VERSION.".php\n".
+                "&b  Plugswork Version:&f v".PLUGSWORK_VERSION."\n".
                 "&3  (c) 2016 All rights reserved, Plugswork.\n".
-                "&6  ".PwLang::cTranslate("main.donateNote")."\n".
-                $update
-                )
+                "&6  ".PwLang::cTranslate("main.donateNote")."\n"
+            )
         );
+        if($PwData["newVer"] != PLUGSWORK_VERSION){ //Well, will be replaced by hasUpdate()
+            echo "  \e[30;48;5;220m".PwLang::cTranslate("main.updateAvailable")."\e[49m\n\n";
+        }
     }
     
     public function onDisable(){

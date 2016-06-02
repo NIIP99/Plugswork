@@ -24,15 +24,14 @@ class PwTools{
     public function checkData(){
         $data = $this->plugin->api->check();
         $update = "";
-        if($data["newVer"] != PLUGSWORK_VERSION){
-            $update = "&eUpdate Available!";
-        }
         echo    "\n".
-                "  \e[97;48;5;214m Plugswork Data Checker\e[49m\n".
-                "  \e[38;5;214;48;5;15m IP: ".$data["ip"]."\e[49m\n".
-                "  \e[38;5;214;48;5;15m Registered: ".$data["reg"]."\e[49m\n".
-                "  \e[38;5;214;48;5;15m Version: ".PLUGSWORK_VERSION."\e[49m\n".
-                $update;
+                "  \e[38;5;208mPlugswork Data Checker\e[49m\n".
+                "  \e[38;5;30mIP: \e[38;5;45m".$data["ip"]."\n".
+                "  \e[38;5;30mRegistered: \e[38;5;45m".$data["reg"]."\n".
+                "  \e[38;5;30mVersion: \e[38;5;45m".PLUGSWORK_VERSION."\n\n";
+        if($data["newVer"] != PLUGSWORK_VERSION){
+            echo "  \e[30;48;5;220m Update Available! ";
+        }
     }
     
     public function hasUpdate($newVer){
