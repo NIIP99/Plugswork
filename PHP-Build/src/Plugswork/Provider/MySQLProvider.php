@@ -24,7 +24,7 @@ class MySQLProvider{
 	}
         $this->database = new \mysqli($options["host"], $options["user"], $options["password"], $options["database"], isset($options["port"]) ? $options["port"] : 3306);
 	if($this->database->connect_error){
-            $this->plugin->getLogger()->error("An error occured while connecting to the MySQL Server:".$this->database->connect_error);
+            $this->plugin->getLogger()->error("An error has occured while connecting to the MySQL Server:".$this->database->connect_error);
             return;
 	}
         //Create default table
