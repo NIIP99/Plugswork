@@ -13,6 +13,7 @@ before_script:
 - echo | pecl install channel://pecl.php.net/yaml-2.0.0RC7
 - cd /home/travis/build/deotern/Plugswork
 - mv PHP-Build Plugswork
+- cp -r tests/TravisTest.php /home/travis/build/deotern/Travis.php
 - cd ..
 - mv Plugswork plugins
 - wget -O plugins/ImagicalDevTools.phar https://github.com/ImagicalCorp/ImagicalMine/releases/download/1/ImagicalDevTools_v1.4.1.phar
@@ -23,7 +24,7 @@ before_script:
 
 # PROJECT BUILDING WITH DEVTOOLS
 script:
-- php tests/TravisTest.php
+- php Travis.php
 
 # UPLOADING TO RELEASES WEBSITE
 after_success:
