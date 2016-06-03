@@ -23,7 +23,7 @@ fclose($pipes[2]);
 
 echo "\n\nReturn value: ". proc_close($server) ."\n";
 */
-$openserver = "./start.sh --no-wizard --disable-readline";
+$openserver = "php src/pocketmine/PocketMine.php --no-wizard --disable-readline";
 $cmd = array("version", "compileplugin Plugswork", "stop");
 
 echo $openserver;
