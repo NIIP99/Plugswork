@@ -24,7 +24,7 @@ fclose($pipes[2]);
 echo "\n\nReturn value: ". proc_close($server) ."\n";
 */
 $openserver = "php src/pocketmine/PocketMine.php --no-wizard --disable-readline";
-$cmd = array("version", "makeserver", "stop");
+$cmd = array("version", "makeplugin Plugswork", "stop");
 
 echo $openserver;
 echo $cmd[0];
