@@ -8,8 +8,8 @@ branches:
 
 # WORKSPACE CONFIGURATION
 before_script:
-- pecl install channel://pecl.php.net/pthreads-3.1.5
-- pecl install channel://pecl.php.net/weakref-0.3.1
+- pecl install channel://pecl.php.net/pthreads-3.1.6
+- pecl install channel://pecl.php.net/weakref-0.3.2
 - echo | pecl install channel://pecl.php.net/yaml-2.0.0RC7
 - cd /home/travis/build/deotern/Plugswork
 - mv PHP-Build Plugswork
