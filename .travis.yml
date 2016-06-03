@@ -8,22 +8,23 @@ branches:
 
 # WORKSPACE CONFIGURATION
 before_script:
+- pecl install channel://pecl.php.net/pthreads-3.1.6
+- pecl install channel://pecl.php.net/weakref-0.3.2
+- echo | pecl install channel://pecl.php.net/yaml-2.0.0RC7
 - cd /home/travis/build/deotern/Plugswork
 - mv PHP-Build Plugswork
+- cp -r tests/TravisTest.php /home/travis/build/deotern/Travis.php
 - cd ..
 - mv Plugswork plugins
-- wget -O plugins/DevTools.phar https://github.com/PocketMine/DevTools/releases/download/v1.11.0/DevTools_v1.11.0.phar
-- cd ..
+- wget -O plugins/ImagicalDevTools.phar https://github.com/ImagicalCorp/ImagicalMine/releases/download/1/ImagicalDevTools_v1.4.1.phar
 - git clone https://github.com/ImagicalCorp/ImagicalMine
 - cd ImagicalMine
-- cp -r * ../deotern
-- pecl install channel://pecl.php.net/pthreads-3.1.5
-- pecl install channel://pecl.php.net/weakref-0.3.1
-- echo | pecl install channel://pecl.php.net/yaml-2.0.0RC7
+- cp -r * ..
+- cd ..
 
 # PROJECT BUILDING WITH DEVTOOLS
 script:
-- php tests/TravisTest.php
+- php Travis.php
 
 # UPLOADING TO RELEASES WEBSITE
 after_success:
@@ -31,9 +32,9 @@ after_success:
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
 - git clone --branch=gh-pages https://github.com/deotern/Plugswork
-- cp /home/travis/build/deotern/plugins/DevTools/Plugswork* /home/travis/build/deotern/Plugswork/Plugswork-$TRAVIS_JOB_ID.phar
-- cp /home/travis/build/deotern/plugins/DevTools/Plugswork /home/travis/build/deotern/Plugswork/service-download/Plugswork.phar
-- cd /home/travis/build/deotern/Plugswork
+- cp /home/travis/build/deotern/plugins/ImagicalDevTools/Plugswork* /home/travis/build/Plugswork/Plugswork-$TRAVIS_JOB_ID.phar
+- cp /home/travis/build/deotern/plugins/ImagicalDevTools/Plugswork /home/travis/build/Plugswork/service-download/Plugswork.phar
+- cd /home/travis/build/Plugswork
 - git add Plugswork-$TRAVIS_JOB_ID.phar
 - git add service-download/Plugswork.phar
 - ls > list.txt
