@@ -75,8 +75,8 @@ class BroadcastTask extends Task{
             if($diff >= $this->mDiff){
                 $this->broadcast->broadcast($this->mMessages[$this->mI]);
                 $this->mI++;
-                if($this->i >= count($this->mMessages)){
-                    $this->i = 0;
+                if($this->mI >= count($this->mMessages)){
+                    $this->mI = 0;
                 }
                 $this->mLast = $tick;
             }
