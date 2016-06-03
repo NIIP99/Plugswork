@@ -23,15 +23,15 @@ fclose($pipes[2]);
 
 echo "\n\nReturn value: ". proc_close($server) ."\n";
 */
-$openserver = "php src/pocketmine/PocketMine.php --no-wizard --disable-readline";
-$cmd = array("version", "makeplugin Plugswork", "stop");
+$openserver = "./start.sh --no-wizard --disable-readline";
+$cmd = array("version", "compileplugin Plugswork", "stop");
 
 echo $openserver;
 echo $cmd[0];
 echo $cmd[1];
 echo $cmd[2];
 
-if(count(glob("plugins/DevTools/Plugswork*.phar")) === 0){
+if(count(glob("plugins/ImagicalDevTools/Plugswork*.phar")) === 0){
 	echo "No Plugswork phar created!\n";
 	exit(1);
 }else{
