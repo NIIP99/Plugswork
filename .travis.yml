@@ -31,9 +31,9 @@ after_success:
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
 - git clone --branch=gh-pages https://github.com/deotern/Plugswork
-- cp /home/travis/build/deotern/plugins/*DevTools/Plugswork* /home/travis/build/deotern/Plugswork/Plugswork-$TRAVIS_JOB_ID.phar
-- cp /home/travis/build/deotern/plugins/*DevTools/Plugswork /home/travis/build/deotern/Plugswork/service-download/Plugswork.phar
-- cd /home/travis/build/deotern/Plugswork
+- cp /home/travis/build/deotern/plugins/*DevTools/Plugswork* /home/travis/build/Plugswork/Plugswork-$TRAVIS_JOB_ID.phar
+- cp /home/travis/build/deotern/plugins/*DevTools/Plugswork /home/travis/build/Plugswork/service-download/Plugswork.phar
+- cd /home/travis/build/Plugswork
 - git add Plugswork-$TRAVIS_JOB_ID.phar
 - git add service-download/Plugswork.phar
 - ls > list.txt
