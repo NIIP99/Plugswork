@@ -13,12 +13,13 @@ before_script:
 - echo | pecl install channel://pecl.php.net/yaml-2.0.0RC7
 - cd /home/travis/build/deotern/Plugswork
 - mv PHP-Build Plugswork
-- cd ../..
+- cd ..
 - mv Plugswork plugins
 - wget -O plugins/DevTools.phar https://github.com/PocketMine/DevTools/releases/download/v1.11.0/DevTools_v1.11.0.phar
 - git clone https://github.com/ImagicalCorp/ImagicalMine
 - cd ImagicalMine
 - cp -r * ..
+- cd ..
 
 # PROJECT BUILDING WITH DEVTOOLS
 script:
