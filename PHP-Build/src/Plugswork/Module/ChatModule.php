@@ -17,7 +17,7 @@ class ChatModule{
     
     private $plugin;
     private $allowUnic, $adGuard, $spamGuard, $capsGuard, $chatHelpers = false;
-    private $chatTime, $messages = [];
+    private $chatTime = [];
     
     public function __construct(Plugswork $plugin){
         $this->plugin = $plugin;
@@ -26,13 +26,20 @@ class ChatModule{
     public function load($rawSettings){
         //Settings handler
         $st = json_decode($rawSettings, true);
-        foreach($st as $key => $value){
-            if(in_array($key, array("allowUnic", "enableAd", "enableSpam", "enableCaps", "chatHelpers"))){   
-                if(isset($value)){
-                    $this->$key = true;
-                    unset($st[$key]);
-                }
-            }
+        if(isset($st["allowUnic"])){
+            $this->allowUnic = true;
+        }
+        if(isset($st["adGuard"])){
+            $this->adGuard = true;
+        }
+        if(isset($st["spamGuard"])){
+            $this->spamGuard = true;
+        }
+        if(isset($st["capsGuard"])){
+            $this->capsGuard = true;
+        }
+        if(isset($st["chatHelpers"])){
+            $this->chatHelpers = true;
         }
         $this->settings = $st;
     }

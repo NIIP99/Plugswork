@@ -1,27 +1,25 @@
 ---
-# Russian language file - {%RUSSIAN_LANG_FILE}
-# (c) 2016 All right reserved, Plugswork.
-# Thanks to @UltimateMcraft for the Russian Translation
-
+# Russian Language File
+# (c) 2016 All rights reserved, Plugswork.
+# Thanks to @UltimateMcraft for the Russian translation!
 version: 1.0
 lang: ru
 main:
-  selectConsoleLang: "Please select console language. [en/cn]"
-  enterServerID: "Please enter the Server ID."
-  enterSecretKey: "Please enter the Secret Key."
-  pwTerms: "By using this plugin, you agree to Plugswork Terms."
-  pwTermsAgree: "Do you accept Plugswork Terms? [y/n]"
-  pwTermsError: "You need to accept Plugswork Terms to use Plugswork Services and Products."
-  invalidProvider: "Invalid provider is selected in config.yml!"
-  donateNote: "Donate to us at (plugswork.com/donate) to support us!"
-  runAsPlayer: "Please run this command as a player"
-  reloading: "Reloading Settings..."
-  reloadSucessful: "Settings were successfully reloaded"
-  updateAvailable: "New version of Plugswork is out! Check it at Control Panel Download Page!"
+  selectConsoleLang: ". Пожалуйста, выберите язык консоли [EN / CN]"
+  enterServerID: "Пожалуйста, введите идентификатор сервера."
+  enterSecretKey: "Пожалуйста, введите секретный ключ."
+  pwTerms: "С помощью этого плагина, вы соглашаетесь с Plugswork Условия."
+  pwTermsAgree: "Вы принимаете Условия Plugswork [Y / N]?"
+  pwTermsError: "Вы должны принять Plugswork Условия использования Plugswork услуг и продуктов."
+  invalidProvider: "Invalid поставщик выбран в config.yml!"
+  donateNote: "Пожертвуйте нам по телефону (plugswork.com/donate), чтобы поддержать нас!"
+  runAsPlayer: "Пожалуйста, запустите эту команду в качестве игрока"
+  reloading: "перегрузочный Settings ..."
+  reloadSucessful: "Настройки были успешно перезагружена"
 api:
-  openError: "Open API Error Occured!\n ERROR: %0%"
-  emptyDataError: "No Server ID or Secret Key is filled!"
-  serverIDError: "Invalid server ID, please check if you filled in the correct Server ID"
-  sKeyError: "Invalid Secret Key, please check at if you filled in the correct Secret Key."
-  validationError: "We cannot recognize this server, please check if IP, Port, etc is same with the data you filled at the Control Panel."
+  openError: "Ошибка Open API СВЕРШИВШИМСЯ \n %0%"
+  emptyDataError: "Неверный ID сервера или Секретный ключ, пожалуйста, проверьте на панели управления, если вы заполнили в правильном ID и ключ."
+  serverIDError: "Неверный ИД сервера, пожалуйста, проверьте, если вы заполнили в правильном ID сервера"
+  sKeyError: "Invalid Секретный ключ, пожалуйста, проверьте, если вы в заполнены правильно секретный ключ."
+  ValidationError: "Мы не можем распознать этот сервер, пожалуйста, проверьте, если IP, порт и т.д. такое же с данными заполненной на панели управления."
 ...

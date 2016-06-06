@@ -18,6 +18,7 @@ use Plugswork\Module\BroadcastModule;
 class BroadcastTask extends Task{
     
     private $broadcast;
+    private $enableM, $enableP, $enableT = false;
     private $mMessages, $pMessages, $tMessages = [];
     private $pTick, $tTick = 1;
     private $mI, $pI, $tI = 0;
@@ -25,22 +26,24 @@ class BroadcastTask extends Task{
     //To dev: m = main, p = popup, t = tip :) Shortcuts!
     
     public function __construct(BroadcastModule $vote, $st = []){
+        
         $this->broadcast = $vote;
         $this->mDiff = $st["mDiff"];
         $this->pDiff = $st["pDiff"];
         $this->tDiff = $st["tDiff"];
         $this->pDur = $st["pDur"];
         $this->tDur = $st["tDur"];
-        foreach($st as $key => $value){
-            if(in_array($key, array("enableM", "enableP", "enableT"))){   
-                if(isset($value)){
-                    $this->$key = true;
-                    //unset($st[$key]);
-                }else{
-                    $this->$key = false;
-                }
-            }
+        
+        if(isset($st["enableM"])){
+            $this->enableM = true;
         }
+        if(isset($st["enableP"])){
+            $this->enableM = true;
+        }
+        if(isset($st["enableT"])){
+            $this->enableM = true;
+        }
+        
         //If users don't give any messages, handle it as disable
         if(isset($st["mMessages"])){
             $this->mMessages = $st["mMessages"];
