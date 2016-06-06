@@ -17,6 +17,7 @@ class ChatModule{
     
     private $plugin;
     private $allowUnic, $adGuard, $spamGuard, $capsGuard, $chatHelpers = false;
+    private $wordChecker = true;
     private $chatTime = [];
     
     public function __construct(Plugswork $plugin){
@@ -41,6 +42,9 @@ class ChatModule{
         if(isset($st["chatHelpers"])){
             $this->chatHelpers = true;
         }
+        /*if(isset($st["wordChecker"])){
+            $this->wordChecker = true;
+        }*/
         $this->settings = $st;
     }
     
@@ -75,6 +79,15 @@ class ChatModule{
                 $res["action"] = $this->settings["capsAction"];
                 $res["message"] = "chat.capsWarning";
                 return $res;
+            }
+        }
+        if($this->wordChecker){
+            foreach($this->settings["bWords"] as $word){
+                if(strpos($msg, $word) !== false){
+                    $res["action"] = $this->settings["bwAction"];
+                    $res["message"] = "chat.bwWarning";
+                    return $res;
+                }
             }
         }
         if($this->chatHelpers){
