@@ -20,6 +20,7 @@ use Plugswork\Command\VoteCommand;
 //use Plugswork\Module\AuthModule;
 use Plugswork\Module\BroadcastModule;
 use Plugswork\Module\ChatModule;
+use Plugswork\Module\LogModule;
 use Plugswork\Module\VoteModule;
 use Plugswork\Provider\MySQLProvider;
 use Plugswork\Provider\SQLiteProvider;
@@ -36,8 +37,8 @@ class Plugswork extends PluginBase{
     const SUC = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x32\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x61\x20";
     
     public $command = null, $onSetup = false, $ssl;
-    //public $authS, $chatS, $voteS = false;
     public $api;
+    private $unifyLog = false;
     
     public function onEnable(){
         //Plugswork Version v2.php.bleed
@@ -78,6 +79,7 @@ class Plugswork extends PluginBase{
         $this->broadcast = new BroadcastModule($this);
         $this->chat = new ChatModule($this);
         $this->vote = new VoteModule($this);
+        $this->log = new LogModule($this);
         if(!is_array($PwData = $this->api->open())){
             if($PwData == 0){
                 $PwData = "api.emptyDataError";
@@ -124,6 +126,7 @@ class Plugswork extends PluginBase{
         if($PwData["newVer"] != PLUGSWORK_VERSION){ //Well, will be replaced by hasUpdate()
             echo "  \e[30;48;5;220m".PwLang::cTranslate("main.updateAvailable")."\e[49m\n\n";
         }
+        $this->log->write("Server Started!");
     }
     
     public function onDisable(){
@@ -178,5 +181,7 @@ class Plugswork extends PluginBase{
         $this->broadcast->load($data["broadcast_settings"]);
         $this->chat->load($data["chat_settings"]);
         $this->vote->load($data["vote_settings"]);
+        $this->log->load($data["log_settings"]);
     }
+    
 }
