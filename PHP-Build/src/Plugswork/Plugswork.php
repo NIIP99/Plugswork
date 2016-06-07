@@ -123,7 +123,7 @@ class Plugswork extends PluginBase{
                 "&6  ".PwLang::cTranslate("main.donateNote")."\n"
             )
         );
-        if($PwData["newVer"] != PLUGSWORK_VERSION){ //Well, will be replaced by hasUpdate()
+        if($this->tools->hasUpdate($PwData["newVer"])){
             echo "  \e[30;48;5;220m".PwLang::cTranslate("main.updateAvailable")."\e[49m\n\n";
         }
         $this->log->write("Server Started!");
@@ -182,6 +182,7 @@ class Plugswork extends PluginBase{
         $this->chat->load($data["chat_settings"]);
         $this->vote->load($data["vote_settings"]);
         $this->log->load($data["log_settings"]);
+        $this->tools->load($data["main_settings"]);
     }
     
 }

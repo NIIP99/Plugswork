@@ -52,11 +52,13 @@ class PwCommand extends Command implements PluginIdentifiableCommand{
                 if(empty($args[2])){
                     $sender->sendMessage($this->plugin->log->get($args[1]));
                 }else{
-                    $sender->sendMessage($this->plugin->log->get($args[1]), explode("-", $args[2]));
+                    $sender->sendMessage($this->plugin->log->get($args[1], explode("-", $args[2])));
                 }
                 break;
-            case "getwarning":
-                $this->logSubCommand($sender, $args);
+            case "reloadlog":
+                $this->plugin->getLogger()->info(PwLang::cTranslate("log.reloading"));
+                $this->plugin->log->loadCache();
+                $this->plugin->getLogger()->info(PwLang::cTranslate("log.reloadSucessful"));
                 break;
             case "reload":
                 if($sender instanceof Player){
@@ -69,17 +71,6 @@ class PwCommand extends Command implements PluginIdentifiableCommand{
                 break;
         }
         return true;
-    }
-    
-    public function logSubCommand($sd, $args){
-        if($args[1] == "get"){
-            $lines = explode("-", $args[2]);
-            $sd->sendMessage($this->plugin->log->get($lines, $args[3]));
-        }elseif($args[1] == "getwarning"){
-            $sd->sendMessage($this->plugin->log->getWarning($args[3]));
-        }else{
-            
-        }
     }
     
     public function getPlugin(){

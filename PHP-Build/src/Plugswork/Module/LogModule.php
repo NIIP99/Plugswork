@@ -35,10 +35,14 @@ class LogModule{
             $this->unifyLog = false;
         }
         $this->settings = $st;
+        $this->loadCache();
+    }
+    
+    public function loadCache(){
         $types = glob($this->logsFolder."*.{log}", GLOB_BRACE);
         foreach($types as $type){
             $file = new \SplFileObject($type);
-            for($i = 0; $i <= 5; $i++){
+            for($i = 0; $i <= $this->settings["maxCache"]; $i++){
                 echo $file->seek($i);
                 $type = basename($type, ".log");
                 $this->$type[$i + 1] = $file->current();
@@ -61,14 +65,10 @@ class LogModule{
         }elseif($c === 1){
             return $this->$type[$lines[0]];
         }elseif($c === 2){
-            for($i == $lines[0]; $i <= $lines[1]; $i++){
-                $string .= "\n".$this->$type[$i];
+            for($i = $lines[0]; $i <= $lines[1]; $i++){
+                $string .= $this->$type[$i];
             }
             return $string;
         }
-    }
-    
-    public function getWarning($type = null){
-        
     }
 }
