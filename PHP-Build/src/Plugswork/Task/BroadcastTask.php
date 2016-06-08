@@ -21,13 +21,13 @@ class BroadcastTask extends Task{
     private $enableM, $enableP, $enableT = false;
     private $mMessages, $pMessages, $tMessages = [];
     private $pTick, $tTick = 1;
-    private $mI, $pI, $tI = 0;
+    private $mI, $pI, $tI = null;
     
     //To dev: m = main, p = popup, t = tip :) Shortcuts!
     
-    public function __construct(BroadcastModule $vote, $st = []){
+    public function __construct(BroadcastModule $module, $st = []){
         
-        $this->broadcast = $vote;
+        $this->broadcast = $module;
         $this->mDiff = $st["mDiff"];
         $this->pDiff = $st["pDiff"];
         $this->tDiff = $st["tDiff"];
@@ -38,10 +38,10 @@ class BroadcastTask extends Task{
             $this->enableM = true;
         }
         if(isset($st["enableP"])){
-            $this->enableM = true;
+            $this->enableP = true;
         }
         if(isset($st["enableT"])){
-            $this->enableM = true;
+            $this->enableT = true;
         }
         
         //If users don't give any messages, handle it as disable
@@ -76,7 +76,11 @@ class BroadcastTask extends Task{
             //M = Main Broadcast
             $diff = $tick - $this->mLast;
             if($diff >= $this->mDiff){
-                $this->broadcast->broadcast($this->mMessages[$this->mI]);
+                if($this->mI == null){
+                    $this->broadcast->broadcast($this->mMessages[0]);
+                }else{
+                    $this->broadcast->broadcast($this->mMessages[$this->mI]);
+                }
                 $this->mI++;
                 if($this->mI >= count($this->mMessages)){
                     $this->mI = 0;
@@ -89,7 +93,11 @@ class BroadcastTask extends Task{
             $diff = $tick - $this->pLast;
             if($diff >= $this->pDiff){
                 if($this->pTick < $this->pDur){
-                    $this->broadcast->broadcastPopup($this->pMessages[$this->pI]);
+                    if($this->pI == null){
+                        $this->broadcast->broadcastPopup($this->pMessages[0]);
+                    }else{
+                        $this->broadcast->broadcastPopup($this->pMessages[$this->pI]);
+                    }
                     $this->pTick++;
                 }else{
                     $this->pI++;

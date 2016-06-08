@@ -47,10 +47,10 @@ class PwLang{
     //Translate user messages, uses message editor data
     public static function translate($key){
         $keys = explode(".", $key);
-        if(empty($msg = self::$messages[$keys[0]][$keys[1]])){
-            return $key;
+        if(isset(self::$messages[$keys[0]][$keys[1]])){
+            return self::$messages[$keys[0]][$keys[1]];
         }else{
-            return $msg;
+            return $key;
         }
     }
     

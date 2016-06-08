@@ -43,18 +43,19 @@ class PwListener implements Listener{
     }
     
     public function onDataPacket(DataPacketReceiveEvent $e){
-        $pk = $e->getPacket();
+        //EXPERIMENTAL Please don't ever use this hack... Not implemented yet...
+        /*$pk = $e->getPacket();
         if($pk->pid() != ProtocolInfo::LOGIN_PACKET){
             return;
         }
         if($this->enableUniversal){
-            if($pk->protocol1 != ProtocolInfo::CURRENT_PROTOCOL){ //EXPERIMENTAL Please don't ever use this hack...
+            if($pk->protocol1 != ProtocolInfo::CURRENT_PROTOCOL){
                 if(in_array($pk->protocol1, $this->acceptedProtocol)){
                     $pk->protocol1 = ProtocolInfo::CURRENT_PROTOCOL;
                     $this->plugin->log->write($pk->username." protocol is overwritten to current protocol!", true);
                 }
             }
-        }
+        }*/
     }
     
     public function onPlayerJoin(PlayerJoinEvent $e){
@@ -66,6 +67,9 @@ class PwListener implements Listener{
     
     public function onPlayerChat(PlayerChatEvent $e){
         $p = $e->getPlayer();
+        if($p->hasPermission(PwLang::translate("chat.bypassPerm"))){
+            return;
+        }
         $res = $this->plugin->chat->check($p->getName(), $e->getMessage());
         switch($res["action"]){
             case "chat":

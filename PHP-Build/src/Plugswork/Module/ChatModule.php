@@ -27,25 +27,27 @@ class ChatModule{
     public function load($rawSettings){
         //Settings handler
         $st = json_decode($rawSettings, true);
-        if(isset($st["allowUnic"])){
-            $this->allowUnic = true;
+        if(!isset($st["allowUnic"])){
+            $this->allowUnic = false;
         }
-        if(isset($st["adGuard"])){
+        if(isset($st["enableAd"])){
             $this->adGuard = true;
         }
-        if(isset($st["spamGuard"])){
+        if(isset($st["enableSpam"])){
             $this->spamGuard = true;
         }
-        if(isset($st["capsGuard"])){
+        if(isset($st["enableCaps"])){
             $this->capsGuard = true;
         }
-        if(isset($st["chatHelpers"])){
+        if(isset($st["enableHelpers"])){
             $this->chatHelpers = true;
         }
         /*if(isset($st["wordChecker"])){
             $this->wordChecker = true;
         }*/
+        $st["bWords"] = explode(",", $st["bWords"]);
         $this->settings = $st;
+        
     }
     
     public function check($pn, $msg){
@@ -59,6 +61,9 @@ class ChatModule{
         }
         if($this->spamGuard){
             $tick = $this->plugin->getServer()->getTick();
+            if($this->chatTime[$pn] == null){
+                $this->chatTime[$pn] = $tick;
+            }
             if($this->chatTime[$pn] >= $tick){
                 $res["action"] = $this->settings["spamAction"];
                 $res["message"] = "chat.spamWarning";

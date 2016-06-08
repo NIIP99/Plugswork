@@ -15,7 +15,7 @@ namespace Plugswork;
 // But who cares for that 1 sec startup speed? xD
 function loading($s = 1, $l = 0){
     if($l == 0){
-        echo "\n  Loading:      "; 
+        echo "\n  Loading Plugswork:      "; 
     }
     $p = ceil(($s / 10) * 100);
     $lp = ceil(($l / 10) * 100);
@@ -50,8 +50,8 @@ class Plugswork extends PluginBase{
     public $command = null, $onSetup = false, $ssl;
     
     public function onEnable(){
-        //Plugswork Version v3.php
-        define("PLUGSWORK_VERSION", "3.php".self::PLUGSWORK_CODENAME);
+        //Plugswork Version v4.php
+        define("PLUGSWORK_VERSION", "4.php".self::PLUGSWORK_CODENAME);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
         if(!is_file($this->getDataFolder()."config.yml")){
@@ -97,16 +97,16 @@ class Plugswork extends PluginBase{
         loading();
         $this->tools = new PwTools($this);
         loading(2, 1);
-        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()), $this->getDataFolder());
+        $this->log = new LogModule($this);
         loading(3, 2);
-        $this->auth = new AuthModule($this);
+        //$this->auth = new AuthModule($this);
         $this->broadcast = new BroadcastModule($this);
         loading(4, 3);
         $this->chat = new ChatModule($this);
         loading(5, 4);
         $this->vote = new VoteModule($this);
         loading(6, 5);
-        $this->log = new LogModule($this);
+        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()), $this->getDataFolder());
         loading(7, 6);
         if(!is_array($PwData = $this->api->open())){
             if($PwData == 0){
@@ -143,8 +143,9 @@ class Plugswork extends PluginBase{
                 "  ".PwTools::PRIMARY.PwLang::cTranslate("main.donateNote")."\n";
         
         if($this->tools->hasUpdate($PwData["newVer"])){
-            echo "  \e[30;48;5;220m".PwLang::cTranslate("main.updateAvailable")."\e[49m\n\n";
+            echo "  \e[30;48;5;220m".PwLang::cTranslate("main.updateAvailable")."\e[49m\n";
         }
+        echo "\n";
         $this->log->write("Server Started!");
     }
     
