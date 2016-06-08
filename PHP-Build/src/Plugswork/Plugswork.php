@@ -43,7 +43,6 @@ class Plugswork extends PluginBase{
     public function onEnable(){
         //Plugswork Version v2.php.bleed
         define("PLUGSWORK_VERSION", "3.php.bleed");
-        new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
         if(!is_file($this->getDataFolder()."config.yml")){
@@ -95,6 +94,7 @@ class Plugswork extends PluginBase{
             $this->getServer()->getPluginManager()->disablePlugin($this);
             return false;
         }
+        new PwListener($this, $PwData["main_settings"]);
         $this->loadSettings($PwData);
         if($firstRun){
             echo "\n  ".PwLang::cTranslate("main.pwTerms")."\n".

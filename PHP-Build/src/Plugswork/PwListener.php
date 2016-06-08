@@ -16,16 +16,22 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\server\ServerCommandEvent;
+use pocketmine\event\server\DataPacketReceiveEvent;
 
 use Plugswork\Utils\PwLang;
 
 class PwListener implements Listener{
     
     private $plugin;
+    private $enableUniversal = false;
     
-    public function __construct(Plugswork $plugin){
+    public function __construct(Plugswork $plugin, $rawSettings){
 	Server::getInstance()->getPluginManager()->registerEvents($this, $plugin);
         $this->plugin = $plugin;
+        $st = json_decode($rawSettings, true);
+        if(isset($st["enableUniversal"])){
+            $this->enableUniversal = true;
+        }
     }
     
     public function onCommand(ServerCommandEvent $e){
@@ -33,6 +39,21 @@ class PwListener implements Listener{
             $this->plugin->command = $e->getCommand();
             $e->setCommand("");
             $e->setCancelled();
+        }
+    }
+    
+    public function onDataPacket(DataPacketReceiveEvent $e){
+        $pk = $e->getPacket();
+        if($pk->pid() != ProtocolInfo::LOGIN_PACKET){
+            return;
+        }
+        if($this->enableUniversal){
+            if($pk->protocol1 != ProtocolInfo::CURRENT_PROTOCOL){ //EXPERIMENTAL Please don't ever use this hack...
+                if(in_array($pk->protocol1, $this->acceptedProtocol)){
+                    $pk->protocol1 = ProtocolInfo::CURRENT_PROTOCOL;
+                    $this->plugin->log->write($pk->username." protocol is overwritten to current protocol!", true);
+                }
+            }
         }
     }
     

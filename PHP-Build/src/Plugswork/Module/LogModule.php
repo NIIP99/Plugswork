@@ -16,7 +16,7 @@ use Plugswork\Plugswork;
 class LogModule{
     
     private $plugin;
-    private $logsFolder, $unifyLog;
+    private $enableLog, $logsFolder, $unifyLog;
     
     public function __construct(Plugswork $plugin){
         $this->plugin = $plugin;
@@ -34,6 +34,11 @@ class LogModule{
         }else{
             $this->unifyLog = false;
         }
+        if(isset($st["enableLog"])){
+            $this->enableLog = true;
+        }else{
+            $this->enableLog = false;
+        }
         $this->settings = $st;
         $this->loadCache();
     }
@@ -50,11 +55,17 @@ class LogModule{
         }
     }
     
-    public function write($log, $type = null){
-        if($this->unifyLog || $type == null){
-            file_put_contents($this->logsFolder."main.log", date("[Y-m-d H:i:s] ").$log."\n", FILE_APPEND);
-        }else{
-            file_put_contents($this->logsFolder.$type.".log", date("[Y-m-d H:i:s] ").$log."\n", FILE_APPEND);
+    public function write($log, $warning = false, $type = null){
+        if($this->enableLog){
+            $warn = "";
+            if($warning){
+                $warn = "[!] ";
+            }
+            if($this->unifyLog || $type == null){
+                file_put_contents($this->logsFolder."main.log", $warn.date("[Y-m-d H:i:s] ").$log."\n", FILE_APPEND);
+            }else{
+                file_put_contents($this->logsFolder.$type.".log", $warn.date("[Y-m-d H:i:s] ").$log."\n", FILE_APPEND);
+            }
         }
     }
     

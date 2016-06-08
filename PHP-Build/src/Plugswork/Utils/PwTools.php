@@ -36,16 +36,16 @@ class PwTools{
                 "  \e[38;5;208mPlugswork Data Checker\e[49m\n".
                 "  \e[38;5;30mIP: \e[38;5;45m".$data["ip"]."\n".
                 "  \e[38;5;30mRegistered: \e[38;5;45m".$data["reg"]."\n".
-                "  \e[38;5;30mVersion: \e[38;5;45m".PLUGSWORK_VERSION."\n\n";
+                "  \e[38;5;30mVersion: \e[38;5;45m".PLUGSWORK_VERSION."\n";
         if($this->hasUpdate($data["newVer"])){
-            echo "  \e[30;48;5;220m Update Available! ";
+            echo "  \e[30;48;5;220m Update Available! \e[49m\n\n";
         }
     }
     
     public function hasUpdate($newVer){
-        $cV = explode(PLUGSWORK_VERSION);
+        $cV = explode(".", PLUGSWORK_VERSION);
         $nV = explode(".", $newVer);
-        if(nV[0] >= $cV[0]){
+        if($nV[0] > $cV[0]){
             $toBleed = false;
             if(isset($nV[2]) && empty($cV[2])){
                 if($nV[2] == "bleed"){
