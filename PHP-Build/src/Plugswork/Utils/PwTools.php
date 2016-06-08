@@ -15,6 +15,12 @@ namespace Plugswork\Utils;
 
 class PwTools{
     
+    //Constant
+    const PRIMARY = "\e[38;5;214m";
+    const DARK = "\e[38;5;30m";
+    const BRIGHT = "\e[38;5;45m";
+    const RESET = "\e[0;97m";
+    
     private $plugin;
     private $allowBleed = false;
     
@@ -33,13 +39,14 @@ class PwTools{
     public function checkData(){
         $data = $this->plugin->api->check();
         echo    "\n".
-                "  \e[38;5;208mPlugswork Data Checker\e[49m\n".
-                "  \e[38;5;30mIP: \e[38;5;45m".$data["ip"]."\n".
-                "  \e[38;5;30mRegistered: \e[38;5;45m".$data["reg"]."\n".
-                "  \e[38;5;30mVersion: \e[38;5;45m".PLUGSWORK_VERSION."\n";
+                self::PRIMARY."  Plugswork Data Checker\n".
+                self::DARK."  IP: ".self::BRIGHT.$data["ip"]."\n".
+                self::DARK."  Registered: ".self::BRIGHT.$data["reg"]."\n".
+                self::DARK."  Version: ".self::BRIGHT.PLUGSWORK_VERSION."\n";
         if($this->hasUpdate($data["newVer"])){
-            echo "  \e[30;48;5;220m Update Available! \e[49m\n\n";
+            echo "  \e[30;48;5;220m Update Available! \e[49m\n";
         }
+        echo "\n";
     }
     
     public function hasUpdate($newVer){

@@ -11,6 +11,21 @@
 
 namespace Plugswork;
 
+// This loader will decrease startup speed by about 1 to 2 secs
+// But who cares for that 1 sec startup speed? xD
+function loading($s = 1, $l = 0){
+    if($l == 0){
+        echo "\n  Loading:      "; 
+    }
+    $p = ceil(($s / 10) * 100);
+    $lp = ceil(($l / 10) * 100);
+    for($i = $lp ; $i <= $p ; $i++){
+        echo "\033[5D";      
+        echo str_pad($i, 3, " ", STR_PAD_LEFT)." %";
+        usleep(10000); //Yes, this is intended for animation! :P
+    }
+}
+
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Utils;
 
@@ -31,18 +46,12 @@ use Plugswork\Utils\PwTools;
 
 class Plugswork extends PluginBase{
     
-    //Constant
-    const ERR = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x34\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x63\x20";
-    const ALR = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x36\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x65\x20";
-    const SUC = "\xc3\x82\xc2\xa7\x6c\xc3\x82\xc2\xa7\x32\xc3\x82\xc2\xbb\xc3\x82\xc2\xa7\x72\xc3\x82\xc2\xa7\x61\x20";
-    
+    const PLUGSWORK_CODENAME = ".bleed";
     public $command = null, $onSetup = false, $ssl;
-    public $api;
-    private $unifyLog = false;
     
     public function onEnable(){
-        //Plugswork Version v2.php.bleed
-        define("PLUGSWORK_VERSION", "3.php.bleed");
+        //Plugswork Version v3.php
+        define("PLUGSWORK_VERSION", "3.php".self::PLUGSWORK_CODENAME);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
         if(!is_file($this->getDataFolder()."config.yml")){
@@ -72,30 +81,6 @@ class Plugswork extends PluginBase{
             $this->getConfig()->set("secret-key", $data[1]);
             $this->getConfig()->save();
         }
-        $this->tools = new PwTools($this);
-        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()), $this->getDataFolder());
-        //$this->auth = new AuthModule($this);
-        $this->broadcast = new BroadcastModule($this);
-        $this->chat = new ChatModule($this);
-        $this->vote = new VoteModule($this);
-        $this->log = new LogModule($this);
-        if(!is_array($PwData = $this->api->open())){
-            if($PwData == 0){
-                $PwData = "api.emptyDataError";
-            }elseif($PwData == 1){
-                $PwData = "api.serverIDError";
-            }elseif($PwData == 2){
-                $PwData = "api.sKeyError";
-            }elseif($PwData == 3){
-                $PwData = "api.validationError";
-            }
-            echo "- [Plugswork] ".PwLang::cTranslate("api.openError", [$PwData])."\n";
-            $this->tools->checkData();
-            $this->getServer()->getPluginManager()->disablePlugin($this);
-            return false;
-        }
-        new PwListener($this, $PwData["main_settings"]);
-        $this->loadSettings($PwData);
         if($firstRun){
             echo "\n  ".PwLang::cTranslate("main.pwTerms")."\n".
                  "  Plugswork Terms (https://plugswork.com/terms)".
@@ -108,21 +93,55 @@ class Plugswork extends PluginBase{
                 return false;
             }
         }
+        
+        loading();
+        $this->tools = new PwTools($this);
+        loading(2, 1);
+        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()), $this->getDataFolder());
+        loading(3, 2);
+        $this->auth = new AuthModule($this);
+        $this->broadcast = new BroadcastModule($this);
+        loading(4, 3);
+        $this->chat = new ChatModule($this);
+        loading(5, 4);
+        $this->vote = new VoteModule($this);
+        loading(6, 5);
+        $this->log = new LogModule($this);
+        loading(7, 6);
+        if(!is_array($PwData = $this->api->open())){
+            if($PwData == 0){
+                $PwData = "api.emptyDataError";
+            }elseif($PwData == 1){
+                $PwData = "api.serverIDError";
+            }elseif($PwData == 2){
+                $PwData = "api.sKeyError";
+            }elseif($PwData == 3){
+                $PwData = "api.validationError";
+            }
+            echo "\n- [Plugswork] ".PwLang::cTranslate("api.openError", [$PwData])."\n";
+            $this->tools->checkData();
+            $this->getServer()->getPluginManager()->disablePlugin($this);
+            return false;
+        }
+        new PwListener($this, $PwData["main_settings"]);
+        loading(8, 7);
+        $this->loadSettings($PwData);
+        loading(9, 8);
         $this->loadCommand();
-        $this->getLogger()->info(
-            PwLang::translateColor(
+        loading(10, 9);
+        
+        echo
                 "\n".
-                "&6   ____  _                                    _     \n".
-                "&6  |  _ \| |_   _  __ _ _____      _____  _ __| | __ \n".
-                "&6  | |_) | | | | |/ _` / __\ \ /\ / / _ \| '__| |/ / \n".
-                "&6  |  __/| | |_| | (_| \__ \\\ V  V / (_) | |  |   <  \n".
-                "&6  |_|   |_|\__,_|\__, |___/ \_/\_/ \___/|_|  |_|\_\ \n".
-                "&6                 |___/                              \n".
-                "&b  Plugswork Version:&f v".PLUGSWORK_VERSION."\n".
-                "&3  (c) 2016 All rights reserved, Plugswork.\n".
-                "&6  ".PwLang::cTranslate("main.donateNote")."\n"
-            )
-        );
+                PwTools::PRIMARY."   ____  _                                    _     \n".
+                "  |  _ \| |_   _  __ _ _____      _____  _ __| | __ \n".
+                "  | |_) | | | | |/ _` / __\ \ /\ / / _ \| '__| |/ / \n".
+                "  |  __/| | |_| | (_| \__ \\\ V  V / (_) | |  |   <  \n".
+                "  |_|   |_|\__,_|\__, |___/ \_/\_/ \___/|_|  |_|\_\ \n".
+                "                 |___/                              \n".
+                PwTools::DARK."  Plugswork Version:".PwTools::RESET." v".PLUGSWORK_VERSION."\n".
+                PwTools::BRIGHT."  (c) 2016 All rights reserved, Plugswork.\n".
+                "  ".PwTools::PRIMARY.PwLang::cTranslate("main.donateNote")."\n";
+        
         if($this->tools->hasUpdate($PwData["newVer"])){
             echo "  \e[30;48;5;220m".PwLang::cTranslate("main.updateAvailable")."\e[49m\n\n";
         }
