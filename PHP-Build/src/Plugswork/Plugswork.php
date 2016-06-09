@@ -13,7 +13,8 @@ namespace Plugswork;
 
 // This loader will decrease startup speed by about 1 to 2 secs
 // But who cares for that 1 sec startup speed? xD
-function loading($s = 1, $l = 0){
+function loading($s = 1){
+    $l = $s--;
     if($l == 0){
         echo "\n  Loading Plugswork:      "; 
     }
@@ -98,18 +99,18 @@ class Plugswork extends PluginBase{
         
         loading();
         $this->tools = new PwTools($this);
-        loading(2, 1);
+        loading(2);
         $this->log = new LogModule($this);
-        loading(3, 2);
+        loading(3);
         //$this->auth = new AuthModule($this);
         $this->broadcast = new BroadcastModule($this);
-        loading(4, 3);
+        loading(4);
         $this->chat = new ChatModule($this);
-        loading(5, 4);
+        loading(5);
         $this->vote = new VoteModule($this);
-        loading(6, 5);
+        loading(6);
         $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()), $this->getDataFolder());
-        loading(7, 6);
+        loading(7);
         if(!is_array($PwData = $this->api->open())){
             if($PwData == 0){
                 $PwData = "api.emptyDataError";
@@ -125,11 +126,11 @@ class Plugswork extends PluginBase{
             $this->getServer()->getPluginManager()->disablePlugin($this);
             return false;
         }
-        loading(8, 7);
+        loading(8);
         $this->loadSettings($PwData);
-        loading(9, 8);
+        loading(9);
         $this->loadCommand();
-        loading(10, 9);
+        loading(10);
         
         echo
                 "\n".
@@ -205,7 +206,7 @@ class Plugswork extends PluginBase{
         $this->chat->load($data["chat_settings"]);
         $this->vote->load($data["vote_settings"]);
         $this->log->load($data["log_settings"]);
-        $this->tools->load($data["main_settings"]);
+        $this->tools->load($data["main_settings"], $data["permission_settings"]);
     }
     
     public static function getInstance(){
