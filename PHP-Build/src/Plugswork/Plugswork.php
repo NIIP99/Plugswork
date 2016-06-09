@@ -47,6 +47,7 @@ use Plugswork\Utils\PwTools;
 class Plugswork extends PluginBase{
     
     const PLUGSWORK_CODENAME = ".bleed";
+    private static $instance = null;
     public $command = null, $onSetup = false, $ssl;
     
     public function onEnable(){
@@ -147,13 +148,14 @@ class Plugswork extends PluginBase{
         }
         echo "\n";
         $this->log->write("Server Started!");
+	self::$instance = $this;
     }
     
     public function onDisable(){
         $this->api->close();
     }
     
-   private function readCommand(){
+    private function readCommand(){
         $this->onSetup = true;
 	while($this->command === null){ 
             $this->getServer()->checkConsole();
@@ -204,6 +206,10 @@ class Plugswork extends PluginBase{
         $this->vote->load($data["vote_settings"]);
         $this->log->load($data["log_settings"]);
         $this->tools->load($data["main_settings"]);
+    }
+    
+    public static function getInstance(){
+        return self::$instance;
     }
     
 }
