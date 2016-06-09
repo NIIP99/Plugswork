@@ -1,8 +1,10 @@
 ####6.php.bleed (4.php.bleed Patch II)
 [NEW]
 - getInstance for developer
+
 [IMPROVEMENTS]
 - Improved /bc broadcast command
+
 [FIXES]
 - Fix typo caused settings unable to load
 
