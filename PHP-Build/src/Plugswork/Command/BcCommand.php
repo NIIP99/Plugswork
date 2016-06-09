@@ -26,7 +26,7 @@ class BcCommand extends Command implements PluginIdentifiableCommand{
     }
     
     public function execute(CommandSender $sender, $alias, array $args){
-        if(!$sender->hasPermission(PwLang::translate("broadcast.commandPerm"))){
+        if(!$sender->hasPermission($this->plugin->tools->getPerm("broadcast.commandPerm"))){
             $sender->sendMessage(PwLang::translate("cmd.noPerm"));
             return false;
         }

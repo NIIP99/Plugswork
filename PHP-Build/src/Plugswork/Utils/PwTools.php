@@ -29,17 +29,17 @@ class PwTools{
         $this->plugin = $plugin;
     }
     
-    public function load($rawSettings, $permNodes){
+    public function load($rawSettings){
         //Settings handler
-        $pn = json_decode($permNodes, true);
+        //$pn = json_decode($permNodes, true);
         $st = json_decode($rawSettings, true);
         if(isset($st["allowBleed"])){
             $this->allowBleed = true;
         }
-        foreach($pn as $key => $node){
+        /*foreach($pn as $key => $node){
             $key = str_replace("-", ".",$key);
             $this->permNodes[$key] = $node;
-        }
+        }*/
     }
     
     public function checkData(){
@@ -78,10 +78,11 @@ class PwTools{
     }
     
     public function getPerm($key){
-        if(isset($this->permNodes[$key])){
+        return $key;
+        /*if(isset($this->permNodes[$key])){
             return $this->permNodes[$key];
         }else{
             return $key;
-        }
+        }*/
     }
 }

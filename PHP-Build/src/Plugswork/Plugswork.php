@@ -14,12 +14,12 @@ namespace Plugswork;
 // This loader will decrease startup speed by about 1 to 2 secs
 // But who cares for that 1 sec startup speed? xD
 function loading($s = 1){
-    $l = $s--;
+    $l = $s - 1;
     if($l == 0){
         echo "\n  Loading Plugswork:      "; 
     }
-    $p = ceil(($s / 10) * 100);
-    $lp = ceil(($l / 10) * 100);
+    $p = ceil(($s / 11) * 100);
+    $lp = ceil(($l / 11) * 100);
     for($i = $lp ; $i <= $p ; $i++){
         echo "\033[5D";      
         echo str_pad($i, 3, " ", STR_PAD_LEFT)." %";
@@ -52,8 +52,8 @@ class Plugswork extends PluginBase{
     public $command = null, $onSetup = false, $ssl;
     
     public function onEnable(){
-        //Plugswork Version v5.php
-        define("PLUGSWORK_VERSION", "5.php".self::PLUGSWORK_CODENAME);
+        //Plugswork Version v6.php
+        define("PLUGSWORK_VERSION", "6.php".self::PLUGSWORK_CODENAME);
         $this->listener = new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
@@ -103,14 +103,15 @@ class Plugswork extends PluginBase{
         $this->log = new LogModule($this);
         loading(3);
         //$this->auth = new AuthModule($this);
-        $this->broadcast = new BroadcastModule($this);
         loading(4);
-        $this->chat = new ChatModule($this);
+        $this->broadcast = new BroadcastModule($this);
         loading(5);
-        $this->vote = new VoteModule($this);
+        $this->chat = new ChatModule($this);
         loading(6);
-        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()), $this->getDataFolder());
+        $this->vote = new VoteModule($this);
         loading(7);
+        $this->api = new PwAPI($data[0], $data[1], md5(Utils::getIP().$this->getServer()->getPort().Utils::getOS()), $this->getDataFolder());
+        loading(8);
         if(!is_array($PwData = $this->api->open())){
             if($PwData == 0){
                 $PwData = "api.emptyDataError";
@@ -126,11 +127,11 @@ class Plugswork extends PluginBase{
             $this->getServer()->getPluginManager()->disablePlugin($this);
             return false;
         }
-        loading(8);
-        $this->loadSettings($PwData);
         loading(9);
-        $this->loadCommand();
+        $this->loadSettings($PwData);
         loading(10);
+        $this->loadCommand();
+        loading(11);
         
         echo
                 "\n".
@@ -201,12 +202,12 @@ class Plugswork extends PluginBase{
     public function loadSettings($data){
         //Load the settings
         PwLang::loadUserMessages($data["message_settings"]);
-        $this->listender->load($data["main_settings"]);
+        $this->listener->load($data["main_settings"]);
         $this->broadcast->load($data["broadcast_settings"]);
         $this->chat->load($data["chat_settings"]);
         $this->vote->load($data["vote_settings"]);
         $this->log->load($data["log_settings"]);
-        $this->tools->load($data["main_settings"], $data["permission_settings"]);
+        $this->tools->load($data["main_settings"]);
     }
     
     public static function getInstance(){
