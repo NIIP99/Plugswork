@@ -25,9 +25,12 @@ class PwListener implements Listener{
     private $plugin;
     private $enableUniversal = false;
     
-    public function __construct(Plugswork $plugin, $rawSettings){
+    public function __construct(Plugswork $plugin){
 	Server::getInstance()->getPluginManager()->registerEvents($this, $plugin);
         $this->plugin = $plugin;
+    }
+    
+    public function load($rawSettings){
         $st = json_decode($rawSettings, true);
         if(isset($st["enableUniversal"])){
             $this->enableUniversal = true;

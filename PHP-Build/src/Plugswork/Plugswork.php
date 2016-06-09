@@ -50,8 +50,9 @@ class Plugswork extends PluginBase{
     public $command = null, $onSetup = false, $ssl;
     
     public function onEnable(){
-        //Plugswork Version v4.php
-        define("PLUGSWORK_VERSION", "4.php".self::PLUGSWORK_CODENAME);
+        //Plugswork Version v5.php
+        define("PLUGSWORK_VERSION", "5.php".self::PLUGSWORK_CODENAME);
+        $this->listener = new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
         if(!is_file($this->getDataFolder()."config.yml")){
@@ -59,7 +60,7 @@ class Plugswork extends PluginBase{
         }
         $data = $this->loadConfig();
         if(empty($data[2]) || $data[2] == "xx"){
-            echo "- [Plugswork] Please select console language.\n\n   (en) => English\n   (cn) => Chinese\n   (ru) => Russian";
+            echo "- [Plugswork] Please select console language.\n\n   (en) => English\n   (cn) => Chinese\n   (ru) => Russian\n";
             $lang = strtolower($this->readCommand());
             if($lang != "cn" && $lang != "ru"){
                 $lang = "en";
@@ -123,7 +124,6 @@ class Plugswork extends PluginBase{
             $this->getServer()->getPluginManager()->disablePlugin($this);
             return false;
         }
-        new PwListener($this, $PwData["main_settings"]);
         loading(8, 7);
         $this->loadSettings($PwData);
         loading(9, 8);
@@ -198,6 +198,7 @@ class Plugswork extends PluginBase{
     public function loadSettings($data){
         //Load the settings
         PwLang::loadUserMessages($data["message_settings"]);
+        $this->listender->load($data["main_settings"]);
         $this->broadcast->load($data["broadcast_settings"]);
         $this->chat->load($data["chat_settings"]);
         $this->vote->load($data["vote_settings"]);

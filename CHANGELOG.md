@@ -1,3 +1,7 @@
+####5.php.bleed (4.php.bleed Patch)
+[FIXES]
+- Fix 'Unkown Command' while registering console language
+
 ####4.php.bleed
 [NEW]
 - LogModule (More Logging Features will be implemented)

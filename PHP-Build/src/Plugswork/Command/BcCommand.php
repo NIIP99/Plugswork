@@ -26,14 +26,25 @@ class BcCommand extends Command implements PluginIdentifiableCommand{
     }
     
     public function execute(CommandSender $sender, $alias, array $args){
-        switch($args[0]){
-            case "sendpopup":
-                
+        if(!$sender->hasPermission(PwLang::translate("broadcast.commandPerm"))){
+            $sender->sendMessage(PwLang::translate("cmd.noPerm"));
+            return false;
+        }
+        $type = $args[0];
+        unset($args[0]);
+        $msg = implode(" ", $args);
+        switch($type){
+            default:
+                $this->plugin->broadcast->broadcast($msg);
                 break;
-            case "sendtip":
-                
+            case "popup":
+                $this->plugin->broadcast->broadcastPopup($msg);
+                break;
+            case "tip":
+                $this->plugin->broadcast->broadcastTip($msg);
                 break;
         }
+        return true;
     }
     
     public function getPlugin(){
