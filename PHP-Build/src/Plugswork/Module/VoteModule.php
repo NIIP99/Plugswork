@@ -61,7 +61,7 @@ class VoteModule{
         }
     }
     
-    private function check($pn){
+    public function check($pn){
         if(isset($this->cache[$pn])){
             if($this->cache[$pn] == 2){
                 return 2;
@@ -72,7 +72,7 @@ class VoteModule{
         return $res;
     }
     
-    private function claim($pn){
+    public function claim($pn){
         $res = file_get_contents("http://minecraftpocket-servers.com/api/?action=post&object=votes&element=claim&key=".$this->key."&username=".$pn);
         if($res == 1){
             $this->cache[$pn] = 2;
@@ -82,7 +82,7 @@ class VoteModule{
         }
     }
     
-    private function reward(Player $p){
+    public function reward(Player $p){
         foreach($this->commands as $cmd){
             PwLang::translateConstant(PwLang::translateColor($cmd));
             $this->getServer()->dispatchCommand(new ConsoleCommandSender(), $cmd);

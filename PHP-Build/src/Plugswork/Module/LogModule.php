@@ -35,7 +35,13 @@ class LogModule{
         }else{
             $this->unifyLog = false;
         }
-        $this->enableLog = $st["enable"];
+        foreach(["main", "chat"] as $type){
+            if(isset($st["enable"][$type])){
+                $this->enableLog[$type] = true;
+            }else{
+                $this->enableLog[$type] = false;
+            }
+        }
         $this->settings = $st;
         $this->loadCache();
     }

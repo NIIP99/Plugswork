@@ -52,8 +52,8 @@ class Plugswork extends PluginBase{
     public $command = null, $onSetup = false, $ssl;
     
     public function onEnable(){
-        //Plugswork Version v7.php
-        define("PLUGSWORK_VERSION", "7.php".self::PLUGSWORK_CODENAME);
+        //Plugswork Version v8.php
+        define("PLUGSWORK_VERSION", "8.php".self::PLUGSWORK_CODENAME);
         $this->listener = new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;

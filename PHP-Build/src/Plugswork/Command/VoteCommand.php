@@ -16,6 +16,8 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
 
+use Plugswork\Utils\PwLang;
+
 class VoteCommand extends Command implements PluginIdentifiableCommand{
     
     private $plugin;
