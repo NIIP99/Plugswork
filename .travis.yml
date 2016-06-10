@@ -22,7 +22,7 @@ script:
 - cp -r PHP-Build ..
 - cd ..
 - chmod 777 Plugswork
-- rm -r Plugswork
+- rm -rf Plugswork
 - mv PHP-Build Plugswork
 - cd Plugswork
 - wget https://raw.githubusercontent.com/keithkfng/Plugswork/master/PHP-Build/resources/config.yml
