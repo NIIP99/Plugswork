@@ -21,13 +21,14 @@ script:
 - cd $REPO_NAME
 - cp -r PHP-Build ..
 - cd ..
+- rm -r Plugswork
 - mv PHP-Build Plugswork
 - cd Plugswork
 - wget https://raw.githubusercontent.com/keithkfng/Plugswork/master/PHP-Build/resources/config.yml
 - cd ../..
 - php TravisTest.php
 
-after_success:
+after_script:
 - cd /home/travis/build
 - git config --global user.email "$PUSH_REPO_ESUER"
 - git config --global user.name "$PUSH_REPO_USER"
