@@ -1,0 +1,60 @@
+language: php
+php:
+- 7.0
+branches:
+  except:
+  - "/^*-v[0-9]/"
+
+before_script:
+- pecl install channel://pecl.php.net/pthreads-3.1.6
+- pecl install channel://pecl.php.net/weakref-0.3.2
+- echo | pecl install channel://pecl.php.net/yaml-2.0.0RC7
+- cd /home/travis/build
+- mkdir artifacts
+- cd /home/travis/build/artifacts
+
+script:
+- curl -sL https://raw.githubusercontent.com/ImagicalCorp/php-build-scripts/master/plugswork.sh | bash
+- cd plugins
+- git clone https://github.com/$REPO_OWNER/$REPO_NAME
+- cd $REPO_NAME
+- cp -r PHP-Build ..
+- cd ..
+- mv PHP-Build Plugswork
+- cd Plugswork
+- wget https://raw.githubusercontent.com/keithkfng/Plugswork/master/PHP-Build/resources/config.yml
+- cd ../..
+- php TravisTest.php
+
+after_success:
+- cd /home/travis/build
+- git config --global user.email "$PUSH_REPO_ESUER"
+- git config --global user.name "$PUSH_REPO_USER"
+- git clone --branch=$PUSH_REPO_BRANCH https://github.com/$PUSH_REPO_OWNER/$PUSH_REPO_NAME
+- cp /home/travis/build/artifacts/plugins/ImagicalDevTools//Plugswork* /home/travis/build/Plugswork/Plugswork-$TRAVIS_JOB_ID.phar
+- cp /home/travis/build/artifacts/plugins/ImagicalDevTools//Plugswork /home/travis/build/Plugswork/service-download/Plugswork.phar
+- cd /home/travis/build/Plugswork
+- git add Plugswork-$TRAVIS_JOB_ID.phar
+- git add service-download/Plugswork.phar
+- ls > list.txt
+- echo >> list.txt
+- echo "This is a directory listing of the root directory of the Plugswork release download website. Copy the file name and paste it in the URL bar after deleting \"list.txt\". You can also alternatively download files using a shell script by downloading the file from $DIRECT_DL_URI. The download link for the latest plugin build is $DOWNLOAD_URI" >> list.txt
+- git add list.txt
+- git commit -am "$COMMIT_MESSAGE"
+- git push https://$PUSH_REPO_USER:$GITHUB_API_KEY@github.com/$PUSH_REPO_OWNER/$PUSH_REPO_NAME $PUSH_REPO_BRANCH &>secret
+
+# VARIABLES NEED TO BE SET BELOW
+env:
+ global:
+  - REPO_OWNER="deotern" # Building repository owner, e.g. github in github/dmca
+  - REPO_NAME="Plugswork" # Building repository name, e.g. dmca in github/dmca
+  - PUSH_REPO_OWNER="deotern" # Pushing repository owner, e.g. github in github/push
+  - PUSH_REPO_NAME="Plugswork" # Pushing repository name, e.g. push in github/push
+  - PUSH_REPO_USER="keithkfng" # Pushing repository GitHub user, e.g. ImagicalBot
+  - PUSH_REPO_EUSER="keithkfng@imagicalmine.me" # Pushing repository GitHub user email, e.g. admin@imagicalmine.net
+  - PUSH_REPO_BRANCH="gh-pages" # Pushing repository branch, e.g. gh-pages in github/push(use gh-pages if you want something similiar to http://github.github.io/push)
+  - COMMIT_MESSAGE="Added latest Plugswork build" # Commit message to push built artifacts
+  - DATATP="phar" # Data type of the artifact file, e.g. zip in hello.zip
+  - DOWNLOAD_URI="http://$PUSH_REPO_OWNER/$PUSH_REPO_NAME/$REPO_NAME-$TRAVIS_JOB_ID.$DATATP" # Lates download URI for reference
+  - DIRECT_DL_URI="http://$PUSH_REPO_OWNER/$PUSH_REPO_NAME/service-download/$REPO_NAME.$DATATP" # Direct download URI for reference
+  # The variable $GITHUB_API_KEY must be set as an environment variable of your project at travis-ci.org/repo-owner-here/repo-name-here/settings to avoid exposing the personal access token of the pushing repository GitHub user being exposed to the console and in the file as plain text.
