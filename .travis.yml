@@ -1,3 +1,16 @@
+# Plugswork Build Script for master branch
+#  _    _            _    _______ 
+# | |  | |    /\    | |  |__   __|
+# | |__| |   /  \   | |     | |   
+# |  __  |  / /\ \  | |     | |   
+# | |  | | / ____ \ | |____ | | _ 
+# |_|  |_|/_/    \_\|______||_|(_)
+# 
+# This file is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+# Before you start doing anything, read the license for more detail into what you are allowed to do and not do.
+# You are free to use this script for your plugin. Go to the link for more reference on how this script should be used:
+# https://gist.github.com/keithkfng/8813b7d854fe1f4928869876cb79df1f
+
 language: php
 php:
 - 7.0
