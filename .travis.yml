@@ -2,8 +2,9 @@ language: php
 php:
 - 7.0
 branches:
-  except:
-  - "/^*-v[0-9]/"
+  only:
+    - master
+    - travis-fix
 
 before_script:
 - pecl install channel://pecl.php.net/pthreads-3.1.6
