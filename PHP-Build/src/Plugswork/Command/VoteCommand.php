@@ -15,6 +15,7 @@ use Plugswork\Plugswork;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
+use pocketmine\Player;
 
 use Plugswork\Utils\PwLang;
 
@@ -33,8 +34,12 @@ class VoteCommand extends Command implements PluginIdentifiableCommand{
             return false;
         }
         //$sn = $s->getName();
-        if($args[0] == "info"){
-            $s->sendMessage(PwLang::translate("vote.info"));
+        if(isset($args[0])){
+            switch($args[0]){
+                case "info":
+                    $s->sendMessage(PwLang::translate("vote.info"));
+                    break;
+            }
         }
         $this->plugin->vote->vote($s);
         return true;

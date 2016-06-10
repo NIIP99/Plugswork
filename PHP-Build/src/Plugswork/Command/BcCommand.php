@@ -30,11 +30,18 @@ class BcCommand extends Command implements PluginIdentifiableCommand{
             $sender->sendMessage(PwLang::translate("cmd.noPerm"));
             return false;
         }
+        if(!isset($args[0])){
+            $sender->sendMessage("/bc <message|popup|tip> [messages]");
+            return false;
+        }
         $type = $args[0];
         unset($args[0]);
         $msg = implode(" ", $args);
         switch($type){
             default:
+                $sender->sendMessage("/bc <message|popup|tip> [messages]");
+                break;
+            case "message":
                 $this->plugin->broadcast->broadcast($msg);
                 break;
             case "popup":

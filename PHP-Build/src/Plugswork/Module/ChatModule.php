@@ -80,7 +80,7 @@ class ChatModule{
         }
         if($this->capsGuard){
             $count = strlen(preg_replace('![^A-Z]+!', '', $msg));
-            if($count >= $this->options["maxCaps"]){
+            if($count >= $this->settings["maxCaps"]){
                 $res["action"] = $this->settings["capsAction"];
                 $res["message"] = "chat.capsWarning";
                 return $res;

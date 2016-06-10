@@ -49,15 +49,15 @@ class VoteModule{
             if(($res = $this->check($pn)) == 1){
                 if($this->claim($pn)){
                      $this->reward($p);
-                     $s->sendMessage(PwLang::translate("vote.success"));
+                     $p->sendMessage(PwLang::translateColor(PwLang::translate("vote.success")));
                 }
             }elseif($res == 0){
-                $s->sendMessage(PwLang::translate("vote.notVoted"));
+                $p->sendMessage(PwLang::translateColor(PwLang::translate("vote.notVoted")));
             }elseif($res == 2){
-                $s->sendMessage(PwLang::translate("vote.alreadyVoted"));
+                $p->sendMessage(PwLang::translateColor(PwLang::translate("vote.alreadyVoted")));
             }
         }else{
-            echo "Player tried to vote, but VoteModule is disabled!";
+            echo "[!] Player tried to vote, but VoteModule is disabled!";
         }
     }
     
