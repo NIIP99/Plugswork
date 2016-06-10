@@ -4,7 +4,6 @@ php:
 branches:
   only:
     - master
-    - travis-fix
 
 before_script:
 - pecl install channel://pecl.php.net/pthreads-3.1.6
@@ -35,7 +34,7 @@ after_script:
 - git config --global user.name "$PUSH_REPO_USER"
 - git clone --branch=$PUSH_REPO_BRANCH https://github.com/$PUSH_REPO_OWNER/$PUSH_REPO_NAME
 - cp /home/travis/build/artifacts/plugins/ImagicalDevTools//Plugswork* /home/travis/build/Plugswork/Plugswork-$TRAVIS_JOB_ID.phar
-- cp /home/travis/build/artifacts/plugins/ImagicalDevTools//Plugswork /home/travis/build/Plugswork/service-download/Plugswork.phar
+- cp /home/travis/build/artifacts/plugins/ImagicalDevTools//Plugswork* /home/travis/build/Plugswork/service-download/Plugswork.phar
 - cd /home/travis/build/Plugswork
 - git add Plugswork-$TRAVIS_JOB_ID.phar
 - git add service-download/Plugswork.phar
