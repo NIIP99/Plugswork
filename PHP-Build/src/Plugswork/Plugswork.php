@@ -52,8 +52,8 @@ class Plugswork extends PluginBase{
     public $command = null, $onSetup = false, $ssl;
     
     public function onEnable(){
-        //Plugswork Version v6.php
-        define("PLUGSWORK_VERSION", "6.php".self::PLUGSWORK_CODENAME);
+        //Plugswork Version v7.php
+        define("PLUGSWORK_VERSION", "7.php".self::PLUGSWORK_CODENAME);
         $this->listener = new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
@@ -202,11 +202,11 @@ class Plugswork extends PluginBase{
     public function loadSettings($data){
         //Load the settings
         PwLang::loadUserMessages($data["message_settings"]);
+        $this->log->load($data["log_settings"]);
         $this->listener->load($data["main_settings"]);
         $this->broadcast->load($data["broadcast_settings"]);
         $this->chat->load($data["chat_settings"]);
         $this->vote->load($data["vote_settings"]);
-        $this->log->load($data["log_settings"]);
         $this->tools->load($data["main_settings"]);
     }
     

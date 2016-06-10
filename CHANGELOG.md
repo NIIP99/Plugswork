@@ -1,3 +1,8 @@
+####7.php.bleed
+[FIXES]
+- Various VoteModule bugs
+- Fix utf8_decode() isn't working on some server as php-xml package is absent
+
 ####6.php.bleed (4.php.bleed Patch II)
 [NEW]
 - getInstance for developer

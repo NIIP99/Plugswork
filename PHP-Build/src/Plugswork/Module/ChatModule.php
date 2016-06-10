@@ -53,7 +53,7 @@ class ChatModule{
     public function check($pn, $msg){
         $res = [];
         if(!$this->allowUnic){
-            if(strlen($msg) != strlen(utf8_decode($msg))){
+            if(preg_match('/[^\x20-\x7f]/', $msg)){
                 $res["action"] = "chat";
                 $res["message"] = "chat.unicWarning";
                 return $res;

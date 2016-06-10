@@ -25,25 +25,17 @@ class VoteCommand extends Command implements PluginIdentifiableCommand{
         parent::__construct($name, $description);
     }
     
-    public function execute(CommandSender $sender, $alias, array $args){
+    public function execute(CommandSender $s, $alias, array $args){
         if(!$s instanceof Player){
             $s->sendMessage(PwLang::cTranslate("main.runAsPlayer"));
             return false;
         }
-        $sn = $s->getName();
+        //$sn = $s->getName();
         if($args[0] == "info"){
             $s->sendMessage(PwLang::translate("vote.info"));
         }
-        if(($res = $this->plugin->vote->check($sn)) == 1){
-            if($this->plugin->vote->claim($sn)){
-                 $this->plugin->vote->reward($s);
-                 $s->sendMessage(PwLang::translate("vote.success"));
-            }
-        }elseif($res == 0){
-            $s->sendMessage(PwLang::translate("vote.notVoted"));
-        }elseif($res == 1){
-            $s->sendMessage(PwLang::translate("vote.alreadyVoted"));
-        }
+        $this->plugin->vote->vote($s);
+        return true;
     }
     
     public function getPlugin(){

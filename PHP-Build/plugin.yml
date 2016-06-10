@@ -9,7 +9,7 @@
 # @website   https://plugswork.com/
 
 name: Plugswork
-version: "6.php.bleed"
+version: "7.php.bleed"
 api: ["2.0.0"]
 main: Plugswork\Plugswork
 author: Plugswork
