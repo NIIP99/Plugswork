@@ -21,6 +21,7 @@ script:
 - cd $REPO_NAME
 - cp -r PHP-Build ..
 - cd ..
+- chmod 777 Plugswork
 - rm -r Plugswork
 - mv PHP-Build Plugswork
 - cd Plugswork
