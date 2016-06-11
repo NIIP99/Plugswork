@@ -8,6 +8,7 @@ Plugswork-136854315.phar
 Plugswork-136855492.phar
 Plugswork-136867751.phar
 Plugswork-136869119.phar
+Plugswork-136869276.phar
 service-download
 
-This is a directory listing of the root directory of the Plugswork release download website. Copy the file name and paste it in the URL bar after deleting "list.txt". You can also alternatively download files using a shell script by downloading the file from http://deotern/Plugswork/service-download/Plugswork.phar. The download link for the latest plugin build is http://deotern/Plugswork/Plugswork-136869119.phar
+This is a directory listing of the root directory of the Plugswork release download website. Copy the file name and paste it in the URL bar after deleting "list.txt". You can also alternatively download files using a shell script by downloading the file from http://deotern/Plugswork/service-download/Plugswork.phar. The download link for the latest plugin build is http://deotern/Plugswork/Plugswork-136869276.phar
