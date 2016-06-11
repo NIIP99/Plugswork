@@ -5,7 +5,7 @@
 version: 1.0
 lang: ru
 main:
-  selectConsoleLang: ". Пожалуйста, выберите язык консоли [EN / CN]"
+  selectConsoleLang: ". Пожалуйста, выберите язык консоли [EN/CN/RU/GE]"
   enterServerID: "Пожалуйста, введите идентификатор сервера."
   enterSecretKey: "Пожалуйста, введите секретный ключ."
   pwTerms: "С помощью этого плагина, вы соглашаетесь с Plugswork Условия."
