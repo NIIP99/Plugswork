@@ -6,7 +6,7 @@
 version: 1.1
 lang: cn
 main:
-  selectConsoleLang: "请选择Plugswork面板使用的语言. [en/cn]"
+  selectConsoleLang: "请选择Plugswork面板使用的语言. [EN/CN/RU/GE]"
   enterServerID: "请输入Server ID."
   enterSecretKey: "请输入Secret Key."
   pwTerms: "使用这个插件必须接受Plugswork Terms条款."
