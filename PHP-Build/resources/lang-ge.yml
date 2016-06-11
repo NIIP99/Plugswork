@@ -3,8 +3,8 @@
 # (c) 2016 All right reserved, Plugswork.
 # Thanks to @woxly for the German Translation!
 
-version: 1.1
-lang: en
+version: 1.0
+lang: ge
 main:
   selectConsoleLang: "Bitte wählen Sie die Konsole Sprache [EN/CN/RU/GE]"
   enterServerID: "Bitte geben Sie die Server-ID."
