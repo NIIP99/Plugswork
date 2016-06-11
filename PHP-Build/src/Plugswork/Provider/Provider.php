@@ -11,16 +11,7 @@
 
 namespace Plugswork\Provider;
 
-class SQLiteProvider implements Provider{
-    
-    private $sID, $sKey = false;
-    
-    public function __construct(){
-    }
-    
-    public function update($query){
-    }
-    
-    public function query($query){
-    }
+interface Provider{
+    public function update($query);
+    public function query($query);
 }

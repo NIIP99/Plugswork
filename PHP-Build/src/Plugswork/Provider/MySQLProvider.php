@@ -11,7 +11,7 @@
 
 namespace Plugswork\Provider;
 
-class MySQLProvider{
+class MySQLProvider implements Provider{
     
     private $plugin;
     private $database;
