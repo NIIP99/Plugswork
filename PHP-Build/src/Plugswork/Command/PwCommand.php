@@ -46,6 +46,10 @@ class PwCommand extends Command implements PluginIdentifiableCommand{
                 $this->plugin->tools->checkData();
                 break;
             case "getlog":
+                if(!$this->plugin->perm->checkPerm($sender, "pw.getLogPerm")){
+                    $sender->sendMessage(PwLang::translate("cmd.noPerm"));
+                    return false;
+                }
                 if(empty($args[1])){
                     $args[1] = "main";
                 }

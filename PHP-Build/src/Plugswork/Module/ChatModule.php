@@ -16,7 +16,7 @@ use Plugswork\Plugswork;
 class ChatModule{
     
     private $plugin;
-    private $allowUnic, $adGuard, $spamGuard, $capsGuard, $chatHelpers = false;
+    private $allowUnic, $enableAd, $enableSpam, $enableCaps, $enableHelpers = false;
     private $wordChecker = true;
     private $chatTime = [];
     
@@ -30,21 +30,17 @@ class ChatModule{
         if(!isset($st["allowUnic"])){
             $this->allowUnic = false;
         }
-        if(isset($st["enableAd"])){
-            $this->adGuard = true;
-        }
-        if(isset($st["enableSpam"])){
-            $this->spamGuard = true;
-        }
-        if(isset($st["enableCaps"])){
-            $this->capsGuard = true;
-        }
-        if(isset($st["enableHelpers"])){
-            $this->chatHelpers = true;
+        foreach(["enableAd", "enableSpam", "enableCaps", "enableHelpers"] as $type){
+            if(isset($st[$type])){
+                $this->$type = true;
+            }
         }
         /*if(isset($st["wordChecker"])){
             $this->wordChecker = true;
         }*/
+        if(!isset($st["bWords"]) || $st["bWords"] = ""){
+            $this->wordChecker = false;
+        }
         $st["bWords"] = explode(",", $st["bWords"]);
         $this->settings = $st;
         
@@ -59,7 +55,7 @@ class ChatModule{
                 return $res;
             }
         }
-        if($this->spamGuard){
+        if($this->enableSpam){
             $tick = $this->plugin->getServer()->getTick();
             if($this->chatTime[$pn] == null){
                 $this->chatTime[$pn] = $tick;
@@ -71,14 +67,14 @@ class ChatModule{
             }
             $this->chatTime[$pn] = $tick + ($this->settings["spamRestDur"] * 20);
         }
-        if($this->adGuard){
+        if($this->enableAd){
             if(preg_match("/[A-Z0-9]+\.[A-Z0-9]+/i", $msg)){
                 $res["action"] = $this->settings["adAction"];
                 $res["message"] = "chat.adWarning";
                 return $res;
             }
         }
-        if($this->capsGuard){
+        if($this->enableCaps){
             $count = strlen(preg_replace('![^A-Z]+!', '', $msg));
             if($count >= $this->settings["maxCaps"]){
                 $res["action"] = $this->settings["capsAction"];
@@ -95,7 +91,7 @@ class ChatModule{
                 }
             }
         }
-        if($this->chatHelpers){
+        if($this->enableHelpers){
             foreach($this->settings["helpers"] as $key => $tip){
                 if(strpos($msg, $key) !== false){
                     $res["action"] = "";

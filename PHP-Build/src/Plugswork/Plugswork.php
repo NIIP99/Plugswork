@@ -36,6 +36,7 @@ use Plugswork\Command\VoteCommand;
 //use Plugswork\Module\AuthModule;
 use Plugswork\Module\BroadcastModule;
 use Plugswork\Module\ChatModule;
+use Plugswork\Module\PermModule;
 use Plugswork\Module\LogModule;
 use Plugswork\Module\VoteModule;
 use Plugswork\Provider\MySQLProvider;
@@ -47,13 +48,13 @@ use Plugswork\Utils\PwTools;
 
 class Plugswork extends PluginBase{
     
-    const PLUGSWORK_CODENAME = ".bleed";
+    const CODENAME = ".bleed";
     private static $instance = null;
     public $command = null, $onSetup = false, $ssl;
     
     public function onEnable(){
         //Plugswork Version v9.php
-        define("PLUGSWORK_VERSION", "9.php".self::PLUGSWORK_CODENAME);
+        define("PLUGSWORK_VERSION", "9.php".self::CODENAME);
         $this->listener = new PwListener($this);
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new PwTiming($this), 6000);
         $firstRun = false;
@@ -103,6 +104,7 @@ class Plugswork extends PluginBase{
         $this->log = new LogModule($this);
         loading(3);
         //$this->auth = new AuthModule($this);
+        $this->perm = new PermModule($this);
         loading(4);
         $this->broadcast = new BroadcastModule($this);
         loading(5);
@@ -205,6 +207,7 @@ class Plugswork extends PluginBase{
         $this->log->load($data["log_settings"]);
         $this->listener->load($data["main_settings"]);
         $this->broadcast->load($data["broadcast_settings"]);
+        $this->perm->load( $data["permission_settings"]);
         $this->chat->load($data["chat_settings"]);
         $this->vote->load($data["vote_settings"]);
         $this->tools->load($data["main_settings"]);

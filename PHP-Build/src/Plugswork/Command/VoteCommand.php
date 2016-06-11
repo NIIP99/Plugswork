@@ -33,6 +33,10 @@ class VoteCommand extends Command implements PluginIdentifiableCommand{
             $s->sendMessage(PwLang::cTranslate("main.runAsPlayer"));
             return false;
         }
+        if(!$this->plugin->perm->checkPerm($s, "vote.commandPerm")){
+            $s->sendMessage(PwLang::translate("cmd.noPerm"));
+            return false;
+        }
         //$sn = $s->getName();
         if(isset($args[0])){
             switch($args[0]){

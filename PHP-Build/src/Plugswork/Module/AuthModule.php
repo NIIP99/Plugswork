@@ -21,6 +21,10 @@ class AuthModule{
         $this->plugin = $plugin;
     }
     
+    public function load(){
+        
+    }
+    
     public function isAuth(){
         
     }
@@ -53,8 +57,6 @@ class AuthModule{
     }
         
     public function login(){
-        if($this->plugin->auth["type"] == 0){
-            //SimpleAuth Intergration
-        }
+        
     }
 }

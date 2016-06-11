@@ -22,7 +22,6 @@ class PwTools{
     const RESET = "\e[0;97m";
     
     private $plugin;
-    private $permNodes = [];
     private $allowBleed = false;
     
     public function __construct($plugin){
@@ -31,15 +30,10 @@ class PwTools{
     
     public function load($rawSettings){
         //Settings handler
-        //$pn = json_decode($permNodes, true);
         $st = json_decode($rawSettings, true);
         if(isset($st["allowBleed"])){
             $this->allowBleed = true;
         }
-        /*foreach($pn as $key => $node){
-            $key = str_replace("-", ".",$key);
-            $this->permNodes[$key] = $node;
-        }*/
     }
     
     public function checkData(){
@@ -75,14 +69,5 @@ class PwTools{
             return true;
         }
         return false;
-    }
-    
-    public function getPerm($key){
-        return $key;
-        /*if(isset($this->permNodes[$key])){
-            return $this->permNodes[$key];
-        }else{
-            return $key;
-        }*/
     }
 }

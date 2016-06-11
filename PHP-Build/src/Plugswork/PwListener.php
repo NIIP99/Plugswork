@@ -70,7 +70,7 @@ class PwListener implements Listener{
     
     public function onPlayerChat(PlayerChatEvent $e){
         $p = $e->getPlayer();
-        if($p->hasPermission($this->plugin->tools->getPerm("chat.bypassPerm"))){
+        if($this->plugin->perm->checkPerm($p, "chat.bypassPerm")){
             return;
         }
         $res = $this->plugin->chat->check($p->getName(), $e->getMessage());
