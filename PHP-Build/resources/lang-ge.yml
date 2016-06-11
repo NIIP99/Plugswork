@@ -1,0 +1,28 @@
+---
+# German language file
+# (c) 2016 All right reserved, Plugswork.
+# Thanks to @woxly for the German Translation!
+
+version: 1.1
+lang: en
+main:
+  selectConsoleLang: "Bitte wählen Sie die Konsole Sprache [EN/CN/RU/GE]"
+  enterServerID: "Bitte geben Sie die Server-ID."
+  enterSecretKey: "Bitte geben Sie den Schlüssel."
+  pwTerms: "Durch die Nutzung dieser plugin, stimmst du zu die Plugswork Bedingungen."
+  pwTermsAgree: "Akzeptieren Sie die Plugswork? [Y/N]"
+  pwTermsError: "Sie müssen akzeptieren, die Plugswork Begriffe Plugswork\'s Dienstleistungen und Produkte."
+  invalidProvider: "Ungültige provider ausgewählt ist config.yml!"
+  donateNote: "Spenden Sie uns an (plugswork.com/donate), um uns zu unterstützen!"
+  runAsPlayer: "Bitte führen Sie diesen Befehl als Spieler"
+  runAsConsole: "Bitte führen Sie diesen Befehl von Ihr-server's Konsole"
+  reloading: "Laden Der Einstellungen..."
+  reloadSucessful: "Einstellungen wurden erfolgreich reloaded"
+  updateAvailable: "Neue version von Plugswork wurde veröffentlicht! Werfen Sie einen Blick auf das Control Panel-Download-Seite!"
+api:
+  openError: "Open-API-Fehler Aufgetreten!\n ERROR: %0%"
+  emptyDataError: "Keine Server-ID oder Secret-Key ist gefüllt!"
+  serverIDError: "Ungültige server-ID, bitte prüfen Sie, ob Sie gefüllt in die richtige Server-ID"
+  sKeyError: "Ungültiger Secret Key, bitte überprüfen Sie an, wenn Sie gefüllt in der richtigen Geheimen Schlüssel."
+  validationError: "Wir können nicht erkennen, diese server, überprüfen Sie bitte, ob die IP, Port usw ist das gleiche mit den Daten, die Sie gefüllt in der Systemsteuerung."
+...
