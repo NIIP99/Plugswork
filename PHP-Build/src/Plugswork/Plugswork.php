@@ -63,7 +63,11 @@ class Plugswork extends PluginBase{
         }
         $data = $this->loadConfig();
         if(empty($data[2]) || $data[2] == "xx"){
-            echo "- [Plugswork] Please select console language.\n\n   (en) => English\n   (cn) => Chinese\n   (ru) => Russian\n";
+            echo "- [Plugswork] Please select console language.\n\n"
+                ."   (en) => English\n"
+                ."   (cn) => Chinese\n"
+                ."   (ge) => German\n"
+                ."   (ru) => Russian\n";
             $lang = strtolower($this->readCommand());
             if($lang != "cn" && $lang != "ru"){
                 $lang = "en";

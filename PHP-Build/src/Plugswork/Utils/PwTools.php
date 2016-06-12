@@ -41,10 +41,10 @@ class PwTools{
         echo    "\n".
                 self::PRIMARY."  Plugswork Data Checker\n".
                 self::DARK."  IP: ".self::BRIGHT.$data["ip"]."\n".
-                self::DARK."  Registered: ".self::BRIGHT.$data["reg"]."\n".
+                self::DARK."  Status: ".self::BRIGHT.$data["reg"]."\n".
                 self::DARK."  Version: ".self::BRIGHT.PLUGSWORK_VERSION."\n";
         if($this->hasUpdate($data["newVer"])){
-            echo "  \e[30;48;5;220m Update Available! \e[49m\n";
+            echo "  \e[30;48;5;220m Update Available! v".$data["newVer"]." \e[49m\n";
         }
         echo "\n";
     }

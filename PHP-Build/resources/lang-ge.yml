@@ -6,11 +6,11 @@
 version: 1.0
 lang: ge
 main:
-  selectConsoleLang: "Bitte wählen Sie die Konsole Sprache [EN/CN/RU/GE]"
+  selectConsoleLang: "Bitte wählen Sie die Konsole Sprache"
   enterServerID: "Bitte geben Sie die Server-ID."
   enterSecretKey: "Bitte geben Sie den Schlüssel."
   pwTerms: "Durch die Nutzung dieser plugin, stimmst du zu die Plugswork Bedingungen."
-  pwTermsAgree: "Akzeptieren Sie die Plugswork? [Y/N]"
+  pwTermsAgree: "Akzeptieren Sie die Plugswork? [y/n]"
   pwTermsError: "Sie müssen akzeptieren, die Plugswork Begriffe Plugswork\'s Dienstleistungen und Produkte."
   invalidProvider: "Ungültige provider ausgewählt ist config.yml!"
   donateNote: "Spenden Sie uns an (plugswork.com/donate), um uns zu unterstützen!"

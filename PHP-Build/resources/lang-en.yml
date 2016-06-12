@@ -3,10 +3,10 @@
 # (c) 2016 All right reserved, Plugswork.
 # Thanks to @deotern, @UltimateMcraft and @remotevase for the English Translation
 
-version: 1.1
+version: 1.2
 lang: en
 main:
-  selectConsoleLang: "Please select console language. [EN/CN/RU/GE]"
+  selectConsoleLang: "Please select console language."
   enterServerID: "Please enter the Server ID."
   enterSecretKey: "Please enter the Secret Key."
   pwTerms: "By using this plugin, you agree to the Plugswork Terms."
@@ -25,4 +25,6 @@ api:
   serverIDError: "Invalid server ID, please check if you filled in the correct Server ID"
   sKeyError: "Invalid Secret Key, please check at if you filled in the correct Secret Key."
   validationError: "We cannot recognize this server, please check if IP, Port, etc is same with the data you filled at the Control Panel."
+cmd:
+  runAsPlayer: "Please run this command as a player!"
 ...

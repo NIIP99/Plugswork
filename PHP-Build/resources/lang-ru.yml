@@ -5,11 +5,11 @@
 version: 1.0
 lang: ru
 main:
-  selectConsoleLang: ". Пожалуйста, выберите язык консоли [EN/CN/RU/GE]"
+  selectConsoleLang: ". Пожалуйста, выберите язык консоли"
   enterServerID: "Пожалуйста, введите идентификатор сервера."
   enterSecretKey: "Пожалуйста, введите секретный ключ."
   pwTerms: "С помощью этого плагина, вы соглашаетесь с Plugswork Условия."
-  pwTermsAgree: "Вы принимаете Условия Plugswork [Y / N]?"
+  pwTermsAgree: "Вы принимаете Условия Plugswork [y/n]?"
   pwTermsError: "Вы должны принять Plugswork Условия использования Plugswork услуг и продуктов."
   invalidProvider: "Invalid поставщик выбран в config.yml!"
   donateNote: "Пожертвуйте нам по телефону (plugswork.com/donate), чтобы поддержать нас!"
