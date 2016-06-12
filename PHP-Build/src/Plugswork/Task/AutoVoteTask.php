@@ -11,20 +11,20 @@
 
 namespace Plugswork\Task;
 
-use pocketmine\Server;
-use pocketmine\scheduler\Task;
+use pocketmine\scheduler\PluginTask;
 use Plugswork\Module\VoteModule;
 
-class AutoVoteTask extends Task{
+class AutoVoteTask extends PluginTask{
     
     private $vote;
     
     public function __construct(VoteModule $vote){
         $this->vote = $vote;
+        parent::__construct($vote->plugin);
     }
     
     public function onRun($tick){
-        foreach(Server::getInstance()->getOnlinePlayers() as $p){
+        foreach($this->getOwner()->getServer()->getOnlinePlayers() as $p){
             $pn = $p->getName();
             if($this->vote->check($pn) == 1){
                 if($this->vote->claim($pn)){
