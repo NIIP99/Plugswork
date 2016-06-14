@@ -10,8 +10,8 @@
 # @website   https://plugswork.com/
 
 name: Plugswork
-version: 1.java
-api: 1.0.0
-main: Plugswork\Plugswork
+version: "1.0.0"
+api: ["1.0.0"]
+main: plugswork.Plugswork
 author: Plugswork
 description: Plugswork - Extends your MCPE Server beyond your imagination!

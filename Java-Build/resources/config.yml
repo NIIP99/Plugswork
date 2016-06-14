@@ -23,6 +23,5 @@ provider: sqlite
 #Config for MySQL Database if the provider is set to mysql
 host: localhost
 username: plugswork
-password: ********
+password: yourpassword
 database: plugswork
-...
